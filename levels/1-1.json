@@ -1,0 +1,43 @@
+{
+    "backgrounds": [
+        {
+            "tile": "sky",
+            "ranges": [
+                [
+                    0, 40,
+                    0, 25
+                ]
+            ]
+        },
+        {
+            "tile": "ground", 
+            "ranges": [
+                [ 
+                    10, 30,
+                    18, 19
+                ]               
+                ,
+                [ 
+                	12,17,					
+                    13,14
+                ]
+                ,
+                [ 
+                	24,28,
+                    14,15
+                ]
+                ,
+                [ 
+                	18,22,
+                    12,13
+                ]
+               
+            ]
+        }
+    ]
+    ,"_comment" : "Current x,y maxs are: 40,25       ground order : ground, up left, up right, up mid"
+}
+
+
+
+
