@@ -43,7 +43,7 @@ export function createCollisionLayer(level) {
                 x * tileSize,
                 y * tileSize,
                 tileSize, tileSize);
-            //context.stroke(); //uncomment to draw boxes
+//            context.stroke(); //uncomment to draw boxes
         });
 
         context.strokeStyle = 'red';
@@ -52,7 +52,7 @@ export function createCollisionLayer(level) {
             context.rect(
                 entity.pos.x, entity.pos.y,
                 entity.size.x, entity.size.y);
-            //context.stroke(); //uncomment to draw boxes
+//            context.stroke(); //uncomment to draw boxes
         });
 
         resolvedTiles.length = 0;

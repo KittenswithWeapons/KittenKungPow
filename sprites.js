@@ -2,10 +2,10 @@ import SpriteSheet from './SpriteSheet.js';
 import {loadImage} from './loaders.js';
 
 export function loadCharacterSprite() {
-    return loadImage('/characters/characters.gif')
+    return loadImage('/characters/kitten.png')
     .then(image => {
         const sprites = new SpriteSheet(image, 16, 16);
-        sprites.define('idle', 176, 40, 65, 70);
+        sprites.define('idle', 0, 0, 34, 42);
         return sprites;
     });
 }

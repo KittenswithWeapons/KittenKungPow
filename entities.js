@@ -11,7 +11,7 @@ export function createCharacter() {
     return loadCharacterSprite()
     .then(sprite => {
         const Character = new Entity();
-        Character.size.set(65, 70);
+        Character.size.set(34, 42); //set to actuall pixel size of character, determines collision box
         
         Character.addTrait(new Velocity());
         Character.addTrait(new Jump());
