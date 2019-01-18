@@ -9,7 +9,7 @@ export class Trait{
 		console.warn('unhandled');
 	}
 }
-
+//test comments
 
 export default class Entity {
     constructor(name) {
