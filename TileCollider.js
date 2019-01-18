@@ -46,7 +46,7 @@ export default class TileCollider {
        });
     }
 
-    checkY(entity) { //this needs work to get the y checks to be good, so we can come up thru a platform and press "down" to push the char down
+    checkY(entity) { //this needs work to get the y checks to be good, so we can come up thru a platform and press "down" to push the char downss
         let y;
         if (entity.vel.y > 0) {
             y = entity.pos.y + entity.size.y;
