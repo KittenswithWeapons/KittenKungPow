@@ -1,4 +1,8 @@
 export default class Timer {
+
+    //this class may have to be reworked to make animation easier
+
+    
     constructor(deltaTime = 1/60) {
         let accumulatedTime = 0;
         let lastTime = 0;
@@ -7,7 +11,7 @@ export default class Timer {
             accumulatedTime += (time - lastTime) / 1000;
 
             while (accumulatedTime > deltaTime) {
-                this.update(deltaTime);
+                this.update(deltaTime);       //timer.update is defined in main, currently.
                 accumulatedTime -= deltaTime;
             }
 
@@ -19,11 +23,11 @@ export default class Timer {
 
     enqueue() {
         requestAnimationFrame(this.updateProxy);
-        
+
     }
 
     start() {
         this.enqueue();
-        
+
     }
 }

@@ -33,17 +33,17 @@ export function createCollisionLayer(level) {
         resolvedTiles.push({x, y});
         return getByIndexOriginal.call(tileResolver, x, y);
     }
-    
+
     //collision debug; for drawing collision boxes
     return function drawCollision(context) {
-        context.strokeStyle = 'blue';
+        context.strokeStyle = 'orange';
         resolvedTiles.forEach(({x, y}) => {
             context.beginPath();
             context.rect(
                 x * tileSize,
                 y * tileSize,
                 tileSize, tileSize);
-//            context.stroke(); //uncomment to draw boxes
+            //context.stroke(); //uncomment to draw boxes
         });
 
         context.strokeStyle = 'red';
@@ -52,7 +52,7 @@ export function createCollisionLayer(level) {
             context.rect(
                 entity.pos.x, entity.pos.y,
                 entity.size.x, entity.size.y);
-//            context.stroke(); //uncomment to draw boxes
+           //context.stroke(); //uncomment to draw boxes
         });
 
         resolvedTiles.length = 0;
