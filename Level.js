@@ -3,9 +3,9 @@ import TileCollider from './TileCollider.js';
 import {Matrix} from './math.js';
 
 export default class Level {
-    constructor() {
-        this.gravity = 2500; //level side gravity. should need a setter for different levels and power-ups
-
+    constructor(levelName) {
+        this.gravity = 2000; //level side gravity. should need a setter for different levels and power-ups
+        this.levelName = levelName;
         this.comp = new Compositor();
         this.entities = new Set();
         this.tiles = new Matrix();

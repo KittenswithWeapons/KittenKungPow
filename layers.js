@@ -5,13 +5,26 @@ export function createBackgroundLayer(level, sprites) {
 
     const context = buffer.getContext('2d');
 
+
     level.tiles.forEach((tile, x, y) => {
         sprites.drawTile(tile.name, context, x, y);
     });
 
+
     return function drawBackgroundLayer(context) {
+        drawBackgroundImage(level.levelName, context);
         context.drawImage(buffer, 0, 0);
     };
+}
+
+function drawBackgroundImage(name, context) {
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 0, 0);
+    }
+    //img.src = '/Enviroment/' + name + '.gif';
+    //console.log(img.src);
+    img.src = '/Enviroment/PinkCity.gif';
 }
 
 export function createSpriteLayer(entities) {

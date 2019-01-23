@@ -4,22 +4,33 @@ export default class PassDown extends Trait {
 	constructor() {
 		super('passdown');
 
-		this.duration = 0.01;
-		this.velocity = 500;
+		this.duration = 0.05;
+		this.velocity = 200;
 		this.engageFlag = false;
 		this.engageTime = 0;
 	}
 
 	start() {
-
+		//console.log('start');
 			this.engageFlag = true;
+			this.engageTime = this.duration;
+
+	}
+
+	cancel() {
+		this.engageFlag = false;
 	}
 
 	update(entity, deltaTime) {
-            if (this.engageTime > 0) {
+						//console.log(entity.passDownFlag);
+            if (this.engageTime > 0 && entity.passDownFlag) {
+							//console.log('going down');
+							//console.log(entity.vel.y);
             	entity.vel.y = +this.velocity;
             	this.engageTime -= deltaTime
-            }
+            } else {
+							this.engageFlag = false;
+						}
 	}
 }
 

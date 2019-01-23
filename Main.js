@@ -15,7 +15,7 @@ const context = canvas.getContext('2d');
 Promise.all([
     createCharacter(),
     createEnemy(),
-    loadLevel('1-1'),
+    loadLevel('PinkCity'),
 ])
 .then(([Character, Enemy, level]) => {
 
