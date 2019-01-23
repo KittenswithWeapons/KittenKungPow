@@ -2,12 +2,12 @@ import SpriteSheet from './SpriteSheet.js';
 import {loadImage} from './loaders.js';
 
 export function loadCharacterSprite() {
-    return loadImage('/characters/kitten.png')
+    return loadImage('/characters/karate.png')
     .then(image => {
         const sprites = new SpriteSheet(image, 16, 16);
-        sprites.define('character', 0, 0, 34, 42);
-        sprites.define('characterleft', 0, 0, 34, 42);
-        sprites.define('enemy', 0, 0, 34, 42);
+        sprites.define('character', 21, 25, 40, 54);
+        sprites.define('characterleft', 21, 25, 40, 54);
+        sprites.define('enemy', 21, 25, 40, 54);
         return sprites;
     });
 }
