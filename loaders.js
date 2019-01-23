@@ -30,15 +30,15 @@ export function loadLevel(name) {
     return Promise.all([
         fetch(`/levels/${name}.json`)
         .then(r => r.json()),
-
+        
         loadBackgroundSprites(),
     ])
     .then(([levelSpec, backgroundSprites]) => {
-        const level = new Level();
+        const level = new Level(name);
 
         createTiles(level, levelSpec.backgrounds);
-
         const backgroundLayer = createBackgroundLayer(level, backgroundSprites);
+
         level.comp.layers.push(backgroundLayer);
 
         const spriteLayer = createSpriteLayer(level.entities);
