@@ -9,7 +9,7 @@ export function createCharacter() {
     return loadCharacterSprite()
     .then(sprite => {
         const Character = new Entity('character');
-        Character.size.set(34, 42); //set to actuall pixel size of character, determines collision box. megaman is 34,42
+        Character.size.set(18, 29); //set to actuall pixel size of character, determines collision box. kat is 18,29
 
         Character.addTrait(new Velocity());
         Character.addTrait(new Jump());
@@ -29,7 +29,7 @@ export function createEnemy() {
     return loadCharacterSprite()
     .then(sprite => {
         const Enemy = new Entity('enemy');
-        Enemy.size.set(34, 42); //set to actuall pixel size of character, determines collision box. megaman is 34,42
+        Enemy.size.set(18, 29); //set to actuall pixel size of character, determines collision box. kat is 18,29
 
         Enemy.addTrait(new Velocity());
         Enemy.addTrait(new Jump());
