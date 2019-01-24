@@ -5,6 +5,7 @@ import Jump from './traits/Jump.js';
 import Go from './traits/Go.js';
 import PassDown from './traits/PassDown.js';
 
+//works
 export function createCharacter() {
     return loadCharacterSprite()
     .then(sprite => {
