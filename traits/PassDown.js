@@ -4,8 +4,8 @@ export default class PassDown extends Trait {
 	constructor() {
 		super('passdown');
 
-		this.duration = 0.05;
-		this.velocity = 200;
+		this.duration = 0.04;
+		this.velocity = 150;
 		this.engageFlag = false;
 		this.engageTime = 0;
 	}

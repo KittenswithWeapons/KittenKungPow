@@ -5,7 +5,7 @@
 // import Go from './traits/Go.js';
 // import PassDown from './traits/PassDown.js';
 
-// export 
+// export
 function createCharacter() {
     return loadCharacterSprite()
     .then(sprite => {
@@ -26,7 +26,7 @@ function createCharacter() {
     });
 }
 
-// export 
+// export
 function createEnemy() {
     return loadCharacterSprite()
     .then(sprite => {
