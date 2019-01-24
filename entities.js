@@ -1,12 +1,12 @@
-import Entity from './Entity.js';
-import {loadCharacterSprite} from './sprites.js';
-import Velocity from './traits/Velocity.js';
-import Jump from './traits/Jump.js';
-import Go from './traits/Go.js';
-import PassDown from './traits/PassDown.js';
+// import Entity from './Entity.js';
+// import {loadCharacterSprite} from './sprites.js';
+// import Velocity from './traits/Velocity.js';
+// import Jump from './traits/Jump.js';
+// import Go from './traits/Go.js';
+// import PassDown from './traits/PassDown.js';
 
-//works
-export function createCharacter() {
+// export
+function createCharacter() {
     return loadCharacterSprite()
     .then(sprite => {
         const Character = new Entity('character');
@@ -26,7 +26,8 @@ export function createCharacter() {
     });
 }
 
-export function createEnemy() {
+// export
+function createEnemy() {
     return loadCharacterSprite()
     .then(sprite => {
         const Enemy = new Entity('enemy');

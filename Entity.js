@@ -1,18 +1,18 @@
-import {Vec2} from './math.js';
-import {controllerUpdate} from './Controllers.js';
+// import {Vec2} from './math.js';
+// import {controllerUpdate} from './Controllers.js';
 
-export class Trait{
-	constructor(name){
+// export class Trait{
+	function constructorTrait(name){
 		this.NAME = name;
 	}
-	update() {
+	function update() {
 		console.warn('unhandled');
 	}
-}
+// }
 //test comments
 
-export default class Entity {
-    constructor(name) {
+// export default class Entity {
+    function constructorEntity(name) {
 				this.Ename = name;
 				this.passDownFlag = false;
 				this.jumpCount = 0;
@@ -23,11 +23,11 @@ export default class Entity {
         this.traits = [];
     }
 
-    addTrait(trait) {
+    function addTrait(trait) {
     	this.traits.push(trait);
     	this[trait.NAME] = trait;
     }
-    update(deltaTime) {
+    function update(deltaTime) {
 			//console.log(this.Ename);
 			if (this.Ename === 'character') {
 				controllerUpdate(this, 0); //updating controller for character 1
@@ -42,4 +42,4 @@ export default class Entity {
     		trait.update(this,deltaTime);
     	});
     }
-}
+// }

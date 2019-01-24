@@ -1,9 +1,9 @@
-export class Matrix {
-    constructor() {
+// export class Matrix {
+    function constructorMatrix() {
         this.grid = [];
     }
 
-    forEach(callback) {
+    function forEach(callback) {
         this.grid.forEach((column, x) => {
             column.forEach((value, y) => {
                 callback(value, x, y);
@@ -11,7 +11,7 @@ export class Matrix {
         });
     }
 
-    get(x, y) {
+    function get(x, y) {
         const col = this.grid[x];
         if (col) {
             return col[y];
@@ -19,22 +19,22 @@ export class Matrix {
         return undefined;
     }
 
-    set(x, y, value) {
+    function set(x, y, value) {
         if (!this.grid[x]) {
             this.grid[x] = [];
         }
 
         this.grid[x][y] = value;
     }
-}
+// }
 
-export class Vec2 {
-    constructor(x, y) {
+// export class Vec2 {
+    function constructorVector(x, y) {
         this.set(x, y);
     }
 
-    set(x, y) {
+    function set(x, y) {
         this.x = x;
         this.y = y;
     }
-}
+// }

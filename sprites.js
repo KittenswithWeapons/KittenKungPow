@@ -1,8 +1,9 @@
-import SpriteSheet from './SpriteSheet.js';
-import {loadImage} from './loaders.js';
+// import SpriteSheet from './SpriteSheet.js';
+// import {loadImage} from './loaders.js';
 
-export function loadCharacterSprite() {
-    return loadImage('/characters/karate.png')
+// export 
+function loadCharacterSprite() {
+    return loadImage('./characters/karate.png')
     .then(image => {
         const sprites = new SpriteSheet(image, 16, 16);
         sprites.define('character', 21, 25, 40, 54);
@@ -11,8 +12,9 @@ export function loadCharacterSprite() {
     });
 }
 
-export function loadBackgroundSprites() {
-    return loadImage('/Enviroment/PinkPlatform.png')
+// export 
+function loadBackgroundSprites() {
+    return loadImage('./Enviroment/PinkPlatform.png')
     .then(image => {
         const sprites = new SpriteSheet(image, 32, 32);
         sprites.defineTile('ground', 1, 0);
