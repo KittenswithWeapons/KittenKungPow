@@ -2,6 +2,13 @@
 
 //scene manager
 
-export function SceneManager(){
+export class SceneManager{
+    constructor(context) {
+    this.conext = context;
+    displayStartScreen(context);
+  }
 
+    function  displayStartScreen(context) {
+      //display the Start Screen
+    }
 }
