@@ -102,10 +102,12 @@ export default class TileCollider {
               }
 
               if (entity.vel.y > 0) {
-                  if (match.tile.name === 'platform'
-                    && entity.pos.y + entity.size.y - 13 > match.y1) { //13(ideal) is a tuning number for snapping, needs more work. now passdown goes thru everything
+                  if (match.tile.name === 'platform' && entity.vel.y < 250
+                    && entity.pos.y + entity.size.y - 5 > match.y1) { //5(ideal) and vel < 250 are tuning numbers for snapping
+                      //activates is the char is moving very quickly down #bug
                       //disable passthru snap
                       //console.log(" disabled snappass");
+                      //console.log(entity.vel.y);
                       return;
                   } else {
                     if (entity.pos.y + entity.size.y > match.y1) {
