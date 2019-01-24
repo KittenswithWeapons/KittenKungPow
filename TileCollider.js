@@ -83,7 +83,8 @@ export default class TileCollider {
                   return;
 
               } else { //reset jump number
-                if (entity.vel.y > 0 && (match.tile.name === 'ground' || match.tile.name === 'platform')){
+                if (entity.vel.y > 0 && (match.tile.name === 'ground' || match.tile.name === 'platform'
+                  || match.tile.name === 'levelobject')){
                   //console.log('jump reset');
                   entity.jump.jumpNumber = 0;
               }
@@ -101,17 +102,25 @@ export default class TileCollider {
               }
 
               if (entity.vel.y > 0) {
-
-                  if (entity.pos.y + entity.size.y > match.y1) {
-                      entity.pos.y = match.y1 - entity.size.y;
-                      entity.vel.y = 0;
-                      if (match.tile.name === 'platform' && this.checkXFlag === false){
-                        this.checkXFlag = true;
-                        //console.log('check x on');
-                        //console.log('land');
-                      }
-
-                  }
+                  if (match.tile.name === 'platform' && entity.vel.y < 250
+                    && entity.pos.y + entity.size.y - 5 > match.y1) { //5(ideal) and vel < 250 are tuning numbers for snapping
+                      //activates is the char is moving very quickly down #bug
+                      //disable passthru snap
+                      //console.log(" disabled snappass");
+                      //console.log(entity.vel.y);
+                      return;
+                  } else {
+                    if (entity.pos.y + entity.size.y > match.y1) {
+                        entity.pos.y = match.y1 - entity.size.y;
+                        entity.vel.y = 0;
+                        //console.log('snap > 0');
+                        if (match.tile.name === 'platform' && this.checkXFlag === false){
+                          this.checkXFlag = true;
+                          //console.log('check x on');
+                          //console.log('land');
+                        }
+                    }
+                }
               } else if (entity.vel.y < 0) {
                   if (entity.pos.y < match.y2) {
                   	if (match.tile.name === 'platform') { //checks to see what we hit and if we can go thru it
@@ -122,6 +131,7 @@ export default class TileCollider {
                   	}else {
   	                    entity.pos.y = match.y2;
   	                    entity.vel.y = 0;
+                        //console.log('snap < 0');
   	                    //console.log('HIT-UP'); //trigger hit
   	                   //console.log(match.tile.name);//what did we hit
                   	}
