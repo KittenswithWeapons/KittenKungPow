@@ -1,4 +1,5 @@
-export function createBackgroundLayer(level, sprites) {
+// export 
+function createBackgroundLayer(level, sprites) {
     const buffer = document.createElement('canvas');
     buffer.width = 1280;
     buffer.height = 720;
@@ -27,7 +28,8 @@ function drawBackgroundImage(name, context) {
     img.src = '/Enviroment/PinkCity.gif';
 }
 
-export function createSpriteLayer(entities) {
+// export 
+function createSpriteLayer(entities) {
     return function drawSpriteLayer(context) {
         entities.forEach(entity => {
             entity.draw(context);
@@ -35,7 +37,8 @@ export function createSpriteLayer(entities) {
     };
 }
 
-export function createCollisionLayer(level) {
+// export 
+function createCollisionLayer(level) {
     const resolvedTiles = [];
 
     const tileResolver = level.tileCollider.tiles;

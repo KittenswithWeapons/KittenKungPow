@@ -1,14 +1,14 @@
-import Timer from './Timer.js';
-import {loadLevel} from './loaders.js';
-import {createCharacter, createEnemy} from './entities.js';
-import {setupKeyboard} from './input.js';
-import {createCollisionLayer} from './layers.js';
-import {setUpControllers, controllerUpdate} from './Controllers.js';
+// import Timer from './Timer.js';
+// import {loadLevel} from './loaders.js';
+// import {createCharacter, createEnemy} from './entities.js';
+// import {setupKeyboard} from './input.js';
+// import {createCollisionLayer} from './layers.js';
+// import {setUpControllers, controllerUpdate} from './Controllers.js';
 
-const canvas = document.getElementById('gameWorld');
-const context = canvas.getContext('2d');
+// const canvas = document.getElementById('gameWorld');
+// const context = canvas.getContext('2d');
 
-
+var assetManager = new AssetManager();
 
 
 
@@ -18,6 +18,7 @@ Promise.all([
     createCharacter(),
     createEnemy(),
     loadLevel('PinkCity'),
+    assetManager.downloadAll,
 ])
 .then(([Character, Enemy, level]) => {
     Character.pos.set(400, 180); //sets the character1 position
@@ -44,7 +45,7 @@ Promise.all([
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime) {  //this is the main update loop
         level.update(deltaTime);                // updates all the things on the level.
-        level.comp.draw(context);               //draws the new version of the level.
+        level.comp.draw(document.getElementById('gameWorld').getContext('2d')); //draws the new version of the level.
     }
     timer.start();
 });

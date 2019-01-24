@@ -1,4 +1,4 @@
-export default class EntityCollider {
+// export default class EntityCollider {
 //entity colliding
 
-}
+// }

@@ -1,8 +1,8 @@
 const PRESSED = 1;
 const RELEASED = 0;
 
-export default class keyBoardState {
-	constructor() {
+// export default class keyBoardState {
+	function constructor() {
 		this.keyStates = new Map(); //holds the current state of a key
 		this.keyMap = new Map(); //holds the callback functions for a code
 		
@@ -10,12 +10,12 @@ export default class keyBoardState {
 	}
 	
 
-	addMapping(code, callback) {
+	function addMapping(code, callback) {
 		this.keyMap.set(code, callback);
 	}
 	
 
-	handleEvent(event) {
+	function handleEvent(event) {
 		
 		const {code} = event;
 		
@@ -40,7 +40,7 @@ export default class keyBoardState {
 	}
 	
 	
-	listenTo(window) {
+	function listenTo(window) {
 		['keydown', 'keyup'].forEach(eventName => {
 		window.addEventListener(eventName, event => {
 			this.handleEvent(event);
@@ -48,10 +48,4 @@ export default class keyBoardState {
 			});
 		});
 	}
-	
-	
-	
-	
-	
-	
-}
+// }

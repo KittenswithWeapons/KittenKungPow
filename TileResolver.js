@@ -1,14 +1,14 @@
-export default class TileResolver {
-    constructor(matrix, tileSize = 32) { //adjust tile size as needed for different character sizes
+// export default class TileResolver {
+    function constructor(matrix, tileSize = 32) { //adjust tile size as needed for different character sizes
         this.matrix = matrix;
         this.tileSize = tileSize;
     }
 
-    toIndex(pos) {
+    function toIndex(pos) {
         return Math.floor(pos / this.tileSize);
     }
 
-    toIndexRange(pos1, pos2) {
+    function toIndexRange(pos1, pos2) {
         const pMax = Math.ceil(pos2 / this.tileSize) * this.tileSize;
         const range = [];
         let pos = pos1;
@@ -19,7 +19,7 @@ export default class TileResolver {
         return range;
     }
 
-    getByIndex(indexX, indexY) {
+    function getByIndex(indexX, indexY) {
         const tile = this.matrix.get(indexX, indexY);
         if (tile) {
             const x1 = indexX * this.tileSize;
@@ -36,13 +36,13 @@ export default class TileResolver {
         }
     }
 
-    searchByPosition(posX, posY) {
+    function searchByPosition(posX, posY) {
         return this.getByIndex(
             this.toIndex(posX),
             this.toIndex(posY));
     }
 
-    searchByRange(x1, x2, y1, y2) {
+    function searchByRange(x1, x2, y1, y2) {
         const matches = [];
         this.toIndexRange(x1, x2).forEach(indexX => {
             this.toIndexRange(y1, y2).forEach(indexY => {
@@ -54,4 +54,4 @@ export default class TileResolver {
         });
         return matches;
     }
-}
+// }
