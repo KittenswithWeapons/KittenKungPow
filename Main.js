@@ -4,13 +4,19 @@ import {createCharacter, createEnemy} from './entities.js';
 import {setupKeyboard} from './input.js';
 import {createCollisionLayer} from './layers.js';
 import {setUpControllers, controllerUpdate} from './Controllers.js';
+import {AssetManager} from './assetmanager.js';
 
+const ASSET_MANAGER = new AssetManager();
+//que all the asset files needed
+//ASSET_MANAGER.queueDownload("./characters/Karate.png");
+ASSET_MANAGER.queueDownload("./Enviroment/PinkPlatform.png");
+ASSET_MANAGER.queueDownload("./Enviroment/PinkCity.gif");
+ASSET_MANAGER.queueDownload("./Enviroment/woodenBarrel.png");
+
+//Loads all assets and begins the game
+ASSET_MANAGER.downloadAll(function () {
 const canvas = document.getElementById('gameWorld');
 const context = canvas.getContext('2d');
-
-
-
-
 
 
 //Starts the fight sequence scene
@@ -48,3 +54,5 @@ Promise.all([
     }
     timer.start();
 });
+
+})

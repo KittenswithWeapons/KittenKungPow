@@ -2,7 +2,7 @@ export default class Timer {
 
     //this class may have to be reworked to make animation easier
 
-    
+
     constructor(deltaTime = 1/60) {
         let accumulatedTime = 0;
         let lastTime = 0;

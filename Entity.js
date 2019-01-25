@@ -29,7 +29,10 @@ export default class Entity {
     }
     update(deltaTime) {
 			//console.log(this.Ename);
+			this.deltaTime = deltaTime; //updates entities deltaTime:  variable pass
+
 			if (this.Ename === 'character') {
+				//console.log(this.pos.x);
 				controllerUpdate(this, 0); //updating controller for character 1
 			}
 			else if (this.Ename === 'enemy') {
