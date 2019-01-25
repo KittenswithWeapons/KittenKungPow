@@ -1,7 +1,8 @@
 
 const controllers = {};
 var buttonPressed = false;
-export function setUpControllers(entity) {
+// export 
+function setUpControllers(entity) {
 
     window.addEventListener("gamepadconnected", function(e) {
 		  var gp = navigator.getGamepads()[e.gamepad.index];
@@ -33,7 +34,8 @@ function addController(controller){           //may have to order, so that the c
 
 //controller controls
 
-export function controllerUpdate(entity, controllerNUM){
+// export 
+function controllerUpdate(entity, controllerNUM){
 	//console.log('updated');
 	if (controllers[controllerNUM] != null){   //checks for controller connected
     //BUTTON SECTION

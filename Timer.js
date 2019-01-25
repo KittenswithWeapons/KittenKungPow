@@ -1,9 +1,6 @@
-export default class Timer {
-
-    //this class may have to be reworked to make animation easier
-
-
+// export default class Timer {
     constructor(deltaTime = 1/60) {
+
         let accumulatedTime = 0;
         let lastTime = 0;
 
@@ -21,13 +18,13 @@ export default class Timer {
         }
     }
 
-    enqueue() {
+    function enqueue() {
         requestAnimationFrame(this.updateProxy);
 
     }
 
-    start() {
+    function start() {
         this.enqueue();
 
     }
-}
+// }

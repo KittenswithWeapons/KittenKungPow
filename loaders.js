@@ -1,8 +1,9 @@
-import Level from './Level.js';
-import {createBackgroundLayer, createSpriteLayer} from './layers.js';
-import {loadBackgroundSprites} from './sprites.js';
+// import Level from './Level.js';
+// import {createBackgroundLayer, createSpriteLayer} from './layers.js';
+// import {loadBackgroundSprites} from './sprites.js';
 
-export function loadImage(url) {
+// export 
+function loadImage(url) {
     return new Promise(resolve => {
         const image = new Image();
         image.addEventListener('load', () => {
@@ -26,9 +27,10 @@ function createTiles(level, backgrounds) {
     });
 }
 
-export function loadLevel(name) {
+// export 
+function loadLevel(name) {
     return Promise.all([
-        fetch(`/levels/${name}.json`)
+        fetch(`./levels/${name}.json`)
         .then(r => r.json()),
         
         loadBackgroundSprites(),

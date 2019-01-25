@@ -17,13 +17,12 @@ ASSET_MANAGER.queueDownload("./Enviroment/woodenBarrel.png");
 ASSET_MANAGER.downloadAll(function () {
 const canvas = document.getElementById('gameWorld');
 const context = canvas.getContext('2d');
-
-
 //Starts the fight sequence scene
 Promise.all([
     createCharacter(),
     createEnemy(),
     loadLevel('PinkCity'),
+    assetManager.downloadAll,
 ])
 .then(([Character, Enemy, level]) => {
     Character.pos.set(400, 180); //sets the character1 position
@@ -50,7 +49,7 @@ Promise.all([
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime) {  //this is the main update loop
         level.update(deltaTime);                // updates all the things on the level.
-        level.comp.draw(context);               //draws the new version of the level.
+        level.comp.draw(document.getElementById('gameWorld').getContext('2d')); //draws the new version of the level.
     }
     timer.start();
 });

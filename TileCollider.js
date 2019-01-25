@@ -1,13 +1,13 @@
-import TileResolver from './TileResolver.js';
+// import TileResolver from './TileResolver.js';
 
-export default class TileCollider {
-    constructor(tileMatrix) {
+// export default class TileCollider {
+    function initTileCollider(tileMatrix) {
         this.tiles = new TileResolver(tileMatrix);
         this.checkXFlag = true;
         this.checkYFlag = true;
     }
 
-    checkX(entity) {
+    function checkX(entity) {
         if (this.checkXFlag) {
 
           var xCollideFallFactor = 50; //this value needs tweaked
@@ -62,7 +62,7 @@ export default class TileCollider {
       }
     }
 
-    checkY(entity) { //this needs work to get the y checks to be good, so we can come up thru a platform and press "down" to push the char down
+    function checkY(entity) { //this needs work to get the y checks to be good, so we can come up thru a platform and press "down" to push the char down
         if (this.checkYFlag) {
           let y;
           let passDownFlag;
@@ -140,4 +140,4 @@ export default class TileCollider {
           });
       }
     }
-}
+// }

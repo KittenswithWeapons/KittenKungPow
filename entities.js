@@ -35,7 +35,6 @@ export function createCharacter(){
         return Character;
 }
 
-
 export function createEnemy() {
     return loadCharacterSprite()
     .then(sprite => {
