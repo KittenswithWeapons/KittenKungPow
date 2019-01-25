@@ -1,4 +1,4 @@
-function AssetManager() {
+export function AssetManager() {
     this.successCount = 0;
     this.errorCount = 0;
     this.cache = [];
