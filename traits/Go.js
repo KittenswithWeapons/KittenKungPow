@@ -1,7 +1,7 @@
 import {Trait} from '../Entity.js';
 
 //left and right movement trait
-export default class Go extends Trait {
+class Go extends Trait {
     constructor() {
         super('go');
 

@@ -30,7 +30,7 @@ function createTiles(level, backgrounds) {
 // export 
 function loadLevel(name) {
     return Promise.all([
-        fetch(`./levels/${name}.json`)
+        fetch(`https://github.com/KittenswithWeapons/KittenKungPow/blob/master/levels/${name}.json`)
         .then(r => r.json()),
         
         loadBackgroundSprites(),

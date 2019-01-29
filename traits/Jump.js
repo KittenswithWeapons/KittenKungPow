@@ -1,6 +1,6 @@
 import {Trait} from '../Entity.js';
 
-export default class Jump extends Trait {
+class Jump extends Trait {
 	constructor() {
 		super('jump');
 
