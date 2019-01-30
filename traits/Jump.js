@@ -22,6 +22,7 @@ class Jump extends Trait {
             if (this.engageTime > 0 && this.jumpNumber <= 3) {
 							entity.vel.y = -this.velocity;
             	this.engageTime -= deltaTime;
+
             }
 	}
 }
