@@ -2,8 +2,8 @@
 // import TileCollider from './TileCollider.js';
 // import {Matrix} from './math.js';
 
-// export default class Level {
-    function constructor(levelName) {
+class Level {
+    constructor(levelName) {
         this.gravity = 2000; //level side gravity. should need a setter for different levels and power-ups
         this.levelName = levelName;
         this.comp = new Compositor();
@@ -13,7 +13,7 @@
         this.tileCollider = new TileCollider(this.tiles);
     }
 
-    function update(deltaTime) {
+    update(deltaTime) {
         this.entities.forEach(entity => {
             //console.log(entity.NAME);
             entity.update(deltaTime);
@@ -27,4 +27,4 @@
             entity.vel.y += this.gravity * deltaTime;
         });
     }
-// }
+}

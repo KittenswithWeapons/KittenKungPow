@@ -25,7 +25,7 @@ function drawBackgroundImage(name, context) {
     }
     //img.src = '/Enviroment/' + name + '.gif';
     //console.log(img.src);
-    img.src = '/Enviroment/PinkCity.gif';
+    img.src = 'https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/Enviroment/PinkCity.gif';
 }
 
 // export 

@@ -3,7 +3,7 @@
 
 // export 
 function loadCharacterSprite() {
-    return loadImage('./characters/karate.png')
+    return loadImage('https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/characters/Karate.png')
     .then(image => {
         const sprites = new SpriteSheet(image, 16, 16);
         sprites.define('character', 21, 25, 40, 54);
@@ -14,7 +14,7 @@ function loadCharacterSprite() {
 
 // export 
 function loadBackgroundSprites() {
-    return loadImage('./Enviroment/PinkPlatform.png')
+    return loadImage('https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/Enviroment/PinkPlatform.png')
     .then(image => {
         const sprites = new SpriteSheet(image, 32, 32);
         sprites.defineTile('ground', 1, 0);

@@ -14,8 +14,9 @@ CHARACTER_MANAGER.downloadAll(function() {});
 
 export function createCharacter(){
         const Character = new Entity('character');
-        Character.size.set(18, 29); //set to actuall pixel size of character, determines collision box. kat is 18,29
-        Character.deltaTime = 0;
+
+        Character.size = (18, 29); //set to actuall pixel size of character, determines collision box. kat is 18,29
+
         Character.addTrait(new Velocity());
         Character.addTrait(new Jump());
         Character.addTrait(new Go());

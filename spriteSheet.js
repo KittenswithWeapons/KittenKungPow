@@ -1,12 +1,12 @@
-// export default class SpriteSheet {
-    function constructor(image, width, height) {
+  class SpriteSheet {
+    constructor(image, width, height) {
         this.image = image;
         this.width = width;
         this.height = height;
         this.tiles = new Map();
     }
 
-    function define(name, x, y, width, height) {
+    define(name, x, y, width, height) {
         const buffer = document.createElement('canvas');
         buffer.width = width;
         buffer.height = height;
@@ -25,16 +25,16 @@
         this.tiles.set(name, buffer)
     }
 
-    function defineTile(name, x, y) {
+    defineTile(name, x, y) {
         this.define(name, x * this.width, y * this.height, this.width, this.height);
     }
 
-    function draw(name, context, x, y) {
+    draw(name, context, x, y) {
         const buffer = this.tiles.get(name);
         context.drawImage(buffer, x, y);
     }
 
-    function drawTile(name, context, x, y) {
+    drawTile(name, context, x, y) {
         this.draw(name, context, x * this.width, y * this.height);
     }
-// }
+}
