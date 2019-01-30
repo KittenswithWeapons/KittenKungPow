@@ -1,6 +1,3 @@
-<php>
-    header("Access-Control-Allow-Origin: *");
-</php>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,22 +8,29 @@
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./Compositor.js"></script>
     <script type="text/javascript" src="./Controllers.js"></script>
-    <script type="module" src="https://github.com/KittenswithWeapons/KittenKungPow/blob/master/entities.js"></script>
     <script type="text/javascript" src="./Entity.js"></script>
+    <script type="text/javascript" src="./traits/Velocity.js"></script>
+    <script type="text/javascript" src="./traits/Punch.js"></script>
+    <script type="text/javascript" src="./traits/PassDown.js"></script>
+    <script type="text/javascript" src="./traits/Jump.js"></script>
+    <script type="text/javascript" src="./traits/Go.js"></script>
+    <script type="text/javascript" src="./entities.js"></script>
+    <!-- <script type="module" src="./entities.js"></script> -->
+    
     <script type="text/javascript" src="./EntityCollider.js"></script>
     <script type="text/javascript" src="./input.js"></script>
     <script type="text/javascript" src="./keyboardState.js"></script>
-    <script type="text/javascript" src="./layers.js"></script>
     <script type="text/javascript" src="./Level.js"></script>
+    <script type="text/javascript" src="./TileResolver.js"></script>
+    <script type="text/javascript" src="./TileCollider.js"></script>
+    <script type="text/javascript" src="./layers.js"></script>
     <script type="text/javascript" src="./loaders.js"></script>
     <script type="text/javascript" src="./math.js"></script>
     <script type="text/javascript" src="./SceneManager.js"></script>
     <script type="text/javascript" src="./sprites.js"></script>
     <script type="text/javascript" src="./spriteSheet.js"></script>
-    <script type="text/javascript" src="./TileCollider.js"></script>
-    <script type="text/javascript" src="./TileResolver.js"></script>
     <script type="text/javascript" src="./Timer.js"></script>
-    
+    <script type="text/javascript" src="./Main.js"></script>
     
 </head>
 <body>
@@ -39,4 +43,4 @@
 
 </body>
 </html>
-<script type="text/javascript" src="./Main.js"></script>
+

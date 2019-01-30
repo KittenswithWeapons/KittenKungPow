@@ -5,7 +5,7 @@
 // export 
 function setupKeyboard(entity) {
 	
-    const input = new Keyboard(); //new keyboard
+    const input = new keyBoardState(); //new keyboard
     
 
     input.addMapping('Space', keyState => { //jump

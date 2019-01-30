@@ -1,4 +1,4 @@
-import {Trait} from '../Entity.js';
+// import {Trait} from '../Entity.js';
 
 //left and right movement trait
 class Go extends Trait {

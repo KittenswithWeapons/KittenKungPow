@@ -7,17 +7,14 @@
 
 
 
-const canvas = document.getElementById('gameWorld');
-const context = canvas.getContext('2d');
-
-
 
 Promise.all([
     createCharacter(),
     loadLevel('PinkCity'),
 ])
 .then(([Character, level]) => {
-
+    const canvas = document.getElementById('gameWorld');
+    const context = canvas.getContext('2d');
     
     Character.pos.set(400, 180); //sets the character1 position
     

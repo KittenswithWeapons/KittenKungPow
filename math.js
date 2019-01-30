@@ -1,5 +1,5 @@
 class Matrix {
-    constructorMatrix() {
+    constructor() {
         this.grid = [];
     }
 
@@ -29,7 +29,7 @@ class Matrix {
 }
 
 class Vec2 {
-    constructorVector(x, y) {
+    constructor(x, y) {
         this.set(x, y);
     }
 
