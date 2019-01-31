@@ -73,8 +73,6 @@ class TileCollider {
           } else {
               return;
           }
-          //console.log(entity.size.x, entity.size.y);
-          //console.log(entity.pos.x, entity.pos.x + entity.size.x, y, y);
           const matches = this.tiles.searchByRange(         //determines matches
               entity.pos.x, entity.pos.x + entity.size.x,
               y, y);

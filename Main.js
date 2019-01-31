@@ -1,4 +1,12 @@
 
+const ASSET_MANAGER = new AssetManager();
+//que all the asset files needed
+ASSET_MANAGER.queueDownload("./characters/Karate.png");
+ASSET_MANAGER.queueDownload("./Enviroment/PinkPlatform.png");
+ASSET_MANAGER.queueDownload("./Enviroment/PinkCity.gif");
+ASSET_MANAGER.queueDownload("./Enviroment/woodenBarrel.png");
+
+ASSET_MANAGER.downloadAll(function () {});
 
 
 Promise.all([
