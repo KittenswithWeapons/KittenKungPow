@@ -1,9 +1,3 @@
-const CHARACTER_MANAGER = new AssetManager();
-//que all the asset files needed
-CHARACTER_MANAGER.queueDownload("./characters/Karate.png");
-//Loads all assets and begins the game
-CHARACTER_MANAGER.downloadAll(function() {});
-
 function createCharacter(){
         const Character = new Entity('character');
         Character.size.set(18, 29); //set to actuall pixel size of character, determines collision box. kat is 18,29
@@ -39,7 +33,7 @@ function createCharacter(){
               //console.log('right animate');
                this.startY = 88;
                this.FrameLength = 8;
-               this.FrameSpeed = 0.06;
+               this.FrameSpeed = 0.1;
                this.FrameReverse = false;
                Character.heading = 1
             }
@@ -48,7 +42,7 @@ function createCharacter(){
               //console.log('left animate');
               this.startY = 88;
               this.FrameLength = 8;
-              this.FrameSpeed = 0.06;
+              this.FrameSpeed = 0.1;
               Character.heading = -1
 
             }
@@ -58,7 +52,7 @@ function createCharacter(){
               this.startY = 24;
               this.FrameWidth = 64;
               this.FrameHeight = 32;
-              this.FrameSpeed = 0.2;
+              this.FrameSpeed = 0.1;
               this.FrameLength = 4;
               this.FrameLoop = true;
               this.FrameReverse = true;
@@ -69,17 +63,17 @@ function createCharacter(){
               this.startY = 155;
               this.FrameLength = 8;
               this.FrameSpeed = 0.07;
-              console.log('jump ani');
+              //console.log('jump ani');
             }
 
             if (Character.Punching) {
-              this.StartY = 155; //490
+              this.StartY = 490; 
               this.FrameLength = 6;
               this.FrameLength = 0.5;
             }
 
 
-            Character.animation = new Animation(CHARACTER_MANAGER.getAsset(
+            Character.animation = new Animation(ASSET_MANAGER.getAsset(
                 "./characters/Karate.png"),
                 this.startX, this.startY, this.FrameWidth, this.FrameHeight ,
                  this.FrameSpeed, this.FrameLength,
@@ -105,12 +99,11 @@ function createCharacter(){
 
         }
 
-
         Character.updateAnimation();
         return Character;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function Animation(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
     this.spriteSheet = spriteSheet;
     this.startX = startX;
@@ -165,4 +158,4 @@ Animation.prototype.currentFrame = function () {
 Animation.prototype.isDone = function () {
     return (this.elapsedTime >= this.totalTime);
 }
-//////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
