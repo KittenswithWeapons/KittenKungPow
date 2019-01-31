@@ -1,4 +1,3 @@
-
 // import Timer from './Timer.js';
 // import {loadLevel} from './loaders.js';
 // import {createCharacter} from './entities.js';
