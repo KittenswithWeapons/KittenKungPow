@@ -1,7 +1,3 @@
-// import Compositor from './Compositor.js';
-// import TileCollider from './TileCollider.js';
-// import {Matrix} from './math.js';
-
 class Level {
     constructor(levelName) {
         this.gravity = 2000; //level side gravity. should need a setter for different levels and power-ups    should be 2000

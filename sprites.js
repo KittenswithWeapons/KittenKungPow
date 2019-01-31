@@ -1,18 +1,12 @@
-// import SpriteSheet from './SpriteSheet.js';
-// import {loadImage} from './loaders.js';
+// function loadCharacterSprite() {
+//     return loadImage('https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/characters/Karate.png')
+//     .then(image => {
+//         const sprites = new SpriteSheet(image, 16, 16);
+//         sprites.define('character', 21, 25, 40, 54);
+//         return sprites;
+//     });
+// }
 
-// export
-function loadCharacterSprite() {
-    return loadImage('https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/characters/Karate.png')
-    .then(image => {
-        const sprites = new SpriteSheet(image, 16, 16);
-        sprites.define('character', 21, 25, 40, 54);
-        sprites.define('enemy', 21, 25, 40, 54);
-        return sprites;
-    });
-}
-
-// export
 function loadBackgroundSprites(name) {
     return loadImage(`./Enviroment/${name}tiles.png`)
     .then(image => {
