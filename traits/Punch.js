@@ -4,7 +4,7 @@ class Punch extends Trait {
         super('punch');
         this.punchPower = 10;
         this.engageTime = 0;
-        this.duration = 1.0;
+        this.duration = 0.3;
     }
 
     start() {
@@ -18,11 +18,6 @@ class Punch extends Trait {
     update(entity, deltaTime) {
       if (this.engageTime > 0) {
         this.engageTime -= deltaTime;
-        entity.Punching = true;
-        if (this.engageTime < 0) {
-          entity.Punching = false;
-          entity.updateAnimation();
-        }
       }
     }
 

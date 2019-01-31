@@ -1,3 +1,10 @@
+/*
+* Kittens Main Method
+* Set up all things
+* load all assets here
+*/
+
+const deltaTime = 1/60; //FPS timer --- 1/60 is 60fps
 
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed
@@ -15,6 +22,7 @@ Promise.all([
 .then(([Character, level]) => {
     const canvas = document.getElementById('gameWorld');
     const context = canvas.getContext('2d');
+
 
     Character.pos.set(400, 180); //sets the character1 position
 
@@ -35,7 +43,7 @@ Promise.all([
 
     input.listenTo(window);
 
-    const timer = new Timer(1/60);
+    const timer = new Timer(deltaTime);
     timer.update = function update(deltaTime) {
         level.update(deltaTime);
         level.comp.draw(context);

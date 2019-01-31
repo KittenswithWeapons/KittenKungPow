@@ -1,7 +1,7 @@
 function createCharacter(){
         const Character = new Entity('character');
         Character.size.set(18, 29); //set to actuall pixel size of character, determines collision box. kat is 18,29
-        Character.deltaTime = 0;
+        //Character.deltaTime = 0;
         Character.addTrait(new Velocity());
         Character.addTrait(new Jump());
         Character.addTrait(new Go());
@@ -13,63 +13,44 @@ function createCharacter(){
         Character.Punching = false;
 
 
-        Character.flipped = false;
-
         Character.updateAnimation = function() {
             //idle values
             this.startX = 21;
             this.startY = 24;
             this.FrameWidth = 64;
             this.FrameHeight = 32;
-            this.FrameSpeed = 0.2;
+            this.FrameSpeed = 0.1;
             this.FrameLength = 4;
             this.FrameLoop = true;
             this.FrameReverse = true;
-
-
 
              if (Character.go.dir > 0) {
                //runRight
               //console.log('right animate');
                this.startY = 88;
                this.FrameLength = 8;
-               this.FrameSpeed = 0.1;
+               this.FrameSpeed = 0.07;
                this.FrameReverse = false;
                Character.heading = 1
             }
-            if (Character.go.dir < 0) {
+            else if (Character.go.dir < 0) {
               //runLeft
               //console.log('left animate');
               this.startY = 88;
               this.FrameLength = 8;
-              this.FrameSpeed = 0.1;
+              this.FrameSpeed = 0.07;
               Character.heading = -1
-
             }
-            if(Character.go.dir === 0) {
-              //idle
-              this.startX = 21;
-              this.startY = 24;
-              this.FrameWidth = 64;
-              this.FrameHeight = 32;
-              this.FrameSpeed = 0.1;
-              this.FrameLength = 4;
-              this.FrameLoop = true;
-              this.FrameReverse = true;
-              //console.log('idle');
-            }
-
-            if (Character.Jumping) {
+            else if (Character.Jumping) {
               this.startY = 155;
               this.FrameLength = 8;
               this.FrameSpeed = 0.07;
               //console.log('jump ani');
             }
-
-            if (Character.Punching) {
-              this.StartY = 490; 
-              this.FrameLength = 6;
-              this.FrameLength = 0.5;
+            else if (Character.Punching) { //not working
+              this.startY = 792;
+              this.FrameLength = 8;
+              this.FrameLength = 0.05;
             }
 
 
@@ -79,23 +60,21 @@ function createCharacter(){
                  this.FrameSpeed, this.FrameLength,
                  this.FrameLoop, this.FrameReverse);
 
-            //console.log(this.startY);
+
         }
 
         Character.draw = function (context) {
-            // console.log(Character.flipped);
             //  if (Character.heading === -1) {
             //    if (!Character.flipped) {
             //      context.scale(-1,1);
-            //      Character.flipped = true;
+
             //    }
             //  }
-            //  if (Character.flipped && Character.heading === 1) {
+            //  if (Character.heading === 1) {
             //      context.scale(-1,1);
-            //      Character.flipped = false;
-            //      console.log('flip back');
             //    }
-            Character.animation.drawFrame(this.deltaTime, context, this.pos.x, this.pos.y);
+
+            Character.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
 
         }
 

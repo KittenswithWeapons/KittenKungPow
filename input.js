@@ -1,8 +1,3 @@
-// import Keyboard from './KeyboardState.js';
-
-
-
-// export
 function setupKeyboard(entity) {
 
     const input = new keyBoardState(); //new keyboard
@@ -29,7 +24,7 @@ function setupKeyboard(entity) {
         } else {
           entity.Punching = false;
             entity.punch.cancel();
-            entity.updateAnimation();
+          entity.updateAnimation();
         }
     });
 
