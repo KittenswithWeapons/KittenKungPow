@@ -1,49 +1,68 @@
-// import Keyboard from './KeyboardState.js'; 
-
-
-
-// export 
 function setupKeyboard(entity) {
-	
+
     const input = new keyBoardState(); //new keyboard
-    
+
 
     input.addMapping('Space', keyState => { //jump
+        //console.log(keyState);
         if (keyState) {
             entity.jump.start();
+            entity.Jumping = true;
+            entity.updateAnimation();
         } else {
+            entity.Jumping = false;
             entity.jump.cancel();
+            entity.updateAnimation();
         }
     });
 
-    input.addMapping('KeyD', keyState => { //go right
-        entity.go.dir = keyState;
-        
+    input.addMapping('KeyF', keyState => { //punch
+        if (keyState) {
+          entity.punch.start();
+          entity.Punching = true;
+          entity.updateAnimation();
+        } else {
+          entity.Punching = false;
+            entity.punch.cancel();
+          entity.updateAnimation();
+        }
     });
 
-    input.addMapping('ArrowRight', keyState => { //go right
-        entity.go.dir = keyState;
-        
+
+    input.addMapping('KeyD', keyState => { //go right
+        if (keyState) {
+          entity.go.dir = keyState;
+          entity.updateAnimation();
+        } else {
+            entity.go.dir = 0;
+            entity.updateAnimation();
+        }
+
     });
 
     input.addMapping('KeyA', keyState => { //go left
-        entity.go.dir = -keyState;
+        if (keyState) {
+          entity.go.dir = -keyState;
+          entity.updateAnimation();
+        } else {
+            entity.go.dir = 0;
+            entity.updateAnimation();
+        }
     });
 
-    input.addMapping('ArrowLeft', keyState => { //go left
-        entity.go.dir = -keyState;
+		input.addMapping('KeyS', keyState => { //go left
+        if (keyState) {
+					entity.passdown.start();
+				} else {
+					entity.passdown.cancel();
+				}
+
     });
 
     input.addMapping('KeyC', keyState => { //Enable Computer Control
-        
+
     });
 
-    return input;   
-    
+    return input;
+
 }
-
-
-
-
-
-

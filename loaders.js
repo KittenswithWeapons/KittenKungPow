@@ -2,7 +2,7 @@
 // import {createBackgroundLayer, createSpriteLayer} from './layers.js';
 // import {loadBackgroundSprites} from './sprites.js';
 
-// export 
+// export
 function loadImage(url) {
     return new Promise(resolve => {
         const image = new Image();
@@ -27,13 +27,13 @@ function createTiles(level, backgrounds) {
     });
 }
 
-// export 
+// export
 function loadLevel(name) {
     return Promise.all([
         fetch(`https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/levels/${name}.json`)
         .then(r => r.json()),
-        
-        loadBackgroundSprites(),
+
+        loadBackgroundSprites(name),
     ])
     .then(([levelSpec, backgroundSprites]) => {
         const level = new Level(name);

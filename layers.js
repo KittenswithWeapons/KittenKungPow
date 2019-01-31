@@ -1,4 +1,4 @@
-// export 
+// export
 function createBackgroundLayer(level, sprites) {
     const buffer = document.createElement('canvas');
     buffer.width = 1280;
@@ -28,7 +28,7 @@ function drawBackgroundImage(name, context) {
     img.src = 'https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/Enviroment/PinkCity.gif';
 }
 
-// export 
+// export
 function createSpriteLayer(entities) {
     return function drawSpriteLayer(context) {
         entities.forEach(entity => {
@@ -37,7 +37,7 @@ function createSpriteLayer(entities) {
     };
 }
 
-// export 
+// export
 function createCollisionLayer(level) {
     const resolvedTiles = [];
 

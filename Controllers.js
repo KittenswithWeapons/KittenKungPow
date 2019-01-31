@@ -1,7 +1,7 @@
 
 const controllers = {};
 var buttonPressed = false;
-// export 
+
 function setUpControllers(entity) {
 
     window.addEventListener("gamepadconnected", function(e) {
@@ -10,22 +10,17 @@ function setUpControllers(entity) {
 		  console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
 				  gp.index, gp.id,
 				  	gp.buttons.length, gp.axes.length);
-
-
 		});
 
 	window.addEventListener("gamepaddisconnected", function(e) {
 		  console.log("Gamepad disconnected from index %d: %s",
 		    e.gamepad.index, e.gamepad.id);
 		});
-
-
 }
 
 function getControllers(){
 	console.log(controllers);
 }
-
 
 function addController(controller){           //may have to order, so that the controller that plugs in first gets controller[0], may. #maybebug
 	controllers[controller.index] = controller;
@@ -33,8 +28,6 @@ function addController(controller){           //may have to order, so that the c
 }
 
 //controller controls
-
-// export 
 function controllerUpdate(entity, controllerNUM){
 	//console.log('updated');
 	if (controllers[controllerNUM] != null){   //checks for controller connected
@@ -59,23 +52,6 @@ function controllerUpdate(entity, controllerNUM){
 		} else if (controllers[controllerNUM].axes[0] < 0.1 & controllers[controllerNUM].axes[0] > -0.1 ) { // stops the kitty
 			entity.go.dir = 0;
 		}
-    //up/down action #PassDown
-    //passdown doesnt work
-    // if (controllers[controllerNUM].axes[1] > .2) {
-    //   if (entity.passdown.engageFlag === false){
-    //     //console.log('downstart')
-    //     entity.passdown.start();
-    //   } else {
-    //     //console.log('downstop');
-    //   }
-    // }
-
-
-
-
-
-
-
 
 	} else {
 		//console.log('no Controller connected');

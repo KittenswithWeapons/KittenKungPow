@@ -73,11 +73,10 @@ class TileCollider {
           } else {
               return;
           }
-
           const matches = this.tiles.searchByRange(         //determines matches
               entity.pos.x, entity.pos.x + entity.size.x,
               y, y);
-
+          //console.log(matches);    //eheck here if the matches array is empty
           matches.forEach(match => {
               if (match.tile.name !== 'ground' && match.tile.name !== 'platform' && match.tile.name !== 'levelobject') {
                   return;
