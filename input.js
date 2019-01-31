@@ -1,15 +1,16 @@
-// import Keyboard from './KeyboardState.js'; 
+// import Keyboard from './KeyboardState.js';
 
 
 
-// export 
+// export
 function setupKeyboard(entity) {
-	
+
     const input = new keyBoardState(); //new keyboard
-    
+
 
     input.addMapping('Space', keyState => { //jump
         if (keyState) {
+						//console.log('trying to jump');
             entity.jump.start();
         } else {
             entity.jump.cancel();
@@ -18,12 +19,12 @@ function setupKeyboard(entity) {
 
     input.addMapping('KeyD', keyState => { //go right
         entity.go.dir = keyState;
-        
+
     });
 
     input.addMapping('ArrowRight', keyState => { //go right
         entity.go.dir = keyState;
-        
+
     });
 
     input.addMapping('KeyA', keyState => { //go left
@@ -35,15 +36,9 @@ function setupKeyboard(entity) {
     });
 
     input.addMapping('KeyC', keyState => { //Enable Computer Control
-        
+
     });
 
-    return input;   
-    
+    return input;
+
 }
-
-
-
-
-
-

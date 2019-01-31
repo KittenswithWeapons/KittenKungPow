@@ -36,9 +36,10 @@ class Entity {
 				controllerUpdate(this, 1); //updating controller for enemy
 			}
 
-
+			//console.log(this.size.x, this.size.y);
 
     	this.traits.forEach(trait => {
+				//console.log(trait);
     		trait.update(this,deltaTime);
     	});
     }
