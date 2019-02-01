@@ -11,6 +11,7 @@ function createCharacter(){
         Character.flipped = false;
         Character.Jumping = false;
         Character.Punching = false;
+        Character.Throwing = false;
 
 
         Character.updateAnimation = function() {
@@ -58,6 +59,16 @@ function createCharacter(){
               this.FrameLength = 10;
               this.FrameSpeed = 0.05;
               //console.log('punch');
+            }
+            else if (Character.Throwing) { //not working
+              this.startY = 5*64 + 24;
+              this.FrameWidth = 64;
+              this.FrameHeight = 64;
+              this.FrameLength = 7;
+              this.FrameSpeed = 0.04;
+              this.FrameLoop = true;   //input holding needs fixed and then this should be set to false
+              this.FrameReverse = false;
+
             }
 
 
