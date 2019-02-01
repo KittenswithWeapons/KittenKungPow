@@ -8,14 +8,14 @@ function createCharacter(){
         Character.addTrait(new PassDown());
         Character.addTrait(new Punch());
         Character.heading = 1;
-
+        Character.flipped = false;
         Character.Jumping = false;
         Character.Punching = false;
 
 
         Character.updateAnimation = function() {
             //idle values
-            this.startX = 21;
+            this.startX = 19;
             this.startY = 24;
             this.FrameWidth = 64;
             this.FrameHeight = 32;
@@ -26,31 +26,38 @@ function createCharacter(){
 
              if (Character.go.dir > 0) {
                //runRight
-              //console.log('right animate');
+               //console.log('right animate');
                this.startY = 88;
                this.FrameLength = 8;
                this.FrameSpeed = 0.07;
                this.FrameReverse = false;
                Character.heading = 1
+               Character.flipped = false;
             }
             else if (Character.go.dir < 0) {
               //runLeft
               //console.log('left animate');
+              //this.startX = this.startX + this.FrameWidth;
               this.startY = 88;
+              //this.FrameWidth = -this.FrameWidth;
               this.FrameLength = 8;
               this.FrameSpeed = 0.07;
               Character.heading = -1
+              Character.flipped = true;
             }
             else if (Character.Jumping) {
-              this.startY = 155;
+              this.startY = 2*64 + 24;
               this.FrameLength = 8;
               this.FrameSpeed = 0.07;
               //console.log('jump ani');
             }
             else if (Character.Punching) { //not working
-              this.startY = 792;
-              this.FrameLength = 8;
-              this.FrameLength = 0.05;
+              this.startY = 9*64 + 24;
+              this.FrameWidth = 64;
+              this.FrameHeight = 64;
+              this.FrameLength = 10;
+              this.FrameSpeed = 0.05;
+              //console.log('punch');
             }
 
 
@@ -60,21 +67,26 @@ function createCharacter(){
                  this.FrameSpeed, this.FrameLength,
                  this.FrameLoop, this.FrameReverse);
 
+            //console.log(Character.pos.x, Character.pos.y);
 
         }
 
         Character.draw = function (context) {
-            //  if (Character.heading === -1) {
-            //    if (!Character.flipped) {
-            //      context.scale(-1,1);
 
-            //    }
-            //  }
-            //  if (Character.heading === 1) {
-            //      context.scale(-1,1);
-            //    }
+            if (Character.heading === -1) {
+                //Character.pos.x *= -1;
+                context.save();
+                context.translate(16,0);
+                context.scale(-1,1);
+                Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
+                context.restore();
 
-            Character.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
+             }
+             if (Character.heading === 1) {
+                 Character.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
+               }
+
+
 
         }
 
@@ -127,7 +139,7 @@ Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
                   this.frameWidth, this.frameHeight,
                   locX, locY,
                   this.frameWidth * scaleBy,
-                  this.frameHeight * scaleBy);
+                  this.frameHeight);
 }
 
 Animation.prototype.currentFrame = function () {

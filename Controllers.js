@@ -1,6 +1,6 @@
 
 const controllers = {};
-var buttonPressed = false;
+var A_buttonPressed = false;
 
 function setUpControllers(entity) {
 
@@ -29,17 +29,18 @@ function addController(controller){           //may have to order, so that the c
 
 //controller controls
 function controllerUpdate(entity, controllerNUM){
-	//console.log('updated');
+	//console.log(getControllers());
 	if (controllers[controllerNUM] != null){   //checks for controller connected
     //BUTTON SECTION
 		if (controllers[controllerNUM].buttons[0].pressed){  // A button to jump
 			//console.log('A pressed');
-			if (controllers[controllerNUM].buttonPressed === false) {
+			if (controllers[controllerNUM].A_buttonPressed === false) {
 				entity.jump.start();
-				controllers[controllerNUM].buttonPressed = true;
+        entity.updateAnimation();
+				controllers[controllerNUM].A_buttonPressed = true;
 			}
 		} else {
-			controllers[controllerNUM].buttonPressed = false;
+			controllers[controllerNUM].A_buttonPressed = false;
 		}
     //JOYSTICK SECTION
     //left right action
@@ -51,6 +52,7 @@ function controllerUpdate(entity, controllerNUM){
 			//console.log('LEFT');
 		} else if (controllers[controllerNUM].axes[0] < 0.1 & controllers[controllerNUM].axes[0] > -0.1 ) { // stops the kitty
 			entity.go.dir = 0;
+
 		}
 
 	} else {
