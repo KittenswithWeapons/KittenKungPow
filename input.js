@@ -23,7 +23,7 @@ function setupKeyboard(entity) {
           entity.updateAnimation();
         } else {
           entity.Punching = false;
-            entity.punch.cancel();
+          entity.punch.cancel();
           entity.updateAnimation();
         }
     });

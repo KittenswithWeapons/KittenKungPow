@@ -4,7 +4,7 @@ class Punch extends Trait {
         super('punch');
         this.punchPower = 10;
         this.engageTime = 0;
-        this.duration = 0.3;
+        this.duration = 1.6;
     }
 
     start() {
