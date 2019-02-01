@@ -63,7 +63,7 @@ class TileCollider {
     }
 
     checkY(entity) { //this needs work to get the y checks to be good, so we can come up thru a platform and press "down" to push the char down
-        if (this.checkYFlag) {
+        if (this.checkYFlag && entity.type !== 'projectile') {
           let y;
           let passDownFlag;
           if (entity.vel.y > 0) {

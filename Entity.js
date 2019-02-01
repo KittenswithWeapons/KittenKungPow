@@ -14,6 +14,7 @@ class Trait{
 class Entity {
     constructor(name) {
 				this.Ename = name;
+				this.type;
 				this.passDownFlag = false;
 				this.jumpCount = 0;
         this.pos = new Vec2(0, 0);

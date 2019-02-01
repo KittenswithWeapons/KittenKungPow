@@ -9,18 +9,22 @@ class Level {
         this.tileCollider = new TileCollider(this.tiles);
     }
 
+    addEntity(entity) {
+      this.entities.add(entity);
+    }
+
     update(deltaTime) {
         this.entities.forEach(entity => {
-            //console.log(entity.NAME);
             entity.update(deltaTime);
-
+            //console.log(entity.Ename);
             entity.pos.x += entity.vel.x * deltaTime;
             this.tileCollider.checkX(entity);
 
             entity.pos.y += entity.vel.y * deltaTime;
             this.tileCollider.checkY(entity);
-
-            entity.vel.y += this.gravity * deltaTime;
+            if (entity.type !== 'projectile') {        // suppose turn off gravity for projectiles
+              entity.vel.y += this.gravity * deltaTime;
+            }
         });
     }
 }

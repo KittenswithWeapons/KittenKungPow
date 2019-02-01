@@ -5,6 +5,8 @@
 */
 
 const deltaTime = 1/60; //FPS timer --- 1/60 is 60fps
+var levelObject;
+
 
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed
@@ -12,6 +14,7 @@ ASSET_MANAGER.queueDownload("./characters/Karate.png");
 ASSET_MANAGER.queueDownload("./Enviroment/PinkCitytiles.png");
 ASSET_MANAGER.queueDownload("./Enviroment/PinkCity.gif");
 ASSET_MANAGER.queueDownload("./Enviroment/woodenBarrel.png");
+ASSET_MANAGER.queueDownload("./Projectiles/fireball.png");
 
 ASSET_MANAGER.downloadAll(function () {});
 
@@ -22,10 +25,8 @@ Promise.all([
 .then(([Character, level]) => {
     const canvas = document.getElementById('gameWorld');
     const context = canvas.getContext('2d');
-    
-
-
-    Character.pos.set(400, 180); //sets the character1 position
+    levelObject = level;
+    Character.pos.set(400, 180); //sets the character position
 
     level.comp.layers.push(createCollisionLayer(level));
     level.entities.add(Character); //adds character to the level
