@@ -1,7 +1,7 @@
 function createProjectile(name, originEntity) {
     const Projectile = new Entity(name); //creates the projectile as an entity
     Projectile.type = 'projectile';
-    Projectile.size.set(16, 16);         //size of the projectile.
+    Projectile.size.set(32, 32);         //size of the projectile.
 
     Projectile.pos = originEntity.pos;   //position of the Projectile starts from where the origin character is, may need to offset
     Projectile.addTrait(new Velocity());
@@ -13,10 +13,10 @@ function createProjectile(name, originEntity) {
     Projectile.updateAnimation = function() {
         this.startX = 0;
         this.startY = 0;
-        this.FrameWidth = 32;
-        this.FrameHeight = 32;
-        this.FrameSpeed = 1;
-        this.FrameLength = 1;
+        this.FrameWidth = 512;
+        this.FrameHeight = 512;
+        this.FrameSpeed = 0.2;
+        this.FrameLength = 6;
         this.FrameLoop = true;
         this.FrameReverse = false;
         Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
@@ -32,12 +32,12 @@ function createProjectile(name, originEntity) {
           context.save();
           context.translate(16,0);
           context.scale(-1,1);
-          Projectile.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
+          Projectile.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y, 1/16);
           context.restore();
 
        }
        if (Projectile.heading === 1) {
-           Projectile.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
+           Projectile.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y, 1/16);
          }
     }
 

@@ -3,12 +3,12 @@ class Throw extends Trait {
         super('throw');
 
         this.dir = 0;
-        this.speed = 6000;
+        this.speed = 200;  //should be about 10,000
     }
 
     update(entity, deltaTime) {
 
       //moves the projectile
-        entity.vel.x = this.speed * this.dir * deltaTime;    
+        entity.vel.x = this.speed * this.dir * deltaTime;
     }
 }
