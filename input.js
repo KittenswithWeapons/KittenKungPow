@@ -28,6 +28,13 @@ function setupKeyboard(entity) {
         }
     });
 
+    input.addMapping('KeyE', keyState => { //punch
+        if (keyState) {
+          ThrowProjectile("fireball", entity);
+        } else {
+
+        }
+    });
 
     input.addMapping('KeyD', keyState => { //go right
         if (keyState) {
