@@ -30,9 +30,14 @@ function setupKeyboard(entity) {
 
     input.addMapping('KeyE', keyState => { //punch
         if (keyState) {
+          if (!entity.Throwing) {
+          entity.Throwing = true;
+          entity.updateAnimation();
           ThrowProjectile("fireball", entity);
+        } else {entity.updateAnimation(); console.log('double try');}
         } else {
-
+          entity.Throwing = false;
+          entity.updateAnimation();
         }
     });
 
