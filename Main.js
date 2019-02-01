@@ -49,6 +49,7 @@ Promise.all([
     timer.update = function update(deltaTime) {
         level.update(deltaTime);
         level.comp.draw(context);
+        
     }
 
     timer.start();

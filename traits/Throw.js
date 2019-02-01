@@ -1,6 +1,6 @@
 class Throw extends Trait {
     constructor() {
-        super('go');
+        super('throw');
 
         this.dir = 0;
         this.speed = 6000;
@@ -8,7 +8,7 @@ class Throw extends Trait {
 
     update(entity, deltaTime) {
 
-      //moves the character sprite
-        entity.pos.x = this.speed * this.dir * deltaTime;
+      //moves the projectile
+        entity.vel.x = this.speed * this.dir * deltaTime;    
     }
 }

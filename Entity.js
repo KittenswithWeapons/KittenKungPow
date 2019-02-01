@@ -28,6 +28,7 @@ class Entity {
     	this.traits.push(trait);
     	this[trait.NAME] = trait;
     }
+		
     update(deltaTime) {
 			//console.log(this.Ename);
 			if (this.Ename === 'character') {
@@ -37,11 +38,9 @@ class Entity {
 				controllerUpdate(this, 1); //updating controller for enemy
 			}
 
-			//console.log(this.size.x, this.size.y);
-
     	this.traits.forEach(trait => {
 				//console.log(trait);
-    		trait.update(this,deltaTime);
+    		trait.update(this, deltaTime);
     	});
     }
 }
