@@ -13,6 +13,10 @@ class Level {
       this.entities.add(entity);
     }
 
+    removeEntity(entity) {
+      this.entities.delete(entity);
+    }
+
     update(deltaTime) {
         this.entities.forEach(entity => {
             entity.update(deltaTime);
@@ -22,9 +26,14 @@ class Level {
 
             entity.pos.y += entity.vel.y * deltaTime;
             this.tileCollider.checkY(entity);
-            if (entity.type !== 'projectile') {        // suppose turn off gravity for projectiles
+
+            if (entity.type === 'projectile'){ //turns off gravity for projectiles
+      				entity.vel.y = 0;
+      			} else {
               entity.vel.y += this.gravity * deltaTime;
-            }
+          }
+
+
         });
     }
 }

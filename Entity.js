@@ -28,7 +28,7 @@ class Entity {
     	this.traits.push(trait);
     	this[trait.NAME] = trait;
     }
-		
+
     update(deltaTime) {
 			//console.log(this.Ename);
 			if (this.Ename === 'character') {
