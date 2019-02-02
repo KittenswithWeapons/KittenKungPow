@@ -33,6 +33,161 @@
     <script type="text/javascript" src="./Main.js"></script>
 
 </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome</title>
+    <style type="text/css">
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            font-weight: 750;
+        }
+        .welcome-section {
+            position: absolute;
+            width: 99%;
+            height: 99%;
+            top: 0;
+            left: 0;
+            background-color: #00CBF8;
+            overflow: hidden;
+            border: solid 4px #E0033C;
+        }
+        .welcome-section .content-wrap {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0);
+        }
+        .welcome-section .content-wrap .fly-in-text {
+            list-style: none;
+        }
+        .welcome-section .content-wrap .fly-in-text li1 {
+            display: inline-block;
+            margin-right: 0px;
+            font-size: 5.5em;
+            color: #fff;
+            -webkit-text-stroke-color: #E0033C;
+            -webkit-text-stroke-width: 1px;
+            text-shadow: 2px 2px #E0033C;
+            
+            opacity: 1;
+            transition: all 2s ease;
+        }
+        .welcome-section .content-wrap .fly-in-text li2 {
+            display: inline-block;
+            margin-right: 0px;
+            font-size: 3em;
+            color: #fff;
+            -webkit-text-stroke-color: #E0033C;
+            -webkit-text-stroke-width: 1px;
+            text-shadow: 2px 2px #E0033C;
+            opacity: 1;
+            transition: all 2s ease 0.5s;
+        }
+        .welcome-section .content-wrap .fly-in-text li3 {
+            display: inline-block;
+            margin-right: 0px;
+            font-size: 1.1em;
+            color: #fff;
+            /* -webkit-text-stroke-color: #ff2f2f;
+            -webkit-text-stroke-width: 1px; */
+            text-shadow: 1px 1px #E0033C;
+            opacity: 1;
+            transition: all 2s ease 1s;
+        }
+        .welcome-section .content-wrap .fly-in-text li4 {
+            display: inline-block;
+            margin-right: 0px;
+            font-size: 0.6em;
+            color: #E0033C;
+            opacity: 1;
+            transition: all 2s ease 1.5s;
+        }
+        .welcome-section .content-wrap .fly-in-text li:last-child {
+            margin-right: 0;
+        }
+        .welcome-section .content-wrap .enter-button {
+            display: block;
+            text-align: center;
+            font-size: 3em;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #E0033C;
+            text-shadow: 3px 3px #ffffff;
+            opacity: 1;
+            transition: all 1s ease 2.25s;
+        }
+        
+        /* .welcome-section.content-hidden .content-wrap .fly-in-text li { opacity: 0; } */
+        .welcome-section.content-hidden .content-wrap .fly-in-text li1{ opacity: 0; transform: translate3d(-200px, 0, 0); }
+        .welcome-section.content-hidden .content-wrap .fly-in-text li2{ opacity: 0; transform: translate3d(200px, 0, 0); }
+        .welcome-section.content-hidden .content-wrap .fly-in-text li3{ opacity: 0; transform: translate3d(-200px, 0, 0); }
+        .welcome-section.content-hidden .content-wrap .fly-in-text li4{ opacity: 0; transform: translate3d(200px, 0, 0); }
+        .welcome-section.content-hidden .content-wrap .enter-button { opacity: 0; transform: translate3d(0, 40px, 0); }
+        
+        @media (min-width: 800px) {
+            /* .welcome-section .content-wrap .fly-in-text li { font-size: 4em; } */
+            .welcome-section .content-wrap .enter-button { font-size: 3.5em; }
+        }
+        
+        
+        
+    </style>
+    
+</head>
+<body>
+    
+    
+    <div class="welcome-section content-hidden">
+        <div class="content-wrap">
+            <ul class="fly-in-text">
+                <li1>Kittens with Weapons:</li1>
+                <li2>Super Deluxe Hero Karate Kat! and the Clan of the White Paw</li2> 
+                <li3>GOTY Turbo 3 HD Remix Definitive Collectors Edition</li3>
+                <li4>(Working Title)</li4>
+            </ul>
+            
+            <a href="#" class="enter-button">Enter</a>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        
+        $(function() {
+            
+            var welcomeSection = $('.welcome-section'),
+                enterButton = welcomeSection.find('.enter-button');
+            
+            setTimeout(function() {
+                welcomeSection.removeClass('content-hidden');
+            }, 500);
+            
+            enterButton.on('click', function(e) {
+                e.preventDefault();
+                welcomeSection.addClass('content-hidden').fadeOut();
+            });
+            
+            
+        })();
+        
+        
+        
+    </script>
+
+</body>
+
+
 <body>
     <canvas id="gameWorld" tabindex="1" width="1280" height="720" style = "border-style: solid;
   border-width: 1px;" ></canvas>
