@@ -176,7 +176,7 @@
             enterButton.on('click', function(e) {
                 e.preventDefault();
                 welcomeSection.addClass('content-hidden').fadeOut();
-                
+
                 document.getElementById('audio').src="sound/250-milliseconds-of-silence.mp3";
                 document.getElementById('player').play();
             });
@@ -190,8 +190,18 @@
 
 </body>
 
-<body>
 
+<body>
+    <div id="wrapper">
+        <div style="position: absolute; left: 10px; top: 10px; width:200px; height:100px;">Move: WASD</div>
+        <div style="position: absolute; left: 10px; top: 25px; width:200px; height:100px;">Jump: Spacebar</div>
+        <div style="position: absolute; left: 10px; top: 40px; width:200px; height:100px;">Fireball: E</div>
+        <div style="position: absolute; left: 10px; top: 55px; width:200px; height:100px;">Mouse Click: Place Kat</div>            
+        <div style="position: absolute; left: 10px; top: 70px; width:200px; height:100px;">Mute: M</div> 
+
+        </div>
+    </div>
+    
     <iframe src="sound/Ninja-Game-Intro.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
     <audio id="player" loop src="sound/Boss-Battle_Looping.mp3"></audio>
     <script type="text/javascript">
