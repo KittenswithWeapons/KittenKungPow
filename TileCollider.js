@@ -31,7 +31,9 @@ class TileCollider {
                  return;
              }
              //section below works
-
+             if (entity.type === 'projectile'){
+               levelObject.removeEntity(entity);
+             }
              if (entity.vel.x > 0) {
                if (entity.pos.x + entity.size.x  > match.x1) {
                      if (entity.vel.y > 100 || entity.vel.y < -100 ) { //or statement is experimental for turning off x clip during jump, first arguement of statement stays
