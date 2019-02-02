@@ -176,6 +176,9 @@
             enterButton.on('click', function(e) {
                 e.preventDefault();
                 welcomeSection.addClass('content-hidden').fadeOut();
+                
+                document.getElementById('audio').src="sound/250-milliseconds-of-silence.mp3";
+                document.getElementById('player').play();
             });
             
             
@@ -187,10 +190,22 @@
 
 </body>
 
-
 <body>
+
+    <iframe src="sound/Ninja-Game-Intro.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+    <audio id="player" loop src="sound/Boss-Battle_Looping.mp3"></audio>
+    <script type="text/javascript">
+        if (true) {
+
+        }
+        window.addEventListener("keydown", checkKeyPressed, false);
+        function checkKeyPressed(e) {
+            if (e.keyCode == "77") { // M key
+                document.getElementById('player').muted=!document.getElementById('player').muted
+            }}</script>
+
     <canvas id="gameWorld" tabindex="1" width="1280" height="720" style = "border-style: solid;
-  border-width: 1px;" ></canvas>
+        border-width: 1px;" ></canvas>
 
 
 
