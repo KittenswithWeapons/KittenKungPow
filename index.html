@@ -192,16 +192,19 @@
 
 
 <body>
-    <div id="wrapper">
-        <div style="position: absolute; left: 10px; top: 10px; width:250px; height:100px;">Move: WASD</div>
-        <div style="position: absolute; left: 10px; top: 25px; width:250px; height:100px;">Jump: Spacebar</div>
-        <div style="position: absolute; left: 10px; top: 40px; width:250px; height:100px;">Punch: F</div>
-        <div style="position: absolute; left: 10px; top: 55px; width:250px; height:100px;">Fireball: E</div>
-        <div style="position: absolute; left: 10px; top: 70px; width:250px; height:100px;">Mouse Click: Place Kat</div>            
-        <div style="position: absolute; left: 10px; top: 85px; width:250px; height:100px;">Mute: M</div> 
-
-        </div>
-    </div>
+	<style center > 
+		canvas {
+			padding-left: 0;
+			padding-right: 0;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+			width: 1280px;
+		}
+	</style>
+	
+	<button type="button" style="position: absolute; left: 10px; top: 10px; width:60px; height:25px;" 
+	onclick="alert('Move: WASD\nJump: Spacebar\nPunch: F\nFireball: E\nMouse Click: Place Kat\nMute: M')">Controls</button>
     
     <iframe src="sound/Ninja-Game-Intro.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
     <audio id="player" loop src="sound/Boss-Battle_Looping.mp3"></audio>
@@ -214,7 +217,7 @@
             if (e.keyCode == "77") { // M key
                 document.getElementById('player').muted=!document.getElementById('player').muted
             }}</script>
-
+	
     <canvas id="gameWorld" tabindex="1" width="1280" height="720" style = "border-style: solid;
         border-width: 1px;" ></canvas>
 

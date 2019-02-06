@@ -31,14 +31,16 @@ function setupKeyboard(entity) {
     
     input.addMapping('KeyE', keyState => { //Fireball
         if (keyState) {
-          if (!entity.Throwing) {
-          entity.Throwing = true;
-          entity.updateAnimation();
-          ThrowProjectile("fireball", entity);
-        } else {entity.updateAnimation(); console.log('double try');}
-        } else {
-          entity.Throwing = false;
-          entity.updateAnimation();
+            if (!entity.Throwing) {
+                entity.Throwing = true;
+                entity.updateAnimation();
+                
+                window.setTimeout(function() {
+                    ThrowProjectile("fireball", entity);
+                    entity.Throwing = false;
+                    entity.updateAnimation();}, 280) //waits for the animation to be done, then throws and updates values
+
+            } else {entity.updateAnimation(); console.log('double try');}
         }
     });
 
