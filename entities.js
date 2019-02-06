@@ -25,7 +25,7 @@ function createCharacter(){
             this.FrameLoop = true;
             this.FrameReverse = true;
 
-             if (Character.go.dir > 0) {
+             if (Character.go.dir > 0 && !Character.Throwing) {
                //runRight
                //console.log('right animate');
                this.startY = 88;
@@ -35,7 +35,7 @@ function createCharacter(){
                Character.heading = 1
                Character.flipped = false;
             }
-            else if (Character.go.dir < 0) {
+            else if (Character.go.dir < 0 && !Character.Throwing) {
               //runLeft
               //console.log('left animate');
               //this.startX = this.startX + this.FrameWidth;
@@ -46,7 +46,7 @@ function createCharacter(){
               Character.heading = -1
               Character.flipped = true;
             }
-            else if (Character.Jumping) {
+            else if (Character.Jumping && !Character.Throwing) {
               this.startY = 2*64 + 24;
               this.FrameLength = 8;
               this.FrameSpeed = 0.07;
@@ -66,7 +66,7 @@ function createCharacter(){
               this.FrameHeight = 64;
               this.FrameLength = 7;
               this.FrameSpeed = 0.04;
-              this.FrameLoop = true;   //input holding needs fixed and then this should be set to false
+              this.FrameLoop = false;   //input holding needs fixed and then this should be set to false
               this.FrameReverse = false;
 
             }
