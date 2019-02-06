@@ -1,0 +1,16 @@
+{
+  "name": "kittensmash",
+  "version": "1.0.0",
+  "main": "Main.js",
+  "dependencies": {
+    "serve": "^10.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+  	"start": "serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
