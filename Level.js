@@ -38,6 +38,12 @@ class Level {
 
           this.entityCollider.update(entity);
 
+          if (entity.pos.x < -50 || entity.pos.x > 1330) {
+            this.removeEntity(entity);
+            //console.log(entity.Ename + ': x - Died');
+          }
+          //add y death later
+
 
         });
     }

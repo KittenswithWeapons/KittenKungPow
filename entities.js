@@ -60,6 +60,7 @@ function createCharacter(name){
               this.FrameHeight = 64;
               this.FrameLength = 10;
               this.FrameSpeed = 0.05;
+              // this.FrameLoop = false; //should be false but right now makes char dissapear after animation #bug 
               //console.log('punch');
             }
             else if (Character.Throwing) { //not working
