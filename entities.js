@@ -1,7 +1,7 @@
-function createCharacter(){
-        const Character = new Entity('character');
-        Character.size.set(18, 29); //set to actuall pixel size of character, determines collision box. kat is 18,29
-        //Character.deltaTime = 0;
+function createCharacter(name){
+        const Character = new Entity(name);
+        Character.size.set(20, 30); //set to actuall pixel size of character, determines collision box. kat is 18,29
+        Character.origin = 'self';
         Character.addTrait(new Velocity());
         Character.addTrait(new Jump());
         Character.addTrait(new Go());
@@ -12,6 +12,8 @@ function createCharacter(){
         Character.Jumping = false;
         Character.Punching = false;
         Character.Throwing = false;
+
+        Character.damage = 0;
 
 
         Character.updateAnimation = function() {
@@ -87,7 +89,7 @@ function createCharacter(){
             if (Character.heading === -1) {
                 //Character.pos.x *= -1;
                 context.save();
-                context.translate(16,0);
+                context.translate(22,0);
                 context.scale(-1,1);
                 Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
                 context.restore();

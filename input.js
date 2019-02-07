@@ -15,34 +15,6 @@ function setupKeyboard(entity) {
             entity.updateAnimation();
         }
     });
-    
-    input.addMapping('KeyW', keyState => { //jump
-        //console.log(keyState);
-        if (keyState) {
-            entity.jump.start();
-            entity.Jumping = true;
-            entity.updateAnimation();
-        } else {
-            entity.Jumping = false;
-            entity.jump.cancel();
-            entity.updateAnimation();
-        }
-    });
-    
-    input.addMapping('KeyE', keyState => { //Fireball
-        if (keyState) {
-            if (!entity.Throwing) {
-                entity.Throwing = true;
-                entity.updateAnimation();
-                
-                window.setTimeout(function() {
-                    ThrowProjectile("fireball", entity);
-                    entity.Throwing = false;
-                    entity.updateAnimation();}, 280) //waits for the animation to be done, then throws and updates values
-
-            } else {entity.updateAnimation(); console.log('double try');}
-        }
-    });
 
     input.addMapping('KeyF', keyState => { //punch
         if (keyState) {
@@ -51,11 +23,25 @@ function setupKeyboard(entity) {
           entity.updateAnimation();
         } else {
           entity.Punching = false;
-            entity.punch.cancel();
+          entity.punch.cancel();
           entity.updateAnimation();
         }
     });
 
+    input.addMapping('KeyE', keyState => { //punch
+        if (keyState) {
+          if (!entity.Throwing) {
+          entity.Throwing = true;
+          entity.updateAnimation();
+          window.setTimeout(function() {
+            ThrowProjectile("fireball", entity);
+            entity.Throwing = false;
+            entity.updateAnimation();} , 280)
+
+
+          }
+        }
+    });
 
     input.addMapping('KeyD', keyState => { //go right
         if (keyState) {
