@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Kitten Smash</title>
+  <title>Kitten With Weapons</title>
+
   <script type="text/javascript" src="./assetmanager.js"></script>
   <script type="text/javascript" src="./Compositor.js"></script>
   <script type="text/javascript" src="./Controllers.js"></script>
@@ -37,6 +38,13 @@
 
 <body>
 
+  <style type="text/css">
+  body {
+      overflow:hidden;
+  }
+  </style>
+
+
   <style center>
     canvas {
       padding-left: 0;
@@ -44,18 +52,14 @@
       margin-left: auto;
       margin-right: auto;
       display: block;
-      width: 1280px;
+      width: 1150px;    /* can be adjusted for starting width/height, currently set to display on jakes laptop */
     }
   </style>
 
-  <button type="button" style="position: absolute; left: 10px; top: 10px; width:60px; height:25px;"
-    onclick="alert('Move: WASD\nJump: Spacebar\nPunch: F\nFireball: E\nMouse Click: Place Kat\nMute: M')">Controls</button>
+  <!-- <button type="button" style="position: absolute; left: 10px; top: 10px; width:60px; height:25px;"
+    onclick="alert('Move: WASD\nJump: Spacebar\nPunch: F\nFireball: E\nMouse Click: Place Kat\nMute: M')">Controls</button> -->
 
   <canvas id="gameWorld" tabindex="1" width="1280" height="720"></canvas>
-
-
-
-
 
 </body>
 
