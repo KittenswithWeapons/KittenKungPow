@@ -40,7 +40,10 @@
               console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
             }
             entity.pos.x = entityObject.pos.x - entity.size.x ;
-            entity.vel.x = 0;
+            //push back
+            entity.vel.x = entity.vel.x/2;
+            entityObject.vel.x = entity.vel.x/2;
+
             entity.vel.y = xCollideFallFactor;
             console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 1');
           }
@@ -53,7 +56,10 @@
                 console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
               }
               entity.pos.x = entityObject.pos.x + entityObject.size.x;
-              entity.vel.x = 0;
+              //push back
+              entity.vel.x = entity.vel.x/2;
+              entityObject.vel.x = entity.vel.x/2;
+              
               entity.vel.y = xCollideFallFactor;
               console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 2');
             }

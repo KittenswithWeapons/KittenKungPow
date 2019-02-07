@@ -1,25 +1,84 @@
 //scene manager
-function displayStartScene(context) {
+
+function displayStartScene(canvas, context) {
   //display the Start Screen
   var img = new Image();
   img.onload = function () {context.drawImage(img, 0, 0);}
   img.src = './SceneBackgrounds/KWW_StartScreen.jpg';
+  // next screen --------------------
+  screenNextHandler = function(e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) { // 13 is enter
+      displayCharSelectScene(canvas, context);
+      this.removeEventListener('keypress', screenNextHandler, false);
+    }
+  };
+  //move to the next scene
+  this.addEventListener('keypress', screenNextHandler, false);
+  // other animation or whatsnot for main splash page
+
+
 }
 
-function displayCharSelectScene(context) {
+function displayCharSelectScene(canvas, context) {
   //diplay the character selection screen
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
-  //stuff
+  var img = new Image();
+  img.onload = function () {context.drawImage(img, 0, 0);}
+  img.src = './SceneBackgrounds/Character_SelectScreen.jpg';
+  // next screen --------------------
+  charNextHandler = function(e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) { // 13 is enter
+      displayLevelSelectScene(canvas, context);
+      this.removeEventListener('keypress', charNextHandler, false);
+    }
+  };
+  //move to the next scene
+  this.addEventListener('keypress', charNextHandler, false);
+  // character selection -------------------------------------
+  
+
+
+
 }
 
-function displayLevelSelectScene(context) {
+
+
+
+
+
+function displayLevelSelectScene(canvas, context) {
   //display the level selection screen
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
-  //stuff
+  var img = new Image();
+  img.onload = function () {context.drawImage(img, 0, 0);}
+  img.src = './SceneBackgrounds/Level_SelectScreen.jpg';
+  // next screen --------------------
+  screenNextHandler = function(e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) { // 13 is enter
+      displayFightScene(canvas, context);
+      this.removeEventListener('keypress', screenNextHandler, false);
+    }
+  };
+  //move to the next scene
+  this.addEventListener('keypress', screenNextHandler, false);
+  // level selection -----------------
+
+
+
+
+
+
+
 }
 
-function displayMenuScene(context) {
-  //display the menu
+
+
+
+function displayMenuScene(canvas, context) {
+  //display the menu, optional
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   //stuff
 }
@@ -37,8 +96,19 @@ function Pause(context) {
   //img.remove();
 }
 
+
+
+
 function displayFightScene(canvas, context, levelSelection, characterSelection) {
     context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
+
+    canvas.removeEventListener('keypress', function (e) {
+      var key = e.which || e.keyCode;
+      if (key === 13) { // 13 is enter
+        console.log('enter');
+      }
+    });
+
     Promise.all([
       createCharacter('character'),
       createCharacter('enemy'),
