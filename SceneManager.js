@@ -30,6 +30,7 @@ function displayCharSelectScene(canvas, context) {
   charNextHandler = function(e) {
     var key = e.which || e.keyCode;
     if (key === 13) { // 13 is enter
+      console.log('characters selected: ' + Cselected);
       displayLevelSelectScene(canvas, context);
       this.removeEventListener('keypress', charNextHandler, false);
     }
@@ -37,7 +38,9 @@ function displayCharSelectScene(canvas, context) {
   //move to the next scene
   this.addEventListener('keypress', charNextHandler, false);
   // character selection -------------------------------------
-  
+
+  Cselected = selectCharacters(canvas, context);
+
 
 
 
@@ -66,7 +69,7 @@ function displayLevelSelectScene(canvas, context) {
   this.addEventListener('keypress', screenNextHandler, false);
   // level selection -----------------
 
-
+  Lselected = selectLevel(canvas, context);
 
 
 
