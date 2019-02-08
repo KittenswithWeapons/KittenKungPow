@@ -4,7 +4,9 @@
 * load all assets here
 */
 const deltaTime = 1/60; //FPS timer --- 1/60 is 60fps
+const killzone = 200; // Max distance from the edge of the screen that will trigger death
 var levelObject;
+
 
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed

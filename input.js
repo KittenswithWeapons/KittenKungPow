@@ -28,7 +28,7 @@ function setupKeyboard(entity) {
         }
     });
 
-    input.addMapping('KeyE', keyState => { //punch
+    input.addMapping('KeyE', keyState => { //Fireball 
         if (keyState) {
           if (!entity.Throwing) {
           entity.Throwing = true;

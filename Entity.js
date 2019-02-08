@@ -1,6 +1,6 @@
 // import {Vec2} from './math.js';
 // import {controllerUpdate} from './Controllers.js';
-
+// const killzone = 200;
 class Trait{
 	constructor(name){
 		this.NAME = name;
@@ -30,6 +30,16 @@ class Entity {
     }
 
     update(deltaTime) {
+
+		if (this.inKillzone()) {
+			if (this.type === 'projectile') {
+				levelObject.removeEntity(this);
+			} else {
+				this.vel.set(0, 0);
+				this.pos.set(400, 280);
+				// this.lives--;
+			}
+		} else {
 			//console.log(this.Ename);
 			if (this.Ename === 'character') {
 				controllerUpdate(this, 0); //updating controller for character 1
@@ -38,9 +48,18 @@ class Entity {
 				controllerUpdate(this, 1); //updating controller for enemy
 			}
 
-    	this.traits.forEach(trait => {
+    		this.traits.forEach(trait => {
 				//console.log(trait);
-    		trait.update(this, deltaTime);
-    	});
-    }
+    			trait.update(this, deltaTime);
+			});
+		}
+	}
+	
+	inKillzone() {
+		if (this.pos.x < -killzone || this.pos.x > document.getElementById('gameWorld').clientWidth + killzone
+			|| this.pos.y < -killzone || this.pos.y > document.getElementById('gameWorld').clientHeight + killzone) {
+			return true;
+		}
+		return false;
+	}
 }
