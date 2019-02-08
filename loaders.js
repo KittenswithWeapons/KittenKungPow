@@ -30,20 +30,25 @@ function createTiles(level, backgrounds) {
 // export
 function loadLevel(name) {
     return Promise.all([
-        fetch(`https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/levels/${name}.json`)
+        fetch(`./levels/${name}.json`)
         .then(r => r.json()),
+
+        loadObjectSprites(),
 
         loadBackgroundSprites(name),
     ])
-    .then(([levelSpec, backgroundSprites]) => {
+    .then(([levelSpec, objectSprites, backgroundSprites]) => {
         const level = new Level(name);
 
         createTiles(level, levelSpec.backgrounds);
-        const backgroundLayer = createBackgroundLayer(level, backgroundSprites);
 
+        const backgroundLayer = createBackgroundLayer(level, backgroundSprites);   //background layer
         level.comp.layers.push(backgroundLayer);
 
-        const spriteLayer = createSpriteLayer(level.entities);
+        const objectLayer = createObjectLayer(level, objectSprites);  //Level object layer
+        level.comp.layers.push(objectLayer);
+
+        const spriteLayer = createSpriteLayer(level.entities);    //entity layer
         level.comp.layers.push(spriteLayer);
 
         return level;

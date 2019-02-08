@@ -119,9 +119,9 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
   ])
   .then(([Character, Enemy, level]) => {
       levelObject = level;
-      Character.pos.set(400, 280); //sets the character position
+      Character.pos.set(400, 200); //sets the character position
 
-      Enemy.pos.set(800, 280); Enemy.heading = -1; //sets enemy pos and heading
+      Enemy.pos.set(900, 280); Enemy.heading = -1; //sets enemy pos and heading
 
       level.comp.layers.push(createCollisionLayer(level));
 
