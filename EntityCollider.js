@@ -32,28 +32,36 @@
 
 
         if (entity.vel.x > 0) {
-          if (entity.pos.x + entity.size.x >= entityObject.pos.x && entity.pos.x + entity.size.x <= entityObject.pos.x + entityObject.size.x/2/3) {
+          if (entity.pos.x + entity.size.x >= entityObject.pos.x && entity.pos.x + entity.size.x <= entityObject.pos.x + entityObject.size.x/2) { // /3
             if (entity.type === 'projectile') {
               console.log('projectile hit');
               levelObject.removeEntity(entity);
               entityObject.damage += entity.damageValue;
               console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
+              return;
             }
             entity.pos.x = entityObject.pos.x - entity.size.x ;
-            entity.vel.x = 0;
+            //push back
+            entity.vel.x = entity.vel.x/2;
+            entityObject.vel.x = entity.vel.x/2;
+
             entity.vel.y = xCollideFallFactor;
             console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 1');
           }
         } else if (entity.vel.x < 0) {
-            if (entity.pos.x >= entityObject.pos.x + entityObject.size.x/2/3 && entity.pos.x <= entityObject.pos.x + entityObject.size.x ) { //division divides the char in hald and then segments further to catch between frames
+            if (entity.pos.x >= entityObject.pos.x + entityObject.size.x/2 && entity.pos.x <= entityObject.pos.x + entityObject.size.x ) { //division divides the char in hald and then segments further to catch between frames
               if (entity.type === 'projectile') {
                 console.log('projectile hit');
                 levelObject.removeEntity(entity);
                 entityObject.damage += entity.damageValue;
                 console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
+                return;
               }
               entity.pos.x = entityObject.pos.x + entityObject.size.x;
-              entity.vel.x = 0;
+              //push back
+              entity.vel.x = entity.vel.x/2;
+              entityObject.vel.x = entity.vel.x/2;
+
               entity.vel.y = xCollideFallFactor;
               console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 2');
             }
