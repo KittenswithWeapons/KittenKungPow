@@ -9,6 +9,13 @@ var levelObject;
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed
 ASSET_MANAGER.queueDownload("./characters/Karate.png");
+ASSET_MANAGER.queueDownload("./characters/Archer.png");
+ASSET_MANAGER.queueDownload("./characters/Wizard.png");
+ASSET_MANAGER.queueDownload("./characters/Rogue.png");
+ASSET_MANAGER.queueDownload("./characters/Warrior.png");
+ASSET_MANAGER.queueDownload("./characters/Soldier.png");
+ASSET_MANAGER.queueDownload("./characters/Vagrant.png");
+ASSET_MANAGER.queueDownload("./characters/FatCat.png");
 ASSET_MANAGER.queueDownload("./Enviroment/PinkCitytiles.png");
 ASSET_MANAGER.queueDownload("./Enviroment/PinkCity.gif");
 ASSET_MANAGER.queueDownload("./Enviroment/woodenBarrel.png");

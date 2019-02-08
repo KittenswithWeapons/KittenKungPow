@@ -1,6 +1,11 @@
+var characters = ["./characters/Karate.png", "./characters/Archer.png", "./characters/Wizard.png",
+"./characters/Rogue.png", "./characters/Warrior.png", "./characters/Soldier.png", "./characters/Vagrant.png",
+"./characters/FatCat.png"];
+
 function createCharacter(name){
         const Character = new Entity(name);
-        Character.size.set(20, 30); //set to actuall pixel size of character, determines collision box. kat is 18,29
+        Character.frameSize = 128;
+        Character.size.set(40, 65); //set to actuall pixel size of character, determines collision box. kat is 18,29
         Character.origin = 'self';
         Character.addTrait(new Velocity());
         Character.addTrait(new Jump());
@@ -12,16 +17,15 @@ function createCharacter(name){
         Character.Jumping = false;
         Character.Punching = false;
         Character.Throwing = false;
-
         Character.damage = 0;
-
+        Character.choice = 0;
 
         Character.updateAnimation = function() {
             //idle values
-            this.startX = 19;
-            this.startY = 24;
-            this.FrameWidth = 64;
-            this.FrameHeight = 32;
+            this.startX = 19 * 2;
+            this.startY = (24 * 2) - 6;
+            this.FrameWidth = Character.frameSize;
+            this.FrameHeight = Character.frameSize/2;
             this.FrameSpeed = 0.1;
             this.FrameLength = 4;
             this.FrameLoop = true;
@@ -30,7 +34,7 @@ function createCharacter(name){
              if (Character.go.dir > 0 && !Character.Throwing) {
                //runRight
                //console.log('right animate');
-               this.startY = 88;
+               this.startY = (88 * 2) - 6;
                this.FrameLength = 8;
                this.FrameSpeed = 0.07;
                this.FrameReverse = false;
@@ -41,7 +45,7 @@ function createCharacter(name){
               //runLeft
               //console.log('left animate');
               //this.startX = this.startX + this.FrameWidth;
-              this.startY = 88;
+              this.startY = (88 * 2) - 6;
               //this.FrameWidth = -this.FrameWidth;
               this.FrameLength = 8;
               this.FrameSpeed = 0.07;
@@ -49,23 +53,23 @@ function createCharacter(name){
               Character.flipped = true;
             }
             else if (Character.Jumping && !Character.Throwing) {
-              this.startY = 2*64 + 24;
+              this.startY = (2*Character.frameSize + 24 * 2) - 6;
               this.FrameLength = 8;
               this.FrameSpeed = 0.07;
               //console.log('jump ani');
             }
             else if (Character.Punching) { //not working
-              this.startY = 9*64 + 24;
-              this.FrameWidth = 64;
-              this.FrameHeight = 64;
+              this.startY = (9*Character.frameSize + 24 * 2) - 6;
+              this.FrameWidth = Character.frameSize;
+              this.FrameHeight = Character.frameSize;
               this.FrameLength = 10;
               this.FrameSpeed = 0.05;
               //console.log('punch');
             }
             else if (Character.Throwing) { //not working
-              this.startY = 5*64 + 24;
-              this.FrameWidth = 64;
-              this.FrameHeight = 64;
+              this.startY = (5*Character.frameSize + 24 * 2) - 6;
+              this.FrameWidth = Character.frameSize;
+              this.FrameHeight = Character.frameSize;
               this.FrameLength = 7;
               this.FrameSpeed = 0.04;
               this.FrameLoop = false;   //input holding needs fixed and then this should be set to false
@@ -73,9 +77,8 @@ function createCharacter(name){
 
             }
 
-
             Character.animation = new Animation(ASSET_MANAGER.getAsset(
-                "./characters/Karate.png"),
+                characters[Character.choice]),
                 this.startX, this.startY, this.FrameWidth, this.FrameHeight ,
                  this.FrameSpeed, this.FrameLength,
                  this.FrameLoop, this.FrameReverse);
@@ -89,7 +92,7 @@ function createCharacter(name){
             if (Character.heading === -1) {
                 //Character.pos.x *= -1;
                 context.save();
-                context.translate(22,0);
+                context.translate(22 * 2,0);
                 context.scale(-1,1);
                 Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
                 context.restore();
