@@ -7,14 +7,17 @@ class Level {
         this.tiles = new Matrix();
 
         this.tileCollider = new TileCollider(this.tiles);
+        this.entityCollider = new EntityCollider(this.entities);   //added
     }
 
     addEntity(entity) {
       this.entities.add(entity);
+      this.entityCollider.addEntityCollider(entity);
     }
 
     removeEntity(entity) {
       this.entities.delete(entity);
+      this.entityCollider.removeEntityCollider(entity);
     }
 
     update(deltaTime) {
@@ -32,6 +35,8 @@ class Level {
       			} else {
               entity.vel.y += this.gravity * deltaTime;
           }
+
+          this.entityCollider.update(entity);
 
 
         });

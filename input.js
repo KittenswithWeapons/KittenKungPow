@@ -15,34 +15,6 @@ function setupKeyboard(entity) {
             entity.updateAnimation();
         }
     });
-    
-    input.addMapping('KeyW', keyState => { //jump
-        //console.log(keyState);
-        if (keyState) {
-            entity.jump.start();
-            entity.Jumping = true;
-            entity.updateAnimation();
-        } else {
-            entity.Jumping = false;
-            entity.jump.cancel();
-            entity.updateAnimation();
-        }
-    });
-    
-    input.addMapping('KeyE', keyState => { //Fireball
-        if (keyState) {
-            if (!entity.Throwing) {
-                entity.Throwing = true;
-                entity.updateAnimation();
-                
-                window.setTimeout(function() {
-                    ThrowProjectile("fireball", entity);
-                    entity.Throwing = false;
-                    entity.updateAnimation();}, 280) //waits for the animation to be done, then throws and updates values
-
-            } else {entity.updateAnimation(); console.log('double try');}
-        }
-    });
 
     input.addMapping('KeyF', keyState => { //punch
         if (keyState) {
@@ -51,11 +23,25 @@ function setupKeyboard(entity) {
           entity.updateAnimation();
         } else {
           entity.Punching = false;
-            entity.punch.cancel();
+          entity.punch.cancel();
           entity.updateAnimation();
         }
     });
 
+    input.addMapping('KeyE', keyState => { //punch
+        if (keyState) {
+          if (!entity.Throwing) {
+          entity.Throwing = true;
+          entity.updateAnimation();
+          window.setTimeout(function() {
+            ThrowProjectile("fireball", entity);
+            entity.Throwing = false;
+            entity.updateAnimation();} , 280)
+
+
+          }
+        }
+    });
 
     input.addMapping('KeyD', keyState => { //go right
         if (keyState) {
@@ -90,6 +76,16 @@ function setupKeyboard(entity) {
     input.addMapping('KeyC', keyState => { //Enable Computer Control
 
     });
+
+    input.addMapping('Digit1', keyState => {if (keyState) entity.choice = 0; entity.updateAnimation();});
+    input.addMapping('Digit2', keyState => {if (keyState) entity.choice = 1; entity.updateAnimation();});
+    input.addMapping('Digit3', keyState => {if (keyState) entity.choice = 2; entity.updateAnimation();});
+    input.addMapping('Digit4', keyState => {if (keyState) entity.choice = 3; entity.updateAnimation();});
+    input.addMapping('Digit5', keyState => {if (keyState) entity.choice = 4; entity.updateAnimation();});
+    input.addMapping('Digit6', keyState => {if (keyState) entity.choice = 5; entity.updateAnimation();});
+    input.addMapping('Digit7', keyState => {if (keyState) entity.choice = 6; entity.updateAnimation();});
+    input.addMapping('Digit8', keyState => {if (keyState) entity.choice = 7; entity.updateAnimation();});
+
 
     return input;
 
