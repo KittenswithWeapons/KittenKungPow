@@ -4,8 +4,8 @@ class Jump extends Trait {
 	constructor() {
 		super('jump');
 
-		this.duration = 0.3;
-		this.velocity = 170;
+		this.duration = 0.1;
+		this.velocity = 400;
 		this.engageTime = 0;
 		this.jumpnumber = 0
 	}
