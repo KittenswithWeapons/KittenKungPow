@@ -1,6 +1,4 @@
-// import {Vec2} from './math.js';
-// import {controllerUpdate} from './Controllers.js';
-// const killzone = 200;
+
 class Trait{
 	constructor(name){
 		this.NAME = name;
@@ -36,7 +34,7 @@ class Entity {
 				levelObject.removeEntity(this);
 			} else {
 				this.vel.set(0, 0);
-				this.pos.set(400, 280);
+				this.pos.set(document.getElementById('gameWorld').clientWidth / 2, 80);
 				// this.lives--;
 			}
 		} else {
