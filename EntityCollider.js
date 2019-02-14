@@ -45,7 +45,7 @@
             entity.vel.x = entity.vel.x/2;
             entityObject.vel.x = entity.vel.x/2;
 
-            entity.vel.y = xCollideFallFactor;
+            //entity.vel.y = xCollideFallFactor;
             console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 1');
           }
         } else if (entity.vel.x < 0) {
@@ -62,7 +62,7 @@
               entity.vel.x = entity.vel.x/2;
               entityObject.vel.x = entity.vel.x/2;
 
-              entity.vel.y = xCollideFallFactor;
+              //entity.vel.y = xCollideFallFactor;
               console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 2');
             }
 

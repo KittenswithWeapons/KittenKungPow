@@ -34,9 +34,9 @@ class Level {
       				entity.vel.y = 0;
       			} else {
               entity.vel.y += this.gravity * deltaTime;
-          }
+            }
 
-          this.entityCollider.update(entity);
+            this.entityCollider.update(entity);
 
         });
     }

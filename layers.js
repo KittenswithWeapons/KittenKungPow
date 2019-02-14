@@ -1,4 +1,3 @@
-// export
 function createBackgroundLayer(level, sprites) {
     const buffer = document.createElement('canvas');
     buffer.width = 1280;
@@ -8,6 +7,7 @@ function createBackgroundLayer(level, sprites) {
 
 
     level.tiles.forEach((tile, x, y) => {
+        if (tile.name === 'ground' || tile.name === 'platform')
         sprites.drawTile(tile.name, context, x, y);
     });
 
@@ -18,17 +18,33 @@ function createBackgroundLayer(level, sprites) {
     };
 }
 
+function createObjectLayer(level, sprites) {
+    //debugger;
+    const oBuffer = document.createElement('canvas');
+    oBuffer.width = 1280;
+    oBuffer.height = 720;
+
+    const context = oBuffer.getContext('2d');
+
+    level.tiles.forEach((tile, x, y) => {
+        if (tile.name !== 'ground' && tile.name !== 'platform') {
+          sprites.drawTile(tile.name, context, x, y);
+        }
+    });
+
+    return function drawObjectLayer(context) {
+        context.drawImage(oBuffer, 0, 0);
+    };
+}
+
 function drawBackgroundImage(name, context) {
     var img = new Image();
     img.onload = function () {
     context.drawImage(img, 0, 0);
     }
-    //img.src = '/Enviroment/' + name + '.gif';
-    //console.log(img.src);
-    img.src = 'https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/Enviroment/PinkCity.gif';
+    img.src = `./Enviroment/${name}.gif`;
 }
 
-// export
 function createSpriteLayer(entities) {
     return function drawSpriteLayer(context) {
         entities.forEach(entity => {
@@ -37,7 +53,6 @@ function createSpriteLayer(entities) {
     };
 }
 
-// export
 function createCollisionLayer(level) {
     const resolvedTiles = [];
 

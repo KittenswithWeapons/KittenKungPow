@@ -36,9 +36,9 @@ class TileCollider {
              }
              if (entity.vel.x > 0) {
                if (entity.pos.x + entity.size.x  > match.x1) {
-                     if (entity.vel.y > 100 || entity.vel.y < -100 ) { //or statement is experimental for turning off x clip during jump, first arguement of statement stays
+                     if (entity.vel.y !== 0 && match.tile.name === 'platform') { //or statement is experimental for turning off x clip during jump, first arguement of statement stays
                        //do nothing
-                       //console.log('falling collision      vel: ' + entity.vel.y);
+                       //console.log('passthru');
                      } else {
                        entity.pos.x = match.x1 - entity.size.x;
                        entity.vel.x = 0;
@@ -48,9 +48,9 @@ class TileCollider {
                  }
              } else if (entity.vel.x < 0) {
                  if (entity.pos.x < match.x2) {
-                     if (entity.vel.y > 100 || entity.vel.y < -100 ) { //or statement is experimental for turning off x clip during jump, first arguement of statement stays
+                     if (entity.vel.y !== 0 && match.tile.name === 'platform') { //or statement is experimental for turning off x clip during jump, first arguement of statement stays
                        //do nothing
-                       //console.log('falling collision      vel: ' + entity.vel.y);
+                       //console.log('passthru');
                      } else {
                        entity.pos.x = match.x2;
                        entity.vel.x = 0;
