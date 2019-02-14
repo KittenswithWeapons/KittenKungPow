@@ -25,5 +25,3 @@ class Jump extends Trait {
             }
 	}
 }
-
-//tuning to be done

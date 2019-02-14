@@ -3,7 +3,7 @@ class Throw extends Trait {
         super('throw');
 
         this.dir = 0;
-        this.speed = 9000;  //should be about 10,000ish
+        this.speed = 15000;  //should be about 10,000ish
     }
 
     update(entity, deltaTime) {

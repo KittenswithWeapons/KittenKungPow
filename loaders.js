@@ -25,12 +25,13 @@ function createTiles(level, backgrounds) {
             }
         });
     });
-}
+} 
 
 // export
 function loadLevel(name) {
+
     return Promise.all([
-        fetch(`https://raw.githubusercontent.com/KittenswithWeapons/KittenKungPow/master/levels/${name}.json`)
+        fetch(`./levels/${name}.json`)
         .then(r => r.json()),
 
         loadBackgroundSprites(name),
