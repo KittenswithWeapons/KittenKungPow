@@ -4,7 +4,7 @@ function createProjectile(name, originEntity) {
     Projectile.type = 'projectile';
     Projectile.size.set(25, 30);         //size of the projectile.
 
-    Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 15 + Projectile.size.y/2);   //position of the Projectile starts from where the origin character is, may need to offset
+    Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);   //position of the Projectile starts from where the origin character is, may need to offset
     Projectile.addTrait(new Velocity());
     Projectile.addTrait(new Throw());
 
