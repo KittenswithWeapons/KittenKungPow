@@ -6,17 +6,17 @@ function setupKeyboard(entity) {
     input.addMapping('Space', keyState => { //jump
         //console.log(keyState);
         if (keyState) {
-            entity.jump.start();
             entity.Jumping = true;
+            entity.grounded = false;
+            entity.jump.start();
             entity.updateAnimation();
         } else {
             entity.Jumping = false;
-            entity.jump.cancel();
             entity.updateAnimation();
         }
     });
 
-    input.addMapping('KeyF', keyState => { //punch
+    input.addMapping('ArrowLeft', keyState => { //punch
         if (keyState) {
           entity.punch.start();
           entity.Punching = true;
@@ -28,39 +28,43 @@ function setupKeyboard(entity) {
         }
     });
 
-    input.addMapping('KeyE', keyState => { //Fireball 
+    input.addMapping('ArrowUp', keyState => { //Fireball 
         if (keyState) {
           if (!entity.Throwing) {
-          entity.Throwing = true;
-          entity.updateAnimation();
-          window.setTimeout(function() {
+            entity.Throwing = true;
+            entity.updateAnimation();
+            window.setTimeout(function() {
             ThrowProjectile("fireball", entity);
             entity.Throwing = false;
             entity.updateAnimation();} , 280)
-
-
           }
         }
     });
 
+    var goRight = false;
+    var goLeft = false;
     input.addMapping('KeyD', keyState => { //go right
         if (keyState) {
-          entity.go.dir = keyState;
+          goRight = true;
+          entity.go.dir += 1;
           entity.updateAnimation();
         } else {
-            entity.go.dir = 0;
-            entity.updateAnimation();
+          entity.go.dir -= 1;
+          goRight = false;
+          entity.updateAnimation();
         }
 
     });
 
     input.addMapping('KeyA', keyState => { //go left
         if (keyState) {
-          entity.go.dir = -keyState;
+          goLeft = true;
+          entity.go.dir -= 1;
           entity.updateAnimation();
         } else {
-            entity.go.dir = 0;
-            entity.updateAnimation();
+          entity.go.dir += 1;
+          goLeft = false;
+          entity.updateAnimation();
         }
     });
 
