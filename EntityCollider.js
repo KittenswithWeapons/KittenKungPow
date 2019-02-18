@@ -37,7 +37,7 @@
               console.log('projectile hit');
               levelObject.removeEntity(entity);
               entityObject.damage += entity.damageValue;
-              entityObject.handle('pain');
+              entityObject.handle('painLeft');
               console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
               return;
             }
@@ -55,6 +55,7 @@
                 console.log('projectile hit');
                 levelObject.removeEntity(entity);
                 entityObject.damage += entity.damageValue;
+                entityObject.handle('painRight');
                 console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
                 return;
               }

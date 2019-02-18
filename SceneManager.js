@@ -16,9 +16,9 @@ function displayStartScene(canvas, context) {
   //move to the next scene
   this.addEventListener('keypress', screenNextHandler, false);
   // other animation or whatsnot for main splash page
-
-
 }
+
+
 
 function displayCharSelectScene(canvas, context) {
   //diplay the character selection screen
@@ -40,14 +40,7 @@ function displayCharSelectScene(canvas, context) {
   // character selection -------------------------------------
 
   Cselected = selectCharacters(canvas, context);
-
-
-
-
 }
-
-
-
 
 
 
@@ -70,13 +63,7 @@ function displayLevelSelectScene(canvas, context) {
   // level selection -----------------
 
   Lselected = selectLevel(canvas, context);
-
-
-
-
-
 }
-
 
 
 
@@ -85,6 +72,8 @@ function displayMenuScene(canvas, context) {
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   //stuff
 }
+
+
 
 function Pause(context) {
   //pause
@@ -101,7 +90,6 @@ function Pause(context) {
 
 
 
-
 function displayFightScene(canvas, context, levelSelection, characterSelection) {
     context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
 
@@ -114,7 +102,7 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
     Promise.all([
       createCharacter('character'),
-      createCharacter('enemy'),
+      createCharacter('enemy', 4),
       loadLevel('PinkCity'),
   ])
   .then(([Character, Enemy, level]) => {
