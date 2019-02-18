@@ -43,9 +43,11 @@ function setupKeyboard(entity) {
 
     input.addMapping('KeyD', keyState => { //go right
         if (keyState) {
+          entity.Walking = true;
           entity.go.dir += 1;
           entity.updateAnimation();
         } else {
+          entity.Walking = false;
           entity.go.dir -= 1;
           entity.updateAnimation();
         }
@@ -54,9 +56,11 @@ function setupKeyboard(entity) {
 
     input.addMapping('KeyA', keyState => { //go left
         if (keyState) {
+          entity.Walking = true;
           entity.go.dir -= 1;
           entity.updateAnimation();
         } else {
+          entity.Walking = false;
           entity.go.dir += 1;
           entity.updateAnimation();
         }

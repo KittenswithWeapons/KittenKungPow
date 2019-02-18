@@ -14,6 +14,7 @@ function createCharacter(name, choice) {
     Character.addTrait(new Punch());
     Character.heading = 1;
     Character.Jumping = false;
+    Character.Walking = false;
     Character.Punching = false;
     Character.Kicking = false;
     Character.Throwing = false;
@@ -51,20 +52,26 @@ function createCharacter(name, choice) {
     * @param direction is the direction to be knocked back.
     */
     Character.knockback = function(direction) {
-        Character.pain = true;
-        Character.jump.start(Character.damage * 0.9);
+        if(!Character.pain) {
+            Character.pain = true;
+            Character.jump.start(Character.damage * 0.9);
 
-        var dir = 1.0;
-        if(direction == 'painRight') dir = -1;
+            var dir = 1.0;
+            if(direction == 'painRight') dir = -1;
 
-        Character.go.dir += dir * (Character.damage / 250);
-        Character.updateAnimation();
-        
-        window.setTimeout (function() { 
-            Character.pain = false;
-            Character.go.dir -= dir * (Character.damage / 250);
-            Character.updateAnimation(); 
-        }, Character.damage * 2 * 0.85);
+            Character.go.dir += dir * (Character.damage / 250);
+            Character.updateAnimation();
+            
+            window.setTimeout (function() { 
+                Character.pain = false;
+                if(!Character.Walking) {
+                    Character.go.dir = 0;
+                } else {
+                    Character.go.dir -= dir * (Character.damage / 250);
+                }
+                Character.updateAnimation(); 
+            }, Character.damage * 2 * 0.85);
+        }
     }
 
     Character.updateAnimation = function () {
