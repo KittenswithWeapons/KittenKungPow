@@ -10,9 +10,10 @@ class Jump extends Trait {
 		this.jumpnumber = 0
 	}
 
-	start() {
-			this.jumpNumber++;
-			this.engageTime = this.duration;
+	start(velocity) {
+		this.velocity = velocity || 400;
+		this.jumpNumber++;
+		this.engageTime = this.duration;
 	}
 
 	cancel() {

@@ -2,7 +2,7 @@ var characters = ["./characters/Karate.png", "./characters/Archer.png", "./chara
     "./characters/Rogue.png", "./characters/Warrior.png", "./characters/Soldier.png", "./characters/Vagrant.png",
     "./characters/FatCat.png"];
 
-function createCharacter(name) {
+function createCharacter(name, choice) {
     const Character = new Entity(name);
     Character.frameSize = 128;
     Character.size.set(28, 58); //set to actuall pixel size of character, determines collision box. kat is 18,29
@@ -13,38 +13,58 @@ function createCharacter(name) {
     Character.addTrait(new PassDown());
     Character.addTrait(new Punch());
     Character.heading = 1;
-    Character.flipped = false;
     Character.Jumping = false;
     Character.Punching = false;
+    Character.Kicking = false;
     Character.Throwing = false;
     Character.pain = false;
     Character.damage = 0;
-    Character.choice = 0;
+    Character.choice = choice || 0;
 
     /*
     * Entity has an empty method called handle that can be overridden by child types.
     * Usage: Tile Collider knows what an entity is but not what a character is. It 
     * can call entity.handle but not Character.updateAnimation. Any entity can override
     * handle for any purpose.
+    * @param item is a string indicating intent
     * @author Logan
     */
-    Character.handle = function (item) {
-        switch(item) {
+    Character.handle = function (intent) {
+        switch(intent) {
             case 'land':
                 if(Character.Jumping) {
                     Character.Jumping = false;
                     Character.updateAnimation();
                 }
                 break;
-            case 'pain':
-                Character.pain = true;
-                Character.updateAnimation();
-                window.setTimeout (function() { 
-                    Character.pain = false; 
-                    Character.updateAnimation(); 
-                }, 120);
+            case 'painLeft':
+                Character.knockback(intent);
+                break;
+            case 'painRight':
+                Character.knockback(intent);
                 break;
         }
+    }
+
+    /*
+    * hurt runs the pain animation and knocks back the character.
+    * @param direction is the direction to be knocked back.
+    */
+    Character.knockback = function(direction) {
+        Character.pain = true;
+        Character.jump.start(Character.damage * 0.9);
+
+        var dir = 1.0;
+        if(direction == 'painRight') dir = -1;
+
+        Character.go.dir += dir * (Character.damage / 250);
+        Character.updateAnimation();
+        
+        window.setTimeout (function() { 
+            Character.pain = false;
+            Character.go.dir -= dir * (Character.damage / 250);
+            Character.updateAnimation(); 
+        }, Character.damage * 2 * 0.85);
     }
 
     Character.updateAnimation = function () {
@@ -65,18 +85,20 @@ function createCharacter(name) {
             this.FrameSpeed = 1;
         }
         else if (Character.go.dir > 0 && !Character.Throwing) { //go right
-            this.startY = 172; //88*2-6
-            this.FrameLength = 8;
-            this.FrameSpeed = 0.07;
-            Character.heading = 1
-            Character.flipped = false;
+            if(!Character.pain) {
+                this.startY = 172; //88*2-6
+                this.FrameLength = 8;
+                this.FrameSpeed = 0.07;
+                Character.heading = 1;
+            } else {Character.heading = -1;}
         }
         else if (Character.go.dir < 0 && !Character.Throwing) { //go left
-            this.startY = 172; //88*2-6
-            this.FrameLength = 8;
-            this.FrameSpeed = 0.07;
-            Character.heading = -1
-            Character.flipped = true;
+            if(!Character.pain) {
+                this.startY = 172; //88*2-6
+                this.FrameLength = 8;
+                this.FrameSpeed = 0.07;
+                Character.heading = -1
+            } else {Character.heading = 1;}
         }
         else if (Character.Throwing) { //not working
             this.startY = (5 * Character.frameSize + 24 * 2) - 6;
@@ -87,15 +109,11 @@ function createCharacter(name) {
             this.FrameLoop = false;   //input holding needs fixed and then this should be set to false
             this.FrameReverse = false;
         }
-        else if (Character.pain) {
+        if (Character.pain) {
             this.FrameSpeed = 1;
             this.FrameLoop = true;
             this.FrameLength = 1;
         }
-
-        Character.punchAnimation = new Animation(ASSET_MANAGER.getAsset(
-            characters[Character.choice]), 36, (9 * Character.frameSize + 48) - 4, 
-            Character.frameSize, Character.frameSize, 0.05, 9, false, true);
 
         Character.animation = new Animation(ASSET_MANAGER.getAsset(
             characters[Character.choice]),
@@ -103,52 +121,53 @@ function createCharacter(name) {
             this.FrameSpeed, this.FrameLength,
             this.FrameLoop, this.FrameReverse);
         
-        Character.freezeAnimation = new Animation(ASSET_MANAGER.getAsset(
-            characters[Character.choice]),
-            this.startX, this.startY, this.FrameWidth, this.FrameHeight,
-            1, 1,
-            this.FrameLoop, this.FrameReverse);
-        
-        Character.painAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Damage.png"), 
-        0, 0, 18, 12, 1, 1, true, false);
-
-        //console.log(Character.pos.x, Character.pos.y);
-
     }
 
-    Character.draw = function (context) {
+    Character.punchAnimation = new Animation(ASSET_MANAGER.getAsset(
+        characters[Character.choice]), 36, (9 * Character.frameSize + 48) - 4, 
+        Character.frameSize, Character.frameSize, 0.05, 9, false, true);
 
+    Character.painAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Damage.png"), 
+        0, 0, 18, 12, 1, 1, true, false);
+
+    Character.draw = function (context) {
         if (Character.heading === -1) {
-            //Character.pos.x *= -1;
             context.save();
             context.translate(40, -5);
             context.scale(-1, 1);
-            if(Character.Punching) { 
+            if(!Character.Punching) { 
+                Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
+            } else { 
                 Character.punchAnimation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
                 if(Character.punchAnimation.isDone()) {
+                    Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
                     Character.Punching = false;
+                    Character.punchAnimation.elapsedTime = 0;
                 }
-            } else { 
-                Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y); 
+            }
+            if(Character.pain) {
+                Character.painAnimation.drawFrame(deltaTime, context, -this.pos.x+18, this.pos.y+22);
             }
             context.restore();
-
         }
+
         if (Character.heading === 1) {
             context.save();
             context.translate(-10, -5);
-            if(Character.Punching) { 
-                Character.punchAnimation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
-                if(Character.punchAnimation.isDone()) {
-                    Character.Punching = false;
-                }
-            } else {
+            if(!Character.Punching) {
                 Character.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
+            } else {
+                Character.punchAnimation.drawFrame(deltaTime, context, this.pos.x, this.pos.y+2);
+                if(Character.punchAnimation.isDone()) {
+                    Character.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
+                    Character.Punching = false;
+                    Character.punchAnimation.elapsedTime = 0;
+                }
+            }
+            if(Character.pain) {
+                Character.painAnimation.drawFrame(deltaTime, context, this.pos.x+18, this.pos.y+22);
             }
             context.restore();
-        }
-        if (Character.pain == true) {
-            Character.painAnimation.drawFrame(deltaTime, context, this.pos.x+4, this.pos.y+18);
         }
     }
 
