@@ -33,24 +33,7 @@ function displayCharSelectScene(canvas, context) {
 function displayLevelSelectScene(canvas, context) {
   //display the level selection screen
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
-
-  console.log('levelscene');
-
-  var img = new Image();
-  img.onload = function () {context.drawImage(img, 0, 0);}
-  img.src = './SceneBackgrounds/Level_SelectScreen.jpg';
-  // next screen --------------------
-  screenNextHandler = function(e) {
-    var key = e.which || e.keyCode;
-    if (key === 13) { // 13 is enter
-      displayFightScene(canvas, context);
-      this.removeEventListener('keypress', screenNextHandler, false);
-    }
-  };
-  //move to the next scene
-  this.addEventListener('keypress', screenNextHandler, false);
-  // level selection -----------------
-
+  // level selection----------------------------------------
   Lselected = selectLevel(canvas, context);
 }
 
@@ -140,6 +123,12 @@ function loadScene(name) {
   const scene = new Scene(name);
   const sceneBackgroundLayer = createSceneBackgroundLayer(scene);   //background layer
   scene.comp.layers.push(sceneBackgroundLayer);
+
+  if (name === 'Level_SelectBackground') { //load in level image previews to the display
+    const levelPreviewLayer = createLevelPreviewLayer(scene);   //background layer
+    scene.comp.layers.push(levelPreviewLayer);
+  }
+
   const spriteLayer = createSpriteLayer(scene.entities);    //entity layer
   scene.comp.layers.push(spriteLayer);
 

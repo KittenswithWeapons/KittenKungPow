@@ -77,6 +77,64 @@ function createSceneBackgroundLayer(scene) {
 
 
 
+// -----------------------------------------------level preview images layer
+function createLevelPreviewLayer(scene) {
+    const buffer = document.createElement('canvas');
+    buffer.width = 1280;
+    buffer.height = 720;
+
+    const context = buffer.getContext('2d');
+
+    //console.log('done');
+    return function drawLevelPreviewLayer(context) {
+        drawLevelPreviewImages(context);   ///set up for jpg backgrounds only
+        context.drawImage(buffer, 0, 0);
+    };
+}
+
+function drawLevelPreviewImages(context) {
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 100, 100); //position the level preview image
+    }
+    img.src = "./LevelPreviews/PinkCityPreview.PNG";
+
+    //add more images for previews
+}
+// ----------------------------------------------Level preview images layer done
+
+
+
+// -----------------------------------------------Character preview images layer
+function createCharPreviewLayer(scene) {
+    const buffer = document.createElement('canvas');
+    buffer.width = 1280;
+    buffer.height = 720;
+
+    const context = buffer.getContext('2d');
+
+    //console.log('done');
+    return function drawCharPreviewLayer(context) {
+        drawCharPreviewImages(context);   ///set up for jpg backgrounds only
+        context.drawImage(buffer, 0, 0);
+    };
+}
+
+function drawCharPreviewImages(context) {
+    previews = new Array('KarateCatPreview');
+    previews.forEach(cat => {
+      var img = new Image();
+      img.onload = function () {
+      context.drawImage(img, 300, 300); //position the Character preview image
+      }
+      img.src = `./CharacterPreviews/${cat}.png`;
+    });
+
+    //add more images for previews
+}
+// ----------------------------------------------Character preview images layer done
+
+
 
 
 

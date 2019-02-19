@@ -1,9 +1,44 @@
 function selectCharacters(canvas, context) {
   Promise.all([
     createCursor('cursor'),
-    loadScene('Character_SelectScreen'),
+
+    createCharacterPreview('karate', 0),
+    createCharacterPreview('archer', 1),
+    createCharacterPreview('wizard', 2),
+    createCharacterPreview('rogue', 3),
+    createCharacterPreview('warrior', 4),
+    createCharacterPreview('soldier', 5),
+    createCharacterPreview('vagrant', 6),
+    createCharacterPreview('fatCat', 7),
+
+    loadScene('Char_SelectBackground'),
 ])
-.then(([Cursor, Scene]) => {
+.then(([Cursor, KarateKat, Archer, Wizard, Rogue, Warrior, Soldier, Vagrant, FatCat, Scene]) => {
+    Scene.addEntity(KarateKat);
+    KarateKat.pos.set(275, 150);
+
+    Scene.addEntity(Archer);
+    Archer.pos.set(475, 150);
+
+    Scene.addEntity(Wizard);
+    Wizard.pos.set(675, 150);
+
+    Scene.addEntity(Rogue);
+    Rogue.pos.set(875, 150);
+
+    Scene.addEntity(Warrior);
+    Warrior.pos.set(275, 350);
+
+    Scene.addEntity(Soldier);
+    Soldier.pos.set(475, 350);
+
+    Scene.addEntity(Vagrant);
+    Vagrant.pos.set(675, 350);
+
+    Scene.addEntity(FatCat);
+    FatCat.pos.set(875, 350);
+
+
 
     Scene.addEntity(Cursor);  //add cursor to the scene
     //cursor movement
@@ -20,11 +55,11 @@ function selectCharacters(canvas, context) {
       }
       if (key === 115) {    //down
         //console.log('keyed');
-        Cursor.pos.y += 250;
+        Cursor.pos.y += 200;
       }
       if (key === 119) {     //up
         //console.log('keyed');
-        Cursor.pos.y -= 250;
+        Cursor.pos.y -= 200;
       }
     };
     //adds cursor control to window
