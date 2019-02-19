@@ -62,13 +62,9 @@ function displayMenuScene(canvas, context) {
   //stuff
 }
 
-<<<<<<< HEAD
+
 function Pause(context,level) {
-=======
 
-
-function Pause(context) {
->>>>>>> e66f161f1006c7c7eedda26a10781d0f3f6737b9
   //pause
   var img = new Image();
   img.onload = function () {context.drawImage(img, 640 - 162, 360 - 50);} //pause img displayed

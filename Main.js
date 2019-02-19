@@ -46,8 +46,8 @@ window.onload = function() {
   //end of fullscreen resizing -------------------------------------------------------------------
 
   //start the Game
-  displayFightScene(canvas, context);
-  //displayStartScene(canvas, context);
+  //displayFightScene(canvas, context);
+  displayStartScene(canvas, context);
 
 
 
