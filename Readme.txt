@@ -12,4 +12,4 @@ D - move right
 SPACE - jump
 
 UP-ARROW - throw projectile
-RIGHT-ARROW - punch
+LEFT-ARROW - punch
