@@ -9,6 +9,7 @@ Current Controls:
 
 A - move left
 D - move right
+S - pass down thru platform
 SPACE - jump
 
 UP-ARROW - throw projectile
