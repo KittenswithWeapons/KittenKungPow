@@ -35,9 +35,12 @@ class Entity {
 			if (this.type === 'projectile') {
 				levelObject.removeEntity(this);
 			} else {
-				this.vel.set(0, 0);
-				this.pos.set(document.getElementById('gameWorld').clientWidth / 2, 80);
-				// this.lives--;
+				//character death handling / respawn
+				this.damage = 0; //damage reset after death
+				this.vel.set(0,0); //sets Velocity to 0
+				this.go.dir = 0; //terminates accelleration from before death
+				this.pos.set(document.getElementById('gameWorld').clientWidth / 2, 80); //spawn in this location
+				// this.lives--; //decrement lives
 			}
 		} else {
 			//console.log(this.Ename);
@@ -54,7 +57,7 @@ class Entity {
 			});
 		}
 	}
-	
+
 	inKillzone() {
 		if (this.pos.x < -killzone || this.pos.x > document.getElementById('gameWorld').clientWidth + killzone
 			|| this.pos.y < -killzone || this.pos.y > document.getElementById('gameWorld').clientHeight + killzone) {

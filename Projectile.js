@@ -11,7 +11,7 @@ function createProjectile(name, originEntity) {
     Projectile.heading = originEntity.heading;
     Projectile.throw.dir = Projectile.heading; //propels the projectile in the direction that the character is facing
 
-    Projectile.damageValue = 15;
+    Projectile.damageValue = 30;
 
     Projectile.updateAnimation = function() {
         this.startX = 0;
