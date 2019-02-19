@@ -21,29 +21,10 @@ function displayStartScene(canvas, context) {
 }
 
 function displayCharSelectScene(canvas, context) {
-  //diplay the character selection screen
+  //diplay the character selection screen allowing for character selection
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
-  var img = new Image();
-  img.onload = function () {context.drawImage(img, 0, 0);}
-  img.src = './SceneBackgrounds/Character_SelectScreen.jpg';
-  // next screen --------------------
-  charNextHandler = function(e) {
-    var key = e.which || e.keyCode;
-    if (key === 13) { // 13 is enter
-      console.log('characters selected: ' + Cselected);
-      displayLevelSelectScene(canvas, context);
-      this.removeEventListener('keypress', charNextHandler, false);
-    }
-  };
-  //move to the next scene
-  this.addEventListener('keypress', charNextHandler, false);
   // character selection -------------------------------------
-
-  Cselected = selectCharacters(canvas, context);
-
-
-
-
+  Cselected = selectCharacters(canvas, context);  //must destroy scene after selection #bug
 }
 
 
@@ -54,6 +35,9 @@ function displayCharSelectScene(canvas, context) {
 function displayLevelSelectScene(canvas, context) {
   //display the level selection screen
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
+
+  console.log('levelscene');
+
   var img = new Image();
   img.onload = function () {context.drawImage(img, 0, 0);}
   img.src = './SceneBackgrounds/Level_SelectScreen.jpg';
@@ -86,12 +70,15 @@ function displayMenuScene(canvas, context) {
   //stuff
 }
 
-function Pause(context) {
+function Pause(context,level) {
   //pause
   var img = new Image();
   img.onload = function () {context.drawImage(img, 640 - 162, 360 - 50);} //pause img displayed
   img.src = './SceneBackgrounds/PAUSED.png';
   //pause code
+    level.entities.forEach(entity => {
+      entity.pauseFlag = true;
+    });
 
   //stuff
 
@@ -152,4 +139,17 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
       timer.start();
       });
+
+}
+
+
+
+function loadScene(name) {
+  const scene = new Scene(name);
+  const sceneBackgroundLayer = createSceneBackgroundLayer(scene);   //background layer
+  scene.comp.layers.push(sceneBackgroundLayer);
+  const spriteLayer = createSpriteLayer(scene.entities);    //entity layer
+  scene.comp.layers.push(spriteLayer);
+
+  return scene;
 }

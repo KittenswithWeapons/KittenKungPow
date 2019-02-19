@@ -45,6 +45,14 @@ function drawBackgroundImage(name, context) {
     img.src = `./Enviroment/${name}.gif`;
 }
 
+function drawSceneBackgroundImage(scene, context) {
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 0, 0);
+    }
+    img.src = `./SceneBackgrounds/${scene}.jpg`;
+}
+
 function createSpriteLayer(entities) {
     return function drawSpriteLayer(context) {
         entities.forEach(entity => {
@@ -52,6 +60,27 @@ function createSpriteLayer(entities) {
         });
     };
 }
+
+function createSceneBackgroundLayer(scene) {
+    const buffer = document.createElement('canvas');
+    buffer.width = 1280;
+    buffer.height = 720;
+
+    const context = buffer.getContext('2d');
+
+    //console.log('done');
+    return function drawSceneBackgroundLayer(context) {
+        drawSceneBackgroundImage(scene.SceneName, context);   ///set up for jpg backgrounds only
+        context.drawImage(buffer, 0, 0);
+    };
+}
+
+
+
+
+
+
+
 
 function createCollisionLayer(level) {
     const resolvedTiles = [];
