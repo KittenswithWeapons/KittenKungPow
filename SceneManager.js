@@ -16,19 +16,17 @@ function displayStartScene(canvas, context) {
   //move to the next scene
   this.addEventListener('keypress', screenNextHandler, false);
   // other animation or whatsnot for main splash page
-
-
 }
+
+
 
 function displayCharSelectScene(canvas, context) {
   //diplay the character selection screen allowing for character selection
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // character selection -------------------------------------
-  Cselected = selectCharacters(canvas, context);  //must destroy scene after selection #bug
+
+  Cselected = selectCharacters(canvas, context);
 }
-
-
-
 
 
 
@@ -54,13 +52,7 @@ function displayLevelSelectScene(canvas, context) {
   // level selection -----------------
 
   Lselected = selectLevel(canvas, context);
-
-
-
-
-
 }
-
 
 
 
@@ -70,7 +62,13 @@ function displayMenuScene(canvas, context) {
   //stuff
 }
 
+<<<<<<< HEAD
 function Pause(context,level) {
+=======
+
+
+function Pause(context) {
+>>>>>>> e66f161f1006c7c7eedda26a10781d0f3f6737b9
   //pause
   var img = new Image();
   img.onload = function () {context.drawImage(img, 640 - 162, 360 - 50);} //pause img displayed
@@ -88,7 +86,6 @@ function Pause(context,level) {
 
 
 
-
 function displayFightScene(canvas, context, levelSelection, characterSelection) {
     context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
 
@@ -101,7 +98,7 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
     Promise.all([
       createCharacter('character'),
-      createCharacter('enemy'),
+      createCharacter('enemy', 4),
       loadLevel('PinkCity'),
   ])
   .then(([Character, Enemy, level]) => {
@@ -114,7 +111,6 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
       level.addEntity(Character); //adds character to the level
       level.addEntity(Enemy);
-
       //sets up controls
       const input = setupKeyboard(Character);
       const controllerInput = setUpControllers(Character);

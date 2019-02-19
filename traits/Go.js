@@ -6,7 +6,7 @@ class Go extends Trait {
         super('go');
 
         this.dir = 0;
-        this.speed = 6000;
+        this.speed = 12000;
     }
 
     update(entity, deltaTime) {

@@ -12,6 +12,7 @@ var levelChoice;
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed
 ASSET_MANAGER.queueDownload("./characters/Karate.png");
+ASSET_MANAGER.queueDownload("./effects/Damage.png");
 ASSET_MANAGER.queueDownload("./characters/Archer.png");
 ASSET_MANAGER.queueDownload("./characters/Wizard.png");
 ASSET_MANAGER.queueDownload("./characters/Rogue.png");
@@ -45,7 +46,8 @@ window.onload = function() {
   //end of fullscreen resizing -------------------------------------------------------------------
 
   //start the Game
-  displayStartScene(canvas, context);
+  displayFightScene(canvas, context);
+  //displayStartScene(canvas, context);
 
 
 
