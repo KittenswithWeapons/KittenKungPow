@@ -16,7 +16,7 @@ function setupKeyboard(entity) {
     input.addMapping('ArrowLeft', keyState => { //punch
         if (keyState) {
           entity.punch.start();
-          entity.Punching = true;
+          entity.Light = true;
           entity.updateAnimation();
          }
     });
@@ -34,9 +34,9 @@ function setupKeyboard(entity) {
         }
     });
 
-    input.addMapping('ArrowDown', keyState => { //Kick
+    input.addMapping('ArrowRight', keyState => { //Kick 
       if (keyState) {
-        entity.Kicking = true;
+        entity.Heavy = true;
         entity.updateAnimation();
        }
   });
