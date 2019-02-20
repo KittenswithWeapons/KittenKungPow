@@ -23,13 +23,13 @@ function setupKeyboard(entity) {
 
     input.addMapping('ArrowUp', keyState => { //Fireball
         if (keyState) {
-          if (!entity.Throwing) {
-            entity.Throwing = true;
+          if (!entity.Special) {
+            entity.Special = true;
             entity.updateAnimation();
-            window.setTimeout(function() {
-            ThrowProjectile("fireball", entity);
-            entity.Throwing = false;
-            entity.updateAnimation();} , 280)
+          //   window.setTimeout(function() {
+          //   ThrowProjectile("fireball", entity);
+          //   entity.Special = false;
+          //   entity.updateAnimation();} , 280)
           }
         }
     });
