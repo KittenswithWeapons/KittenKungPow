@@ -39,7 +39,10 @@ class Entity {
 				this.damage = 0; //damage reset after death
 				this.vel.set(0,0); //sets Velocity to 0
 				this.go.dir = 0; //terminates accelleration from before death
+
 				this.pos.set(document.getElementById('gameWorld').clientWidth / 2, 80); //spawn in this location
+				this.Walking = false;
+				this.updateAnimation();
 				// this.lives--; //decrement lives
 			}
 		} else {

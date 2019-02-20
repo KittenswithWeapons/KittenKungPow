@@ -21,7 +21,7 @@ function setupKeyboard(entity) {
          }
     });
 
-    input.addMapping('ArrowUp', keyState => { //Fireball 
+    input.addMapping('ArrowUp', keyState => { //Fireball
         if (keyState) {
           if (!entity.Throwing) {
             entity.Throwing = true;
@@ -34,7 +34,7 @@ function setupKeyboard(entity) {
         }
     });
 
-    input.addMapping('ArrowDown', keyState => { //Kick 
+    input.addMapping('ArrowDown', keyState => { //Kick
       if (keyState) {
         entity.Kicking = true;
         entity.updateAnimation();
@@ -47,9 +47,13 @@ function setupKeyboard(entity) {
           entity.go.dir += 1;
           entity.updateAnimation();
         } else {
-          entity.Walking = false;
-          entity.go.dir -= 1;
-          entity.updateAnimation();
+          if(!entity.Walking) {
+            entity.go.dir = 0;
+          } else {
+            entity.Walking = false;
+            entity.go.dir -= 1;
+            entity.updateAnimation();
+          }
         }
 
     });
@@ -60,9 +64,13 @@ function setupKeyboard(entity) {
           entity.go.dir -= 1;
           entity.updateAnimation();
         } else {
-          entity.Walking = false;
-          entity.go.dir += 1;
-          entity.updateAnimation();
+          if(!entity.Walking) {
+            entity.go.dir = 0;
+          } else {
+            entity.Walking = false;
+            entity.go.dir += 1;
+            entity.updateAnimation();
+          }
         }
     });
 
