@@ -22,7 +22,7 @@ class Entity {
         this.traits = [];
 		}
 
-		handle(item) {}
+		handle(intent) {}
 
     addTrait(trait) {
     	this.traits.push(trait);
@@ -35,6 +35,7 @@ class Entity {
 				levelObject.removeEntity(this);
 			} else {
 				//character death handling / respawn
+
 				this.lives--; //decrement lives
 				if (this.lives >= 0) {
 					this.damage = 0; //damage reset after death

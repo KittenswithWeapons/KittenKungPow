@@ -15,8 +15,8 @@ function createCharacter(name, choice) {
     Character.heading = 1;
     Character.Jumping = false;
     Character.Walking = false;
-    Character.Punching = false;
-    Character.Kicking = false;
+    Character.Light = false;
+    Character.Heavy = false;
     Character.Throwing = false;
     Character.pain = false;
     Character.damage = 0;
@@ -130,25 +130,22 @@ function createCharacter(name, choice) {
             this.startX, this.startY, this.FrameWidth, this.FrameHeight,
             this.FrameSpeed, this.FrameLength,
             this.FrameLoop, this.FrameReverse);
-
-            Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
-                characters[Character.choice]),
-                0, 0, this.FrameWidth, this.FrameHeight * 2,
-                1, 1,
-                true, false);
-            
         
     }
-
-    // Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
-    //     characters[Character.choice]),
-    //     0, 0, this.FrameWidth, this.FrameHeight,
-    //     1, 1,
-    //     true, false);
-
-    Character.punchAnimation = new Animation(ASSET_MANAGER.getAsset(
+  
+    Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
+        characters[Character.choice]),
+        0, 0, 128, 256,
+        1, 1,
+        true, false);
+  
+    Character.lightAnimation = new Animation(ASSET_MANAGER.getAsset(
         characters[Character.choice]), 36, (9 * Character.frameSize + 48) - 4, 
         Character.frameSize, Character.frameSize, 0.05, 9, false, true);
+
+    Character.heavyAnimation = new Animation(ASSET_MANAGER.getAsset(
+            characters[Character.choice]), 36, (11 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.05, 6, false, true);
 
     Character.painAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Damage.png"), 
         0, 0, 18, 12, 1, 1, true, false);
@@ -158,14 +155,21 @@ function createCharacter(name, choice) {
             context.save();
             context.translate(40, -5);
             context.scale(-1, 1);
-            if(!Character.Punching) { 
+            if(!Character.Light && !Character.Heavy) { 
                 Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
-            } else { 
-                Character.punchAnimation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
-                if(Character.punchAnimation.isDone()) {
+            } else if (Character.Light) { 
+                Character.lightAnimation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y+2);
+                if(Character.lightAnimation.isDone()) {
                     Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
-                    Character.Punching = false;
-                    Character.punchAnimation.elapsedTime = 0;
+                    Character.Light = false;
+                    Character.lightAnimation.elapsedTime = 0;
+                }
+            } else if (Character.Heavy) {
+                Character.heavyAnimation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y+2);
+                if(Character.heavyAnimation.isDone()) {
+                    Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
+                    Character.Heavy = false;
+                    Character.heavyAnimation.elapsedTime = 0;
                 }
             }
             if(Character.pain) {
@@ -177,14 +181,21 @@ function createCharacter(name, choice) {
         if (Character.heading === 1) {
             context.save();
             context.translate(-10, -5);
-            if(!Character.Punching) {
+            if(!Character.Light && !Character.Heavy) {
                 Character.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
-            } else {
-                Character.punchAnimation.drawFrame(deltaTime, context, this.pos.x, this.pos.y+2);
-                if(Character.punchAnimation.isDone()) {
+            } else if (Character.Light) {
+                Character.lightAnimation.drawFrame(deltaTime, context, this.pos.x, this.pos.y+2);
+                if(Character.lightAnimation.isDone()) {
                     Character.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
-                    Character.Punching = false;
-                    Character.punchAnimation.elapsedTime = 0;
+                    Character.Light = false;
+                    Character.lightAnimation.elapsedTime = 0;
+                }
+            } else if (Character.Heavy) {
+                Character.heavyAnimation.drawFrame(deltaTime, context, this.pos.x, this.pos.y+2);
+                if(Character.heavyAnimation.isDone()) {
+                    Character.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
+                    Character.Heavy = false;
+                    Character.heavyAnimation.elapsedTime = 0;
                 }
             }
             if(Character.pain) {
