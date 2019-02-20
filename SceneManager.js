@@ -5,10 +5,18 @@ function displayStartScene(canvas, context) {
   var img = new Image();
   img.onload = function () {context.drawImage(img, 0, 0);}
   img.src = './SceneBackgrounds/KWW_StartScreen.jpg';
+
+  //sound
+  mainMusic = new sound('./sound/MainTheme.wav');
+  mainMusic.sound.volume = .04; //main theme volume
+  mainMusic.sound.loop = true; //loops the main theme
+  mainMusic.play(); //plays the main theme
+
   // next screen --------------------
   screenNextHandler = function(e) {
     var key = e.which || e.keyCode;
     if (key === 13) { // 13 is enter
+      mainMusic.stop(); //stops the main music
       displayCharSelectScene(canvas, context);
       this.removeEventListener('keypress', screenNextHandler, false);
     }
@@ -75,6 +83,12 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
       }
     });
 
+    //sound
+    levelMusic = new sound('./sound/Wild_Pogo.mp3');
+    levelMusic.sound.volume = .01; //level volume
+    levelMusic.sound.loop = true; //loops the level song
+    levelMusic.play(); //plays the level song
+
     Promise.all([
       createCharacter('character'),
       createCharacter('enemy', 4),
@@ -103,7 +117,7 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
       // Draw character icons and lives
       var playerNum = 1;
       level.entities.forEach(entity => {
-        
+
 
 
         playerNum++;
