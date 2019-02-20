@@ -38,28 +38,41 @@ function selectCharacters(canvas, context) {
     Scene.addEntity(FatCat);
     FatCat.pos.set(875, 350);
 
-
+    choiceRow = 0;
+    choiceCol = 0;
+    CChoices = [
+      ['Karate', '2', '3', '4'],
+      ['5', '6', '7', '8']
+    ];
 
     Scene.addEntity(Cursor);  //add cursor to the scene
     //cursor movement
     cursorHandler = function(e) {
       var key = e.which || e.keyCode;
       //console.log(key);
-      if (key === 100) {    //right
-        //console.log('keyed');
-        Cursor.pos.x += 200;
+      if (e.code === 'KeyD') {    //right
+        if(choiceCol < CChoices[choiceRow].length-1) {
+          choiceCol++;
+          Cursor.pos.x += 200;
+        }
       }
-      if (key === 97) {    //left
-        //console.log('keyed');
-        Cursor.pos.x -= 200;
+      if (e.code === 'KeyA') {    //left
+        if(choiceCol > 0) {
+          choiceCol--;
+          Cursor.pos.x -= 200;
+        }
       }
-      if (key === 115) {    //down
-        //console.log('keyed');
-        Cursor.pos.y += 200;
+      if (e.code === 'KeyS') {    //down
+        if(choiceRow < CChoices.length-1) {
+          choiceRow++;
+          Cursor.pos.y += 200;
+        }
       }
-      if (key === 119) {     //up
-        //console.log('keyed');
-        Cursor.pos.y -= 200;
+      if (e.code === 'KeyW') {     //up
+        if(choiceRow > 0) {
+          choiceRow--;
+          Cursor.pos.y -= 200;
+        }
       }
     };
     //adds cursor control to window
@@ -67,14 +80,14 @@ function selectCharacters(canvas, context) {
 
 
 
-    CseletedNum = 0;  //character selected
+    var CselectedNum = CChoices[choiceRow][choiceCol];  //character selected
     Cselected = new Array();  //character selection array
-    CChoices = new Array('Karate Cat','Second Cat','3','4','5','6','7','8');  //character choices array
+    //CChoices = new Array('Karate Cat','Second Cat','3','4','5','6','7','8');  //character choices array
 
 
     //default values, delete later
-    Cselected[0] = CChoices[CseletedNum];
-    Cselected[1] = CChoices[CseletedNum + 1];
+    // Cselected[0] = CChoices[CselectedNum];
+    // Cselected[1] = CChoices[CselectedNum + 1];
 
 
     //Timer for the Character Selection Screen
@@ -88,9 +101,10 @@ function selectCharacters(canvas, context) {
 
     // next screen --------------------
     charNextHandler = function(e) {
-      var key = e.which || e.keyCode;
-      if (key === 13) { // 13 is enter
-        console.log('characters selected: ' + Cselected);
+      if (e.code === 'Enter') {
+        Cselected[0] = CChoices[CselectedNum];
+        Cselected[1] = CChoices[CselectedNum + 1];
+        console.log('characters selected: ' + CChoices[choiceRow][choiceCol]);
         //delete scene ---------------------------------------------------
         CharTimer.update = function update(deltaTime) {/*end timer*/}
         Scene.removeEntity(Cursor);
@@ -103,6 +117,6 @@ function selectCharacters(canvas, context) {
     this.addEventListener('keypress', charNextHandler, false);
 
 
-    return Cselected; //returns what character was selected
+    return CChoices[choiceRow][choiceCol]; //returns what character was selected
     });
 }
