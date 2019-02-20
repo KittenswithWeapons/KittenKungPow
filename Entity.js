@@ -18,8 +18,7 @@ class Entity {
 				this.jumpCount = 0;
         this.pos = new Vec2(0, 0);
         this.vel = new Vec2(0, 0);
-        this.size = new Vec2(0,0);
-
+				this.size = new Vec2(0,0);
         this.traits = [];
 		}
 
@@ -36,14 +35,16 @@ class Entity {
 				levelObject.removeEntity(this);
 			} else {
 				//character death handling / respawn
-				this.damage = 0; //damage reset after death
-				this.vel.set(0,0); //sets Velocity to 0
-				this.go.dir = 0; //terminates accelleration from before death
 
-				this.pos.set(document.getElementById('gameWorld').clientWidth / 2, 80); //spawn in this location
-				this.Walking = false;
-				this.updateAnimation();
-				// this.lives--; //decrement lives
+				this.lives--; //decrement lives
+				if (this.lives >= 0) {
+					this.damage = 0; //damage reset after death
+					this.vel.set(0,0); //sets Velocity to 0
+					this.go.dir = 0; //terminates accelleration from before death
+					this.pos.set(document.getElementById('gameWorld').clientWidth / 2, 80); //spawn in this location
+				} else {
+					levelObject.removeEntity(this);
+				}
 			}
 		} else {
 			//console.log(this.Ename);

@@ -78,21 +78,36 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
     Promise.all([
       createCharacter('character'),
       createCharacter('enemy', 4),
+      createCharacter('player3', 1),
+      createCharacter('player4', 2),
       loadLevel('PinkCity'),
   ])
-  .then(([Character, Enemy, level]) => {
+  .then(([Character, Enemy, Player3, Player4, level]) => {
       levelObject = level;
       Character.pos.set(400, 200); //sets the character position
 
       Enemy.pos.set(900, 280); Enemy.heading = -1; //sets enemy pos and heading
+      Player3.pos.set(450, 480); Player3.heading = 1; //sets enemy pos and heading
+      Player4.pos.set(800, 480); Player4.heading = -1; //sets enemy pos and heading
 
       level.comp.layers.push(createCollisionLayer(level));
 
       level.addEntity(Character); //adds character to the level
       level.addEntity(Enemy);
+      level.addEntity(Player3);
+      level.addEntity(Player4);
       //sets up controls
       const input = setupKeyboard(Character);
       const controllerInput = setUpControllers(Character);
+
+      // Draw character icons and lives
+      var playerNum = 1;
+      level.entities.forEach(entity => {
+        
+
+
+        playerNum++;
+      });
 
       ['mousedown', 'mousemove'].forEach(eventName => {
           canvas.addEventListener(eventName, event => {

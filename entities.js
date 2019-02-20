@@ -1,7 +1,7 @@
 var characters = ["./characters/Karate.png", "./characters/Archer.png", "./characters/Wizard.png",
     "./characters/Rogue.png", "./characters/Warrior.png", "./characters/Soldier.png", "./characters/Vagrant.png",
     "./characters/FatCat.png"];
-
+var playerNum = 1;
 function createCharacter(name, choice) {
     const Character = new Entity(name);
     Character.frameSize = 128;
@@ -20,7 +20,10 @@ function createCharacter(name, choice) {
     Character.Throwing = false;
     Character.pain = false;
     Character.damage = 0;
+    Character.lives = 3;
     Character.choice = choice || 0;
+    Character.player = playerNum;
+    playerNum++;
 
     /*
     * Entity has an empty method called handle that can be overridden by child types.
@@ -129,7 +132,13 @@ function createCharacter(name, choice) {
             this.FrameLoop, this.FrameReverse);
         
     }
-
+  
+    Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
+        characters[Character.choice]),
+        0, 0, 128, 256,
+        1, 1,
+        true, false);
+  
     Character.lightAnimation = new Animation(ASSET_MANAGER.getAsset(
         characters[Character.choice]), 36, (9 * Character.frameSize + 48) - 4, 
         Character.frameSize, Character.frameSize, 0.05, 9, false, true);
@@ -194,11 +203,49 @@ function createCharacter(name, choice) {
             }
             context.restore();
         }
+        if (Character.lives >= 0) {
+            context
+            context.globalAlpha = 0.8;
+            context.lineWidth = 5;
+            if (Character.player === 1) {
+                context.strokeStyle = "#FF0000";
+                context.fillStyle = "#FF6a9e";
+            } else if (Character.player === 2) {
+                context.strokeStyle = "#008000";
+                context.fillStyle = "#65ff96";
+            } else if (Character.player === 3) {
+                context.strokeStyle = "#0000FF";
+                context.fillStyle = "#009FFF";
+            } else if (Character.player === 4) {
+                context.strokeStyle = "#FFb400";
+                context.fillStyle = "#FFFF00";
+            }
+            context.fillRect(95 + 320 * (Character.player - 1), 678, 105, 40);
+            context.strokeRect(95 + 320 * (Character.player - 1), 678, 105, 40);
+            
+            for(var i = 0; i < Character.lives; i++ ) {
+                context.save();
+                context
+                Character.staticAnimation.drawFrame(0, context, 
+                    120 + (i * 18) + 320 * (Character.player - 1), 
+                    660, 0.5);
+                context.restore();
+            }
+            context.globalAlpha = 1.0;
+            context.lineWidth = 1;
+            context.strokeStyle = 'black';
+            context.font = "10px Arial";
+            context.strokeText("player " + Character.player, 99 + 320 * (Character.player - 1), 689);
+            context.lineWidth = 2;
+            context.font = "20px Arial";
+            context.strokeText(Character.damage, 100 + 320 * (Character.player - 1), 710);
+        }
     }
 
     Character.updateAnimation();
     return Character;
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function Animation(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
