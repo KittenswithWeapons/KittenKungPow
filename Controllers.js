@@ -59,12 +59,12 @@ function controllerUpdate(entity, controllerNUM){
 			if (controllers[controllerNUM].B_buttonPressed === false) {
 				controllers[controllerNUM].B_buttonPressed = true;
         // do B button stuff
-        if (!entity.Throwing) {
-          entity.Throwing = true;
+        if (!entity.Special) {
+          entity.Special = true;
           entity.updateAnimation();
           window.setTimeout(function() {
           ThrowProjectile("fireball", entity);
-          entity.Throwing = false;
+          entity.Special = false;
           entity.updateAnimation();} , 280)
         }
         //
