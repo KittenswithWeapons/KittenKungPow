@@ -41,7 +41,8 @@ class Entity {
 					this.damage = 0; //damage reset after death
 					this.vel.set(0,0); //sets Velocity to 0
 					this.go.dir = 0; //terminates accelleration from before death
-					this.pos.set(document.getElementById('gameWorld').clientWidth / 2, 80); //spawn in this location
+					this.Walking = false;
+					this.pos.set(640, 80); //spawn in this location
 				} else {
 					levelObject.removeEntity(this);
 				}
@@ -63,8 +64,8 @@ class Entity {
 	}
 
 	inKillzone() {
-		if (this.pos.x < -killzone || this.pos.x > document.getElementById('gameWorld').clientWidth + killzone
-			|| this.pos.y < -killzone || this.pos.y > document.getElementById('gameWorld').clientHeight + killzone) {
+		if (this.pos.x < -killzone || this.pos.x > 1280 + killzone
+			|| this.pos.y < -killzone || this.pos.y > 720 + killzone) {
 			return true;
 		}
 		return false;
