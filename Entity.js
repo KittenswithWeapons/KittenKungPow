@@ -23,7 +23,7 @@ class Entity {
         this.traits = [];
 		}
 
-		handle(item) {}
+		handle(intent) {}
 
     addTrait(trait) {
     	this.traits.push(trait);

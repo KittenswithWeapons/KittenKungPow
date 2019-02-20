@@ -52,8 +52,8 @@ function setupKeyboard(entity) {
           } else {
             entity.Walking = false;
             entity.go.dir -= 1;
-            entity.updateAnimation();
           }
+          entity.updateAnimation();
         }
 
     });
@@ -69,8 +69,8 @@ function setupKeyboard(entity) {
           } else {
             entity.Walking = false;
             entity.go.dir += 1;
-            entity.updateAnimation();
           }
+          entity.updateAnimation();
         }
     });
 
