@@ -145,7 +145,7 @@ function createCharacter(name, choice) {
             if(!Character.Punching) { 
                 Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
             } else { 
-                Character.punchAnimation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
+                Character.punchAnimation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y+2);
                 if(Character.punchAnimation.isDone()) {
                     Character.animation.drawFrame(deltaTime, context, -this.pos.x, this.pos.y);
                     Character.Punching = false;
