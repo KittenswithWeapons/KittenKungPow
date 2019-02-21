@@ -81,6 +81,12 @@ function setupKeyboard(entity) {
         }
     });
 
+    input.addMapping('KeyC', keyState => { //Enable CPU movement
+      if (keyState) {
+        CPUsEnabled = !CPUsEnabled;
+      }
+    });
+
     input.addMapping('Digit1', keyState => {if (keyState) entity.choice = 0; entity.updateAnimation();});
     input.addMapping('Digit2', keyState => {if (keyState) entity.choice = 1; entity.updateAnimation();});
     input.addMapping('Digit3', keyState => {if (keyState) entity.choice = 2; entity.updateAnimation();});

@@ -7,6 +7,7 @@ const deltaTime = 1/60; //FPS timer --- 1/60 is 60fps
 const killzone = 200; // Max distance from the edge of the screen that will trigger death
 var levelObject;
 var levelChoice;
+var CPUsEnabled = false;
 
 
 const ASSET_MANAGER = new AssetManager();
