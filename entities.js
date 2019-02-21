@@ -138,7 +138,7 @@ function createCharacter(name, choice) {
     var lightAnimations = [
         new Animation(ASSET_MANAGER.getAsset( //Karate
             characters[0]), 36, (9 * Character.frameSize + 48) - 4, 
-            Character.frameSize, Character.frameSize, 0.05, 9, false, true),
+            Character.frameSize, Character.frameSize, 0.04, 9, false, true),
         new Animation(ASSET_MANAGER.getAsset( //Archer
             characters[1]), 36, (6 * Character.frameSize + 48) - 4, 
             Character.frameSize, Character.frameSize, 0.05, 8, false, false)
@@ -152,10 +152,10 @@ function createCharacter(name, choice) {
     var heavyAnimations = [
         new Animation(ASSET_MANAGER.getAsset( //Karate
             characters[0]), 36, (11 * Character.frameSize + 48) - 4, 
-            Character.frameSize, Character.frameSize, 0.05, 6, false, true),
+            Character.frameSize, Character.frameSize, 0.09, 6, false, true),
         new Animation(ASSET_MANAGER.getAsset( //Archer
             characters[1]), 36, (6 * Character.frameSize + 48) - 4, 
-            Character.frameSize, Character.frameSize, 0.09, 8, false, false)
+            Character.frameSize, Character.frameSize, 0.08, 8, false, false)
     ];
 
     var heavyAttacks = [
@@ -166,7 +166,7 @@ function createCharacter(name, choice) {
     var specialAnimations = [
         new Animation(ASSET_MANAGER.getAsset( //Karate
             characters[0]), 36, (5 * Character.frameSize + 24 * 2) - 6, 
-            Character.frameSize, Character.frameSize, 0.05, 8, false, false),
+            Character.frameSize, Character.frameSize, 0.05, 7, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Archer
             characters[1]), 36, (13 * Character.frameSize + 48) - 4, 
             Character.frameSize - 2, Character.frameSize, 0.08, 8, false, false)
@@ -174,14 +174,16 @@ function createCharacter(name, choice) {
 
     var specialAttacks = [
         function() {ThrowProjectile("fireball", Character);}, //Karate
-        function() {console.log("Archer special")}
+        function() {console.log("hey");}
+            // ThrowProjectile("forcePush", Character);
+            // Character.heading *= -1;
+            // ThrowProjectile("forcePush", Character);
+            // Character.heading *= -1;
+            // }
     ]
   
     Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
-        characters[Character.choice]),
-        0, 0, 128, 256,
-        1, 1,
-        true, false);
+        characters[Character.choice]), 0, 0, 128, 256, 1, 1, true, false);
             
     Character.painAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Damage.png"), 
         0, 0, 18, 12, 1, 1, true, false);

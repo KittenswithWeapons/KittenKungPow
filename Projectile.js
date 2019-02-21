@@ -15,6 +15,10 @@ function createProjectile(name, originEntity) {
         Projectile.size.set(20, 30);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);
         Projectile.damageValue = 30;
+    } else if(name == 'forcePush') {
+        Projectile.size.set(20, 30);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);
+        Projectile.damageValue = 0;
     }
 
     Projectile.addTrait(new Velocity());
