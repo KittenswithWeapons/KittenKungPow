@@ -42,7 +42,7 @@ class keyBoardState {
 		['keydown', 'keyup'].forEach(eventName => {
 		window.addEventListener(eventName, event => {
 			this.handleEvent(event);
-			//console.log(event);
+			console.log(event);
 			});
 		});
 	}

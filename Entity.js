@@ -19,7 +19,13 @@ class Entity {
         this.pos = new Vec2(0, 0);
         this.vel = new Vec2(0, 0);
 				this.size = new Vec2(0,0);
-        this.traits = [];
+				this.traits = [];
+				this.isAgent = false;
+				this.agentManager = null;
+				if (name.startsWith("CPU-")) {
+					this.isAgent = true;
+					this.agentManager = new agentManager(this);
+				}
 		}
 
 		handle(intent) {}
@@ -30,6 +36,12 @@ class Entity {
     }
 
     update(deltaTime) {
+		if (this.isAgent) this.agentManager.delay--;
+		if (this.isAgent && this.agentManager.delay === 0) {
+			this.agentManager.update();
+			this.agentManager.delay = 30;
+		}
+
 		if (this.inKillzone()) {
 			if (this.type === 'projectile') {
 				levelObject.removeEntity(this);
