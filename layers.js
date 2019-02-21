@@ -93,17 +93,56 @@ function createLevelPreviewLayer(scene) {
 }
 
 function drawLevelPreviewImages(context) {
+    //row 1------------------------------------------------------------------------------------------
     var img = new Image();
     img.onload = function () {
-    context.drawImage(img, 100, 100); //position the level preview image
+    context.drawImage(img, 83, 144); //position the level preview image
     }
     img.src = "./LevelPreviews/PinkCityPreview.PNG";
 
     var img1 = new Image();
     img1.onload = function () {
-    context.drawImage(img1, 450, 100); //position the level preview image
+    context.drawImage(img1, 83 + 256 + 30, 144); //position the level preview image
     }
     img1.src = "./LevelPreviews/FutureTownPreview.JPG";
+
+    var img2 = new Image();
+    img2.onload = function () {
+    context.drawImage(img2, 83 + 512 + 60, 144); //position the level preview image
+    }
+    img2.src = "./LevelPreviews/FutureCityPreview.JPG";
+
+    var img3 = new Image();
+    img3.onload = function () {
+    context.drawImage(img3, 83 + 768 + 90, 144); //position the level preview image
+    }
+    img3.src = "./LevelPreviews/FutureCityPreview.JPG";
+
+    //row2 ------------------------------------------------------------------------------------------
+    var img4 = new Image();
+    img4.onload = function () {
+    context.drawImage(img4, 83, 144 + 288); //position the level preview image
+    }
+    img4.src = "./LevelPreviews/PinkCityPreview.PNG";
+
+    var img5 = new Image();
+    img5.onload = function () {
+    context.drawImage(img5, 83 + 256 + 30, 144 + 288); //position the level preview image
+    }
+    img5.src = "./LevelPreviews/FutureTownPreview.JPG";
+
+    var img6 = new Image();
+    img6.onload = function () {
+    context.drawImage(img6, 83 + 512 + 60, 144 + 288); //position the level preview image
+    }
+    img6.src = "./LevelPreviews/FutureCityPreview.JPG";
+
+    var img7 = new Image();
+    img7.onload = function () {
+    context.drawImage(img7, 83 + 768 + 90, 144 + 288); //position the level preview image
+    }
+    img7.src = "./LevelPreviews/FutureCityPreview.JPG";
+
 
     //add more images for previews
 }

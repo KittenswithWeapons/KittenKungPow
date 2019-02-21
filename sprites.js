@@ -13,8 +13,8 @@ function loadBackgroundSprites(name) {
           return sprites;
         } else if (name === 'FutureCity') {
           const sprites = new SpriteSheet(image, 32, 32);
-          sprites.defineTile('ground', 0, 0);
-          sprites.defineTile('platform', 0, 0);
+          sprites.defineTile('ground', 2, 0);
+          sprites.defineTile('platform', 2, 0);
           return sprites;
         }
     });

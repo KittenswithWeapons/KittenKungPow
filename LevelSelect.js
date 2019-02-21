@@ -6,13 +6,13 @@ function selectLevel(canvas, context, Cselected) {
 .then(([Cursor, Scene]) => {
     //console.log('level got passed: '+ Cselected);
     Scene.addEntity(Cursor);  //add cursor to the scene
-    Cursor.pos.set(410, 275);
+    Cursor.pos.set(83 + 250, 275);
 
     choiceRow = 0;
     choiceCol = 0;
     LChoices = [
-      ['PinkCity', 'FutureTown', 'FutureCity', 'Level - 4'],
-      ['Level - 5', 'Level - 6', 'Level - 7', 'Level - 8']
+      ['PinkCity', 'FutureTown', 'FutureCity', 'FutureCity'],
+      ['PinkCity', 'FutureTown', 'FutureCity', 'FutureCity']
     ];
 
     //cursor movement
@@ -22,25 +22,25 @@ function selectLevel(canvas, context, Cselected) {
       if (e.code === 'KeyD') {    //right
         if(choiceCol < LChoices[choiceRow].length-1) {
           choiceCol++;
-          Cursor.pos.x += 350;
+          Cursor.pos.x += 256 + 30;
         }
       }
       if (e.code === 'KeyA') {    //left
         if(choiceCol > 0) {
           choiceCol--;
-          Cursor.pos.x -= 350;
+          Cursor.pos.x -= 256 + 30;
         }
       }
       if (e.code === 'KeyS') {    //down
         if(choiceRow < LChoices.length-1) {
           choiceRow++;
-          Cursor.pos.y += 200;
+          Cursor.pos.y += 288;
         }
       }
       if (e.code === 'KeyW') {     //up
         if(choiceRow > 0) {
           choiceRow--;
-          Cursor.pos.y -= 200;
+          Cursor.pos.y -= 288;
         }
       }
     };
