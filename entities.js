@@ -48,6 +48,12 @@ function createCharacter(name, choice) {
             case 'painRight':
                 Character.knockback(intent);
                 break;
+            case 'pushLeft':
+                Character.knockback('painLeft', 150);
+                break;
+            case 'pushRight':
+                Character.knockback('painRight', 150);
+                break;
         }
     }
 
@@ -174,12 +180,12 @@ function createCharacter(name, choice) {
 
     var specialAttacks = [
         function() {ThrowProjectile("fireball", Character);}, //Karate
-        function() {console.log("hey");}
-            // ThrowProjectile("forcePush", Character);
-            // Character.heading *= -1;
-            // ThrowProjectile("forcePush", Character);
-            // Character.heading *= -1;
-            // }
+        function() {
+            ThrowProjectile("forcePush", Character);
+            Character.heading *= -1;
+            ThrowProjectile("forcePush", Character);
+            Character.heading *= -1;
+            }
     ]
   
     Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(

@@ -16,8 +16,8 @@ function createProjectile(name, originEntity) {
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);
         Projectile.damageValue = 30;
     } else if(name == 'forcePush') {
-        Projectile.size.set(20, 30);
-        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);
+        Projectile.size.set(10, 50);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
         Projectile.damageValue = 0;
     }
 
@@ -40,6 +40,10 @@ function createProjectile(name, originEntity) {
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
                     "./Projectiles/Arrow.png"), 0, 0, 33, 9, 1, 1, true, false);
                 break;
+            case 'forcePush':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
+                    "./Projectiles/Arrow.png"), 0, 0, 33, 9, 1, 1, true, false);
+                break; 
         }
     }
 
