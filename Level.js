@@ -13,6 +13,13 @@ class Level {
     addEntity(entity) {
       this.entities.add(entity);
       this.entityCollider.addEntityCollider(entity);
+
+      if(entity.Ename == 'forcePush') {
+        var that = this;
+        window.setTimeout(function() {
+          that.entities.delete(entity);
+          that.entityCollider.removeEntityCollider(entity);}, 150);
+      }
     }
 
     removeEntity(entity) {

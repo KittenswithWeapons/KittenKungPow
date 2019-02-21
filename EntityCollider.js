@@ -37,7 +37,11 @@
               console.log('projectile hit');
               levelObject.removeEntity(entity);
               entityObject.damage += entity.damageValue;
-              entityObject.handle('painLeft');
+              if(entity.Ename == 'forcePush') {
+                entityObject.handle('pushLeft');
+              } else {
+                entityObject.handle('painLeft');
+              }
               console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
               return;
             }
@@ -55,7 +59,11 @@
                 console.log('projectile hit');
                 levelObject.removeEntity(entity);
                 entityObject.damage += entity.damageValue;
-                entityObject.handle('painRight');
+                if(entity.Ename == 'forcePush') {
+                  entityObject.handle('pushRight');
+                } else {
+                  entityObject.handle('painRight');
+                }
                 console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
                 return;
               }
