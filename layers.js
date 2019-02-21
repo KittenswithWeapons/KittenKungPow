@@ -99,6 +99,12 @@ function drawLevelPreviewImages(context) {
     }
     img.src = "./LevelPreviews/PinkCityPreview.PNG";
 
+    var img1 = new Image();
+    img1.onload = function () {
+    context.drawImage(img1, 450, 100); //position the level preview image
+    }
+    img1.src = "./LevelPreviews/FutureTownPreview.JPG";
+
     //add more images for previews
 }
 // ----------------------------------------------Level preview images layer done
