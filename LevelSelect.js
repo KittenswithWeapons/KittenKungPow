@@ -11,7 +11,7 @@ function selectLevel(canvas, context, Cselected) {
     choiceRow = 0;
     choiceCol = 0;
     LChoices = [
-      ['PinkCity', 'FutureTown', 'Level - 3', 'Level - 4'],
+      ['PinkCity', 'FutureTown', 'FutureCity', 'Level - 4'],
       ['Level - 5', 'Level - 6', 'Level - 7', 'Level - 8']
     ];
 
@@ -22,13 +22,13 @@ function selectLevel(canvas, context, Cselected) {
       if (e.code === 'KeyD') {    //right
         if(choiceCol < LChoices[choiceRow].length-1) {
           choiceCol++;
-          Cursor.pos.x += 200;
+          Cursor.pos.x += 350;
         }
       }
       if (e.code === 'KeyA') {    //left
         if(choiceCol > 0) {
           choiceCol--;
-          Cursor.pos.x -= 200;
+          Cursor.pos.x -= 350;
         }
       }
       if (e.code === 'KeyS') {    //down
