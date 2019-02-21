@@ -12,9 +12,9 @@ function setupKeyboard(entity) {
     });
 
     input.addMapping('ArrowLeft', keyState => { //punch
-        if (keyState && !input.fozen) {
-          input.frozen = true;
-          window.setTimeout(function() {input.frozen = false}, 100);
+        if (keyState) {
+          // input.frozen = true;
+          // window.setTimeout(function() {input.frozen = false}, 100);
           entity.punch.start();
           entity.Light = true;
           entity.updateAnimation();
@@ -22,10 +22,10 @@ function setupKeyboard(entity) {
     });
 
     input.addMapping('ArrowUp', keyState => { //Fireball
-        if (keyState && !input.frozen) {
+        if (keyState) {
           if (!entity.Special) {
-            input.frozen = true;
-            window.setTimeout(function() {input.frozen = false}, 300);
+            // input.frozen = true;
+            // window.setTimeout(function() {input.frozen = false}, 300);
             entity.Special = true;
             entity.updateAnimation();
           }
@@ -33,9 +33,9 @@ function setupKeyboard(entity) {
     });
 
     input.addMapping('ArrowRight', keyState => { //Kick
-        if (keyState && !input.frozen) {
-            input.frozen = true;
-            window.setTimeout(function() {input.frozen = false}, 300);
+        if (keyState) {
+            // input.frozen = true;
+            // window.setTimeout(function() {input.frozen = false}, 300);
             entity.Heavy = true;
             entity.updateAnimation();
         }
