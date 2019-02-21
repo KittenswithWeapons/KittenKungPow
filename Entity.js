@@ -36,13 +36,14 @@ class Entity {
     }
 
     update(deltaTime) {
-		if (this.isAgent) this.agentManager.delay--;
-		if (this.isAgent && this.agentManager.delay === 0) {
-			this.agentManager.update();
-			this.agentManager.delay = 10;
-			//console.log(this.Ename);
+			if (CPUsEnabled) {
+				if (this.isAgent) this.agentManager.delay--;
+				if (this.isAgent && this.agentManager.delay === 0) {
+				this.agentManager.update();
+				this.agentManager.delay = 10;
+				//console.log(this.Ename);
+			}
 		}
-
 
 		if (this.inKillzone()) {
 			if (this.type === 'projectile') {
