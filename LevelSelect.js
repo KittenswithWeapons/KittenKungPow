@@ -1,47 +1,53 @@
-function selectLevel(canvas, context) {
+function selectLevel(canvas, context, Cselected) {
   Promise.all([
     createCursor('cursor'),
     loadScene('Level_SelectBackground'),
 ])
 .then(([Cursor, Scene]) => {
-
+    //console.log('level got passed: '+ Cselected);
     Scene.addEntity(Cursor);  //add cursor to the scene
     Cursor.pos.set(410, 275);
+
+    choiceRow = 0;
+    choiceCol = 0;
+    LChoices = [
+      ['PinkCity', 'Level - 2', 'Level - 3', 'Level - 4'],
+      ['Level - 5', 'Level - 6', 'Level - 7', 'Level - 8']
+    ];
+
     //cursor movement
     cursorHandler = function(e) {
       var key = e.which || e.keyCode;
       //console.log(key);
-      if (key === 100) {    //right
-        //console.log('keyed');
-        Cursor.pos.x += 200;
+      if (e.code === 'KeyD') {    //right
+        if(choiceCol < LChoices[choiceRow].length-1) {
+          choiceCol++;
+          Cursor.pos.x += 200;
+        }
       }
-      if (key === 97) {    //left
-        //console.log('keyed');
-        Cursor.pos.x -= 200;
+      if (e.code === 'KeyA') {    //left
+        if(choiceCol > 0) {
+          choiceCol--;
+          Cursor.pos.x -= 200;
+        }
       }
-      if (key === 115) {    //down
-        //console.log('keyed');
-        Cursor.pos.y += 250;
+      if (e.code === 'KeyS') {    //down
+        if(choiceRow < LChoices.length-1) {
+          choiceRow++;
+          Cursor.pos.y += 200;
+        }
       }
-      if (key === 119) {     //up
-        //console.log('keyed');
-        Cursor.pos.y -= 250;
+      if (e.code === 'KeyW') {     //up
+        if(choiceRow > 0) {
+          choiceRow--;
+          Cursor.pos.y -= 200;
+        }
       }
     };
     //adds cursor control to window
     this.addEventListener('keypress', cursorHandler, false);
 
-
-
-    LseletedNum = 0;  //Level selected
-    Lselected = new Array();  //Level selection array
-    LChoices = new Array('PinkCity','2','3','4','5','6','7','8');  //character choices array
-
-
-    //default values, delete later
-    Lselected[0] = LChoices[LseletedNum];
-    Lselected[1] = LChoices[LseletedNum + 1];
-
+    Lselected = LChoices[choiceRow][choiceCol];
 
     //Timer for the Level Selection Screen
     const LevTimer = new Timer(deltaTime);
@@ -54,15 +60,16 @@ function selectLevel(canvas, context) {
 
     // next screen --------------------
     charNextHandler = function(e) {
-      var key = e.which || e.keyCode;
-      if (key === 13) { // 13 is enter
-        console.log('characters selected: ' + Lselected);
+      if (e.code === 'Enter') {
+        //console.log('Level selected: ' + LChoices[choiceRow][choiceCol]);
         //delete scene ---------------------------------------------------
         LevTimer.update = function update(deltaTime) {/*end timer*/}
         Scene.removeEntity(Cursor);
         //----------------------------------------------------------------
-        displayFightScene(canvas, context);
+        displayFightScene(canvas, context, LChoices[choiceRow][choiceCol], Cselected);
+        this.removeEventListener('keypress', cursorHandler, false);
         this.removeEventListener('keypress', charNextHandler, false);
+        return Lselected;
       }
     };
     //move to the next scene

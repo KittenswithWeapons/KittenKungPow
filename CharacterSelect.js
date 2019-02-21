@@ -41,8 +41,8 @@ function selectCharacters(canvas, context) {
     choiceRow = 0;
     choiceCol = 0;
     CChoices = [
-      ['Karate', '2', '3', '4'],
-      ['5', '6', '7', '8']
+      ['Karate', 'Archer', 'Wizard', 'Rogue'],
+      ['Warrior', 'Soldier', 'Vagrant', 'FatCat']
     ];
 
     Scene.addEntity(Cursor);  //add cursor to the scene
@@ -82,12 +82,7 @@ function selectCharacters(canvas, context) {
 
     var CselectedNum = CChoices[choiceRow][choiceCol];  //character selected
     Cselected = new Array();  //character selection array
-    //CChoices = new Array('Karate Cat','Second Cat','3','4','5','6','7','8');  //character choices array
 
-
-    //default values, delete later
-    // Cselected[0] = CChoices[CselectedNum];
-    // Cselected[1] = CChoices[CselectedNum + 1];
 
 
     //Timer for the Character Selection Screen
@@ -103,14 +98,15 @@ function selectCharacters(canvas, context) {
     charNextHandler = function(e) {
       if (e.code === 'Enter') {
         Cselected[0] = CChoices[CselectedNum];
-        Cselected[1] = CChoices[CselectedNum + 1];
-        console.log('characters selected: ' + CChoices[choiceRow][choiceCol]);
+        //console.log('characters selected: ' + CChoices[choiceRow][choiceCol]);
         //delete scene ---------------------------------------------------
         CharTimer.update = function update(deltaTime) {/*end timer*/}
         Scene.removeEntity(Cursor);
         //----------------------------------------------------------------
-        displayLevelSelectScene(canvas, context);
+        displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
+        this.removeEventListener('keypress', cursorHandler, false);
         this.removeEventListener('keypress', charNextHandler, false);
+        return CChoices[choiceRow][choiceCol];
       }
     };
     //move to the next scene

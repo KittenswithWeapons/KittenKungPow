@@ -1,5 +1,9 @@
 //scene manager
 
+let LevelSelection;
+let CharacterSelection;
+
+
 function displayStartScene(canvas, context) {
   //display the Start Screen
   var img = new Image();
@@ -33,16 +37,16 @@ function displayCharSelectScene(canvas, context) {
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // character selection -------------------------------------
 
-  Cselected = selectCharacters(canvas, context);
+  CharacterSelection = selectCharacters(canvas, context);
 }
 
 
 
-function displayLevelSelectScene(canvas, context) {
+function displayLevelSelectScene(canvas, context, CSelections) {
   //display the level selection screen
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // level selection----------------------------------------
-  Lselected = selectLevel(canvas, context);
+  LevelSelection = selectLevel(canvas, context, CSelections);
 }
 
 
@@ -76,6 +80,8 @@ function Pause(context,level) {
 function displayFightScene(canvas, context, levelSelection, characterSelection) {
     context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
 
+    console.log("returned char selection: "+ characterSelection + "    returned level selection: "+ levelSelection);
+
     canvas.removeEventListener('keypress', function (e) {
       var key = e.which || e.keyCode;
       if (key === 13) { // 13 is enter
@@ -97,6 +103,7 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
       loadLevel('PinkCity'),
   ])
   .then(([Character, Enemy, Player3, Player4, level]) => {
+
       levelObject = level;
       Character.pos.set(400, 200); //sets the character position
 
@@ -145,6 +152,8 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
       });
 
 }
+
+
 
 
 
