@@ -14,16 +14,23 @@ class Level {
       this.entities.add(entity);
       this.entityCollider.addEntityCollider(entity);
 
-      if(entity.Ename == 'forcePush') {
-        var that = this;
-        window.setTimeout(function() {
-          that.entities.delete(entity);
-          that.entityCollider.removeEntityCollider(entity);}, 150);
-      } else if (entity.Ename == 'punch') {
-        var that = this;
-        window.setTimeout(function() {
-          that.entities.delete(entity);
-          that.entityCollider.removeEntityCollider(entity);}, 60);
+      if(entity.type == 'projectile') {
+        if(entity.Ename == 'forcePush') {
+          var that = this;
+          window.setTimeout(function() {
+            that.entities.delete(entity);
+            that.entityCollider.removeEntityCollider(entity);}, 150);
+        } else if (entity.Ename == 'punch' || entity.Ename == 'dagger') {
+          var that = this;
+          window.setTimeout(function() {
+            that.entities.delete(entity);
+            that.entityCollider.removeEntityCollider(entity);}, 60);
+        } else if (entity.Ename == 'kick' || entity.Ename == 'uppercut') {
+          var that = this;
+          window.setTimeout(function() {
+            that.entities.delete(entity);
+            that.entityCollider.removeEntityCollider(entity);}, 50);
+        }
       }
     }
 

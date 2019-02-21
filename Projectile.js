@@ -6,7 +6,7 @@ function createProjectile(name, originEntity) {
     if(name == 'fireball') {
         Projectile.size.set(25, 30);         //size of the projectile.
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);   //position of the Projectile starts from where the origin character is, may need to offset
-        Projectile.damageValue = 30;
+        Projectile.damageValue = 20;
     } else if(name == 'arrow') {
         Projectile.size.set(20, 9);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 30);
@@ -24,9 +24,27 @@ function createProjectile(name, originEntity) {
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
         Projectile.damageValue = 10;
     } else if(name == 'kick') {
-        Projectile.size.set(20, 10);
-        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
-        Projectile.damageValue = 20;
+        Projectile.size.set(20, 20);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
+        Projectile.damageValue = 30;
+    } else if(name == 'dagger') {
+        Projectile.size.set(15, 20);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
+        Projectile.damageValue = 3;
+    } else if(name == 'uppercut') {
+        Projectile.size.set(20, 20);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
+        Projectile.damageValue = 10;
+    } else if(name == 'shadeStep') {
+        Projectile.size.set(11, 12);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
+        Projectile.damageValue = 0;
+    }
+
+    Projectile.handle = function(intent) {
+        if(intent == 'getThrower'){
+            return originEntity;
+        }
     }
 
     Projectile.addTrait(new Velocity());
@@ -59,6 +77,18 @@ function createProjectile(name, originEntity) {
             case 'kick':
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
                     "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
+            case 'dagger':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break; 
+            case 'uppercut':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
+            case 'shadeStep':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/shadeStep.png"), 0, 0, 11, 12, 1, 1, true, false);
                 break; 
         }
     }
@@ -79,6 +109,8 @@ function createProjectile(name, originEntity) {
             Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y);
             Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y + 12);
             Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y + 24);
+        } else if (name == 'shadeStep') {
+            Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y);
         }
         context.restore();
     }
@@ -86,6 +118,7 @@ function createProjectile(name, originEntity) {
     Projectile.updateAnimation();
     return Projectile;
 }
+
 
 function ThrowProjectile(name, originEntity) {
     levelObject.addEntity(createProjectile(name, originEntity));

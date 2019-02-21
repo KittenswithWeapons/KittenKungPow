@@ -25,6 +25,7 @@ ASSET_MANAGER.queueDownload("./Enviroment/PinkCity.gif");
 ASSET_MANAGER.queueDownload("./Enviroment/woodenBarrel.png");
 ASSET_MANAGER.queueDownload("./Projectiles/fireball.png");
 ASSET_MANAGER.queueDownload("./Projectiles/Arrow.png");
+ASSET_MANAGER.queueDownload("./Projectiles/shadeStep.png");
 
 ASSET_MANAGER.downloadAll(function () {});
 

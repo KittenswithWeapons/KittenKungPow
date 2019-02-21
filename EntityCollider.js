@@ -38,6 +38,13 @@
               entityObject.damage += entity.damageValue;
               if(entity.Ename == 'forcePush') {
                 entityObject.handle('pushLeft');
+              } else if(entity.Ename == 'dagger') {
+                entityObject.handle('painLeft');
+              } else if(entity.Ename == 'uppercut') {
+                entityObject.handle('knockUp');
+              } else if(entity.Ename == 'shadeStep') {
+                entity.handle('getThrower').handle('shadeLeft', entityObject);
+                levelObject.removeEntity(entity);
               } else {
                 levelObject.removeEntity(entity);
                 entityObject.handle('painLeft');
@@ -60,6 +67,13 @@
                 entityObject.damage += entity.damageValue;
                 if(entity.Ename == 'forcePush') {
                   entityObject.handle('pushRight');
+                } else if(entity.Ename == 'dagger') {
+                  entityObject.handle('painRight');
+                } else if(entity.Ename == 'uppercut') {
+                  entityObject.handle('knockUp');
+                } else if(entity.Ename == 'shadeStep') {
+                  entity.handle('getThrower').handle('shadeRight', entityObject);
+                  levelObject.removeEntity(entity);
                 } else {
                   levelObject.removeEntity(entity);
                   entityObject.handle('painRight');

@@ -15,6 +15,9 @@ function createCharacter(name, choice) {
     Character.addTrait(new Punch());
     Character.heading = 1;
     Character.Jumping = false;
+    Character.lightAttackFinished = false;
+    Character.heavyAttackFinished = false;
+    Character.specialAttackFinished = false;
     Character.Walking = false;
     Character.Light = false;
     Character.Heavy = false;
@@ -34,7 +37,7 @@ function createCharacter(name, choice) {
     * @param item is a string indicating intent
     * @author Logan
     */
-    Character.handle = function (intent) {
+    Character.handle = function (intent, data) {
         switch(intent) {
             case 'land':
                 if(Character.Jumping) {
@@ -54,6 +57,25 @@ function createCharacter(name, choice) {
             case 'pushRight':
                 Character.knockback('painRight', 150);
                 break;
+            case 'knockUp':
+                Character.knockback(intent, 400);
+                break;
+            case 'shankLeft':
+                Character.knockback('painLeft', 50);
+                break;
+            case 'shankRight':
+                Character.knockback('painRight', 50);
+                break;
+            case 'shadeLeft':
+                Character.pos.x = data.pos.x + 40
+                Character.pos.y = data.pos.y - 10;
+                Character.heading = -1;
+                break;
+            case 'shadeRight':
+                Character.pos.x = data.pos.x - 40;
+                Character.pos.y = data.pos.y - 10;
+                Character.heading = 1;
+                break;
         }
     }
 
@@ -67,21 +89,25 @@ function createCharacter(name, choice) {
             Character.pain = true;
             Character.jump.start(knockbackDistance * 0.9);
 
-            var dir = 1.0;
-            if(direction == 'painRight') dir = -1;
-
-            Character.go.dir += dir * (knockbackDistance / 250);
-            Character.updateAnimation();
+            if(direction != 'knockUp') { 
+                var dir = 1.0;
+                if(direction == 'painRight') dir = -1;
+                Character.go.dir += dir * (knockbackDistance / 250);
+                Character.updateAnimation();
             
-            window.setTimeout (function() { 
-                Character.pain = false;
-                if(!Character.Walking) {
-                    Character.go.dir = 0;
-                } else {
-                    Character.go.dir -= dir * (knockbackDistance / 250);
-                }
-                Character.updateAnimation(); 
-            }, knockbackDistance * 2 * 0.85);
+                window.setTimeout (function() { 
+                    Character.pain = false;
+                    if(!Character.Walking) {
+                        Character.go.dir = 0;
+                    } else {
+                        Character.go.dir -= dir * (knockbackDistance / 250);
+                    }
+                    Character.updateAnimation(); 
+                }, knockbackDistance * 2 * 0.85);
+            } else {
+                Character.updateAnimation();
+                window.setTimeout (function() {Character.pain = false;},knockbackDistance); 
+            }
         }
     }
 
@@ -147,12 +173,20 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.04, 9, false, true),
         new Animation(ASSET_MANAGER.getAsset( //Archer
             characters[1]), 36, (6 * Character.frameSize + 48) - 4, 
-            Character.frameSize, Character.frameSize, 0.05, 8, false, false)
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Wizard
+            characters[2]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Rogue
+            characters[3]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.02, 8, false, false)
     ];
 
     var lightAttacks = [
         function() {ThrowProjectile("punch", Character);},
-        function() {ThrowProjectile("arrow", Character);}
+        function() {ThrowProjectile("arrow", Character);},
+        function() {ThrowProjectile("arrow", Character);},
+        function() {ThrowProjectile("dagger", Character);}
     ]
 
     var heavyAnimations = [
@@ -161,12 +195,20 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.09, 6, false, true),
         new Animation(ASSET_MANAGER.getAsset( //Archer
             characters[1]), 36, (6 * Character.frameSize + 48) - 4, 
-            Character.frameSize, Character.frameSize, 0.08, 8, false, false)
+            Character.frameSize, Character.frameSize, 0.08, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Wizard
+            characters[2]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.08, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Rogue
+            characters[3]), 36, (15 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.06, 10, false, false)
     ];
 
     var heavyAttacks = [
-        function() {ThrowProjectile("kick", Character);},
-        function() {ThrowProjectile("trippleArrow", Character);}
+        function() {window.setTimeout(function() {ThrowProjectile("kick", Character);}, 200)},
+        function() {ThrowProjectile("trippleArrow", Character);},
+        function() {ThrowProjectile("trippleArrow", Character);},
+        function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character);}, 200)}
     ]
 
     var specialAnimations = [
@@ -175,17 +217,29 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.05, 7, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Archer
             characters[1]), 36, (13 * Character.frameSize + 48) - 4, 
-            Character.frameSize - 2, Character.frameSize, 0.08, 8, false, false)
+            Character.frameSize - 2, Character.frameSize, 0.08, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Wizard
+            characters[2]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.08, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Rogue
+            characters[3]), 36, 48 - 4, 
+            Character.frameSize, Character.frameSize, 0.1, 4, false, false)
     ];
 
     var specialAttacks = [
-        function() {ThrowProjectile("fireball", Character);}, //Karate
+        function() {window.setTimeout(function() {ThrowProjectile("fireball", Character);}, 350)}, //Karate
         function() {
-            ThrowProjectile("forcePush", Character);
-            Character.heading *= -1;
-            ThrowProjectile("forcePush", Character);
-            Character.heading *= -1;
-            }
+            window.setTimeout(function() {
+                ThrowProjectile("forcePush", Character);
+                Character.heading *= -1;
+                ThrowProjectile("forcePush", Character);
+                Character.heading *= -1;
+            }, 280);
+        },
+        function() {window.setTimeout(function() {ThrowProjectile("fireball", Character);}, 350)}, //Wizard
+        function() {
+            ThrowProjectile("shadeStep", Character);
+        }, //Rogue
     ]
   
     Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
@@ -213,26 +267,38 @@ function createCharacter(name, choice) {
             Character.animation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y);
         } else if (Character.Light) { 
             Character.lightAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
+            if(!Character.lightAttackFinished) {
+                lightAttacks[Character.choice]();
+                Character.lightAttackFinished = true;
+            }
             if(Character.lightAnimation.isDone()) {
                 Character.animation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y);
-                lightAttacks[Character.choice]();
                 Character.Light = false;
+                Character.lightAttackFinished = false;
                 Character.lightAnimation.elapsedTime = 0;
             }
         } else if (Character.Heavy) {
             Character.heavyAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
+            if(!Character.heavyAttackFinished) {
+                heavyAttacks[Character.choice]();
+                Character.heavyAttackFinished = true;
+            }
             if(Character.heavyAnimation.isDone()) {
                 Character.animation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y);
-                heavyAttacks[Character.choice]();
                 Character.Heavy = false;
+                Character.heavyAttackFinished = false;
                 Character.heavyAnimation.elapsedTime = 0;
             }
         } else if (Character.Special) {
             Character.specialAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
+            if(!Character.specialAttackFinished) {
+                specialAttacks[Character.choice]();
+                Character.specialAttackFinished = true;
+            }
             if(Character.specialAnimation.isDone()) {
                 Character.animation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y);
-                specialAttacks[Character.choice]();
                 Character.Special = false;
+                Character.specialAttackFinished = false;
                 Character.specialAnimation.elapsedTime = 0;
             }
         }
