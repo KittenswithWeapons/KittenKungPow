@@ -90,6 +90,7 @@ class TileCollider {
             entity.grounded = true;
             entity.handle('land');
             entity.jump.jumpNumber = 0;
+
           }
         }
 

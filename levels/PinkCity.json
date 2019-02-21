@@ -34,21 +34,6 @@
                     9,10
                 ]
             ]
-        },
-
-        { "tile": "levelobject",
-        "ranges": [
-          [
-            12,13,
-              18,19
-          ]
-          ,
-          [
-            21,22,
-              18,19
-          ]
-
-        ]
         }
     ]
     ,"_comment" : "Current x,y maxs are: 40,25       platform order : up left, up mid, up right, addon, addon"
