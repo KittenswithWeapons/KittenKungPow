@@ -11,8 +11,8 @@ function selectLevel(canvas, context, Cselected) {
     choiceRow = 0;
     choiceCol = 0;
     LChoices = [
-      ['PinkCity', 'FutureTown', 'FutureCity', 'FutureCity'],
-      ['PinkCity', 'FutureTown', 'FutureCity', 'FutureCity']
+      ['PinkCity', 'FutureTown', 'FutureCity', 'Waterfall'],
+      ['PinkCity', 'FutureTown', 'FutureCity', 'Waterfall']
     ];
 
     //cursor movement
