@@ -98,9 +98,9 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
     Promise.all([
 
       createCharacter('character', characterSelection),
-      createCharacter('CPU-1', 4),
-      createCharacter('CPU-2', 1),
-      createCharacter('CPU-3', 2),
+      createCharacter('CPU-1', 1),
+      createCharacter('CPU-2', 3),
+      createCharacter('CPU-3', 7),
       loadLevel(levelSelection),
 
   ])

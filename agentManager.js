@@ -4,52 +4,37 @@ function agentManager(entity) {
     this.agent = entity;
     this.input = setupKeyboard(entity);
     this.keyHeld = true;
-    this.delay = 100;
+    this.delay = 200;
     this.target;
     this.targetDist = Infinity;
 };
 
 agentManager.prototype.update = function () {
-    // console.log(this.targetDist);
     
     this.selectTarget();
+    console.log(this.agent.Ename + "s target is " + this.target.Ename);
+    console.log(this.target.Ename + " is " + this.targetDist + " units away");
     this.selectMove();
     this.selectAttack();
     this.keyHeld = !this.keyHeld;
 };
 
 agentManager.prototype.selectMove = function () {
-    var move = Math.floor(Math.random() * (4));
-    // console.log("MOVE === " + move);
-    // switch (move) {
-    //     case 0:
-    //         this.jump();
-    //         break;
-    //     case 1:
-    //         this.left();
-    //         break;
-    //     case 2:
-    //         this.right();
-    //         break;
-    //     case 3:
-    //         this.down();
-    //         break;
-    //     default:
-    //         break;
-    // }
-    if (this.agent.pos.x < 20) {
+
+    if (this.agent.pos.x < 80) {
         this.right();
-    } else if (this.agent.pos.x > 1180) {
+    } else if (this.agent.pos.x > 1120) {
         this.left();
     } 
-    if (this.agent.pos.y > 700 ) {
+    if (this.agent.pos.y > 700) {
         this.jump();
+        this.jump();
+    } else if (this.agent.pos.y < 100) {
+        this.down();
     }
 
     if (this.targetDist > 100) {
         if (this.target.pos.y < this.agent.pos.y) {
-            console.log(this.targetDist);
-            
             this.jump();
             if (this.target.pos.x < this.agent.pos.x) {
                 this.left();
@@ -57,6 +42,7 @@ agentManager.prototype.selectMove = function () {
                 this.right();
             }
         } else {
+            if (this.target.pos.y > this.agent.pos.y + 100) this.down();
             if (this.target.pos.x < this.agent.pos.x) {
                 this.left();
             } else {
@@ -64,6 +50,8 @@ agentManager.prototype.selectMove = function () {
             }
         }
     } else {
+        console.log(this.agent.Ename + " Says " + this.target.Ename + " is too close!");
+        console.log(this.target.Ename + " is " + this.targetDist + " units away!");
         this.jump();
         if (this.target.pos.x < this.agent.pos.x) {
             this.right();
@@ -78,10 +66,14 @@ agentManager.prototype.selectTarget = function () {
     var closestDist = Infinity;
     var closestEnemy;
     levelObject.entities.forEach(Entity => {
-        var dist = Math.hypot(Entity.pos.x-this.agent.pos.x, Entity.pos.y-this.agent.pos.x);
-        if (dist < closestDist) {
-            closestDist = dist;
-            closestEnemy = Entity;
+        if (Entity != this.agent) {
+            // var dist = Math.hypot(Entity.pos.x-this.agent.pos.x, Entity.pos.y-this.agent.pos.x);
+            var dist = Math.sqrt( Math.pow((this.agent.pos.x-Entity.pos.x), 2) 
+                                    + Math.pow((this.agent.pos.y-Entity.pos.y), 2));
+            if (dist < closestDist) {
+                closestDist = dist;
+                closestEnemy = Entity;
+            }
         }
     });
     this.target = closestEnemy;
@@ -118,15 +110,11 @@ agentManager.prototype.heavy = function () {
 agentManager.prototype.right = function () {
     if (this.keyHeld) {
         this.agent.Walking = true;
-        this.agent.go.dir += 1;
+        this.agent.go.dir = 1;
         this.agent.updateAnimation();
       } else {
-        if(!this.agent.Walking) {
-            this.agent.go.dir = 0;
-        } else {
-            this.agent.Walking = false;
-            this.agent.go.dir -= 1;
-        }
+        this.agent.Walking = false;
+        this.agent.go.dir = 0;
         this.agent.updateAnimation();
       }
 }
@@ -134,15 +122,11 @@ agentManager.prototype.right = function () {
 agentManager.prototype.left = function () {
     if (this.keyHeld) {
         this.agent.Walking = true;
-        this.agent.go.dir -= 1;
+        this.agent.go.dir = -1;
         this.agent.updateAnimation();
       } else {
-        if(!this.agent.Walking) {
-            this.agent.go.dir = 0;
-        } else {
-            this.agent.Walking = false;
-            this.agent.go.dir += 1;
-        }
+        this.agent.Walking = false;
+        this.agent.go.dir = 0;
         this.agent.updateAnimation();
       }
 }
