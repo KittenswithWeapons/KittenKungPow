@@ -116,7 +116,7 @@ function drawLevelPreviewImages(context) {
     img3.onload = function () {
     context.drawImage(img3, 83 + 768 + 90, 144); //position the level preview image
     }
-    img3.src = "./LevelPreviews/FutureCityPreview.JPG";
+    img3.src = "./LevelPreviews/WaterfallPreview.PNG";
 
     //row2 ------------------------------------------------------------------------------------------
     var img4 = new Image();
@@ -141,7 +141,7 @@ function drawLevelPreviewImages(context) {
     img7.onload = function () {
     context.drawImage(img7, 83 + 768 + 90, 144 + 288); //position the level preview image
     }
-    img7.src = "./LevelPreviews/FutureCityPreview.JPG";
+    img7.src = "./LevelPreviews/WaterfallPreview.PNG";
 
 
     //add more images for previews

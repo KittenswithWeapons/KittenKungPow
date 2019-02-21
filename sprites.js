@@ -6,7 +6,7 @@ function loadBackgroundSprites(name) {
           sprites.defineTile('ground', 1, 0);
           sprites.defineTile('platform', 0, 0);
           return sprites;
-        }else if (name === 'PinkCity') {
+        } else if (name === 'PinkCity') {
           const sprites = new SpriteSheet(image, 32, 32);
           sprites.defineTile('ground', 1, 0);
           sprites.defineTile('platform', 1, 0);
@@ -15,6 +15,11 @@ function loadBackgroundSprites(name) {
           const sprites = new SpriteSheet(image, 32, 32);
           sprites.defineTile('ground', 2, 0);
           sprites.defineTile('platform', 2, 0);
+          return sprites;
+        } else if (name === 'Waterfall') {
+          const sprites = new SpriteSheet(image, 32, 32);
+          sprites.defineTile('ground', 1, 0);
+          sprites.defineTile('platform', 0, 0);
           return sprites;
         }
     });
