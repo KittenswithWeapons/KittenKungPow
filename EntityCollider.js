@@ -35,9 +35,13 @@
           if (entity.pos.x + entity.size.x >= entityObject.pos.x && entity.pos.x + entity.size.x <= entityObject.pos.x + entityObject.size.x/2) { // /3
             if (entity.type === 'projectile') {
               console.log('projectile hit');
-              levelObject.removeEntity(entity);
               entityObject.damage += entity.damageValue;
-              entityObject.handle('painLeft');
+              if(entity.Ename == 'forcePush') {
+                entityObject.handle('pushLeft');
+              } else {
+                levelObject.removeEntity(entity);
+                entityObject.handle('painLeft');
+              }
               console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
               return;
             }
@@ -53,9 +57,13 @@
             if (entity.pos.x >= entityObject.pos.x + entityObject.size.x/2 && entity.pos.x <= entityObject.pos.x + entityObject.size.x ) { //division divides the char in hald and then segments further to catch between frames
               if (entity.type === 'projectile') {
                 console.log('projectile hit');
-                levelObject.removeEntity(entity);
                 entityObject.damage += entity.damageValue;
-                entityObject.handle('painRight');
+                if(entity.Ename == 'forcePush') {
+                  entityObject.handle('pushRight');
+                } else {
+                  levelObject.removeEntity(entity);
+                  entityObject.handle('painRight');
+                }
                 console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
                 return;
               }

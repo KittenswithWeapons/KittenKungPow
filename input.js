@@ -1,7 +1,5 @@
 function setupKeyboard(entity) {
-
     const input = new keyBoardState(); //new keyboard
-
 
     input.addMapping('Space', keyState => { //jump
         //console.log(keyState);
@@ -14,31 +12,33 @@ function setupKeyboard(entity) {
     });
 
     input.addMapping('ArrowLeft', keyState => { //punch
-        if (keyState) {
+        if (keyState && !input.fozen) {
+          input.frozen = true;
+          window.setTimeout(function() {input.frozen = false}, 100);
           entity.punch.start();
           entity.Light = true;
           entity.updateAnimation();
-         }
+        }
     });
 
     input.addMapping('ArrowUp', keyState => { //Fireball
-        if (keyState) {
+        if (keyState && !input.frozen) {
           if (!entity.Special) {
+            input.frozen = true;
+            window.setTimeout(function() {input.frozen = false}, 300);
             entity.Special = true;
             entity.updateAnimation();
-          //   window.setTimeout(function() {
-          //   ThrowProjectile("fireball", entity);
-          //   entity.Special = false;
-          //   entity.updateAnimation();} , 280)
           }
         }
     });
 
-    input.addMapping('ArrowRight', keyState => { //Kick 
-      if (keyState) {
-        entity.Heavy = true;
-        entity.updateAnimation();
-       }
+    input.addMapping('ArrowRight', keyState => { //Kick
+        if (keyState && !input.frozen) {
+            input.frozen = true;
+            window.setTimeout(function() {input.frozen = false}, 300);
+            entity.Heavy = true;
+            entity.updateAnimation();
+        }
   });
 
     input.addMapping('KeyD', keyState => { //go right
@@ -46,7 +46,7 @@ function setupKeyboard(entity) {
           entity.Walking = true;
           entity.go.dir += 1;
           entity.updateAnimation();
-        } else {
+        } else if(!keyState) {
           if(!entity.Walking) {
             entity.go.dir = 0;
           } else {
@@ -55,7 +55,6 @@ function setupKeyboard(entity) {
           }
           entity.updateAnimation();
         }
-
     });
 
     input.addMapping('KeyA', keyState => { //go left
@@ -74,13 +73,12 @@ function setupKeyboard(entity) {
         }
     });
 
-		input.addMapping('KeyS', keyState => { //go left
+    input.addMapping('KeyS', keyState => { //go down
         if (keyState) {
-					entity.passdown.start();
-				} else {
-					entity.passdown.cancel();
-				}
-
+          entity.passdown.start();
+        } else {
+          entity.passdown.cancel();
+        }
     });
 
     input.addMapping('Digit1', keyState => {if (keyState) entity.choice = 0; entity.updateAnimation();});
@@ -92,7 +90,5 @@ function setupKeyboard(entity) {
     input.addMapping('Digit7', keyState => {if (keyState) entity.choice = 6; entity.updateAnimation();});
     input.addMapping('Digit8', keyState => {if (keyState) entity.choice = 7; entity.updateAnimation();});
 
-
     return input;
-
 }

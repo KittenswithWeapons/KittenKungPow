@@ -1,5 +1,9 @@
 //scene manager
 
+let LevelSelection;
+let CharacterSelection;
+
+
 function displayStartScene(canvas, context) {
   //display the Start Screen
   var img = new Image();
@@ -33,16 +37,16 @@ function displayCharSelectScene(canvas, context) {
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // character selection -------------------------------------
 
-  Cselected = selectCharacters(canvas, context);
+  CharacterSelection = selectCharacters(canvas, context);
 }
 
 
 
-function displayLevelSelectScene(canvas, context) {
+function displayLevelSelectScene(canvas, context, CSelections) {
   //display the level selection screen
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // level selection----------------------------------------
-  Lselected = selectLevel(canvas, context);
+  LevelSelection = selectLevel(canvas, context, CSelections);
 }
 
 
@@ -76,6 +80,8 @@ function Pause(context,level) {
 function displayFightScene(canvas, context, levelSelection, characterSelection) {
     context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
 
+    console.log("returned char selection: "+ characterSelection + "    returned level selection: "+ levelSelection);
+
     canvas.removeEventListener('keypress', function (e) {
       var key = e.which || e.keyCode;
       if (key === 13) { // 13 is enter
@@ -90,19 +96,35 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
     levelMusic.play(); //plays the level song
 
     Promise.all([
-      createCharacter('character'),
+
+      createCharacter('character', characterSelection),
       createCharacter('CPU-1', 4),
       createCharacter('CPU-2', 1),
       createCharacter('CPU-3', 2),
-      loadLevel('PinkCity'),
+      loadLevel(levelSelection),
+
   ])
   .then(([Character, Enemy, Player3, Player4, level]) => {
-      levelObject = level;
-      Character.pos.set(400, 200); //sets the character position
 
-      Enemy.pos.set(900, 280); Enemy.heading = -1; //sets enemy pos and heading
-      Player3.pos.set(450, 480); Player3.heading = 1; //sets enemy pos and heading
-      Player4.pos.set(800, 480); Player4.heading = -1; //sets enemy pos and heading
+      levelObject = level;
+      if (levelSelection === 'PinkCity') {
+        Character.pos.set(400, 200); //sets the character position
+        Enemy.pos.set(900, 280); Enemy.heading = -1; //sets enemy pos and heading
+        Player3.pos.set(450, 480); Player3.heading = 1; //sets enemy pos and heading
+        Player4.pos.set(800, 480); Player4.heading = -1; //sets enemy pos and heading
+      }
+      if (levelSelection === 'FutureTown') {
+        Character.pos.set(300, 200); //sets the character position
+        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
+        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+      }
+      if (levelSelection === 'FutureCity') {
+        Character.pos.set(300, 200); //sets the character position
+        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
+        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+      }
 
       level.comp.layers.push(createCollisionLayer(level));
 
@@ -145,6 +167,8 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
       });
 
 }
+
+
 
 
 

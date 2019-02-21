@@ -15,6 +15,18 @@ function createProjectile(name, originEntity) {
         Projectile.size.set(20, 30);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);
         Projectile.damageValue = 30;
+    } else if(name == 'forcePush') {
+        Projectile.size.set(10, 50);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
+        Projectile.damageValue = 0;
+    } else if(name == 'punch') {
+        Projectile.size.set(15, 20);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
+        Projectile.damageValue = 10;
+    } else if(name == 'kick') {
+        Projectile.size.set(20, 10);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
+        Projectile.damageValue = 20;
     }
 
     Projectile.addTrait(new Velocity());
@@ -36,6 +48,18 @@ function createProjectile(name, originEntity) {
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
                     "./Projectiles/Arrow.png"), 0, 0, 33, 9, 1, 1, true, false);
                 break;
+            case 'forcePush':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
+            case 'punch':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break; 
+            case 'kick':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break; 
         }
     }
 

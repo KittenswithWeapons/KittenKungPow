@@ -1,10 +1,22 @@
 function loadBackgroundSprites(name) {
     return loadImage(`./Enviroment/${name}tiles.png`)
     .then(image => {
-        const sprites = new SpriteSheet(image, 32, 32);
-        sprites.defineTile('ground', 1, 0);
-        sprites.defineTile('platform', 1, 0);
-        return sprites;
+        if (name === 'FutureTown') {
+          const sprites = new SpriteSheet(image, 32, 32);
+          sprites.defineTile('ground', 1, 0);
+          sprites.defineTile('platform', 0, 0);
+          return sprites;
+        }else if (name === 'PinkCity') {
+          const sprites = new SpriteSheet(image, 32, 32);
+          sprites.defineTile('ground', 1, 0);
+          sprites.defineTile('platform', 1, 0);
+          return sprites;
+        } else if (name === 'FutureCity') {
+          const sprites = new SpriteSheet(image, 32, 32);
+          sprites.defineTile('ground', 2, 0);
+          sprites.defineTile('platform', 2, 0);
+          return sprites;
+        }
     });
 }
 
