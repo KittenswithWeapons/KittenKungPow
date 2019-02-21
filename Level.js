@@ -19,6 +19,11 @@ class Level {
         window.setTimeout(function() {
           that.entities.delete(entity);
           that.entityCollider.removeEntityCollider(entity);}, 150);
+      } else if (entity.Ename == 'punch') {
+        var that = this;
+        window.setTimeout(function() {
+          that.entities.delete(entity);
+          that.entityCollider.removeEntityCollider(entity);}, 60);
       }
     }
 

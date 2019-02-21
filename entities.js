@@ -151,7 +151,7 @@ function createCharacter(name, choice) {
     ];
 
     var lightAttacks = [
-        function() {console.log("Karate light");},
+        function() {ThrowProjectile("punch", Character);},
         function() {ThrowProjectile("arrow", Character);}
     ]
 
@@ -165,7 +165,7 @@ function createCharacter(name, choice) {
     ];
 
     var heavyAttacks = [
-        function() {console.log("Karate heavy")},
+        function() {ThrowProjectile("kick", Character);},
         function() {ThrowProjectile("trippleArrow", Character);}
     ]
 
