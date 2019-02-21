@@ -40,10 +40,10 @@ class Entity {
 		if (this.isAgent && this.agentManager.delay === 0) {
 			this.agentManager.update();
 			this.agentManager.delay = 10;
-			console.log(this.Ename);
+			//console.log(this.Ename);
 		}
-		
-		
+
+
 		if (this.inKillzone()) {
 			if (this.type === 'projectile') {
 				levelObject.removeEntity(this);

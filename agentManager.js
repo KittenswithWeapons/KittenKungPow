@@ -10,10 +10,10 @@ function agentManager(entity) {
 };
 
 agentManager.prototype.update = function () {
-    
+
     this.selectTarget();
-    console.log(this.agent.Ename + "s target is " + this.target.Ename);
-    console.log(this.target.Ename + " is " + this.targetDist + " units away");
+    //console.log(this.agent.Ename + "s target is " + this.target.Ename);
+    //console.log(this.target.Ename + " is " + this.targetDist + " units away");
     this.selectMove();
     this.selectAttack();
     this.keyHeld = !this.keyHeld;
@@ -25,7 +25,7 @@ agentManager.prototype.selectMove = function () {
         this.right();
     } else if (this.agent.pos.x > 1120) {
         this.left();
-    } 
+    }
     if (this.agent.pos.y > 700) {
         this.jump();
         this.jump();
@@ -50,8 +50,8 @@ agentManager.prototype.selectMove = function () {
             }
         }
     } else {
-        console.log(this.agent.Ename + " Says " + this.target.Ename + " is too close!");
-        console.log(this.target.Ename + " is " + this.targetDist + " units away!");
+        //console.log(this.agent.Ename + " Says " + this.target.Ename + " is too close!");
+        //console.log(this.target.Ename + " is " + this.targetDist + " units away!");
         this.jump();
         if (this.target.pos.x < this.agent.pos.x) {
             this.right();
@@ -68,7 +68,7 @@ agentManager.prototype.selectTarget = function () {
     levelObject.entities.forEach(Entity => {
         if (Entity != this.agent) {
             // var dist = Math.hypot(Entity.pos.x-this.agent.pos.x, Entity.pos.y-this.agent.pos.x);
-            var dist = Math.sqrt( Math.pow((this.agent.pos.x-Entity.pos.x), 2) 
+            var dist = Math.sqrt( Math.pow((this.agent.pos.x-Entity.pos.x), 2)
                                     + Math.pow((this.agent.pos.y-Entity.pos.y), 2));
             if (dist < closestDist) {
                 closestDist = dist;
@@ -81,7 +81,7 @@ agentManager.prototype.selectTarget = function () {
 };
 
 agentManager.prototype.selectAttack = function () {
-    
+
 };
 
 agentManager.prototype.jump = function () {

@@ -5,6 +5,8 @@ class Level {
         this.comp = new Compositor();
         this.entities = new Set();
         this.tiles = new Matrix();
+        this.itemCounter = 0;
+        this.itemSpawnRate = 10; //number of seconds between item spawns
 
         this.tileCollider = new TileCollider(this.tiles);
         this.entityCollider = new EntityCollider(this.entities);   //added
@@ -40,6 +42,12 @@ class Level {
     }
 
     update(deltaTime) {
+        if (this.itemCounter > this.itemSpawnRate * 60) {   //item spawning, Seconds * framerate
+          this.addEntity(new createItem('health'));
+          this.itemCounter = 0;
+        }
+        this.itemCounter ++;
+
         this.entities.forEach(entity => {
             entity.update(deltaTime);
             //console.log(entity.Ename);

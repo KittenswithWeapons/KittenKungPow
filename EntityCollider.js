@@ -33,8 +33,27 @@
 
         if (entity.vel.x > 0) {
           if (entity.pos.x + entity.size.x >= entityObject.pos.x && entity.pos.x + entity.size.x <= entityObject.pos.x + entityObject.size.x/2) { // /3
+
+            if (entity.type === 'Item' || entityObject.type === 'Item') { //item handling------------------------
+              //console.log('item hit! from left');
+              if (entity.Ename === 'health'){
+                entityObject.damage -= 10;
+                if (entityObject.damage < 0) {
+                  entityObject.damage = 0;
+                }
+              }
+              if (entityObject.type === 'Item') {
+                levelObject.removeEntity(entityObject);
+              } else {
+                levelObject.removeEntity(entity);
+              }
+              return;
+            }
+            //item handling END---------------------------------------------
+
+
             if (entity.type === 'projectile') {
-              console.log('projectile hit');
+              //console.log('projectile hit');
               entityObject.damage += entity.damageValue;
               if(entity.Ename == 'forcePush') {
                 entityObject.handle('pushLeft');
@@ -49,7 +68,7 @@
                 levelObject.removeEntity(entity);
                 entityObject.handle('painLeft');
               }
-              console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
+              //console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
               return;
             }
             entity.pos.x = entityObject.pos.x - entity.size.x ;
@@ -58,12 +77,31 @@
             entityObject.vel.x = entity.vel.x/2;
 
             //entity.vel.y = xCollideFallFactor;
-            console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 1');
+            //console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 1');
           }
         } else if (entity.vel.x < 0) {
             if (entity.pos.x >= entityObject.pos.x + entityObject.size.x/2 && entity.pos.x <= entityObject.pos.x + entityObject.size.x ) { //division divides the char in hald and then segments further to catch between frames
+
+              if (entity.type === 'Item' || entityObject.type === 'Item') { //item handling------------------------
+                //console.log('item hit! from right');
+                if (entity.Ename === 'health'){
+                  entityObject.damage -= 10;
+                  if (entityObject.damage < 0) {
+                    entityObject.damage = 0;
+                  }
+                }
+                if (entityObject.type === 'Item') {
+                  levelObject.removeEntity(entityObject);
+                } else {
+                  levelObject.removeEntity(entity);
+                }
+                return;
+              }
+              //item handling END---------------------------------------------
+
+
               if (entity.type === 'projectile') {
-                console.log('projectile hit');
+                //console.log('projectile hit');
                 entityObject.damage += entity.damageValue;
                 if(entity.Ename == 'forcePush') {
                   entityObject.handle('pushRight');
@@ -78,7 +116,7 @@
                   levelObject.removeEntity(entity);
                   entityObject.handle('painRight');
                 }
-                console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
+                //console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
                 return;
               }
               entity.pos.x = entityObject.pos.x + entityObject.size.x;
@@ -87,7 +125,7 @@
               entityObject.vel.x = entity.vel.x/2;
 
               //entity.vel.y = xCollideFallFactor;
-              console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 2');
+              //console.log(entity.Ename + ' hit ' + entityObject.Ename + ': x-hit -- 2');
             }
 
           }
