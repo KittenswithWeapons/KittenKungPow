@@ -41,8 +41,8 @@ function selectCharacters(canvas, context) {
     choiceRow = 0;
     choiceCol = 0;
     CChoices = [
-      ['Karate', 'Archer', 'Wizard', 'Rogue'],
-      ['Warrior', 'Soldier', 'Vagrant', 'FatCat']
+      ['0', '1', '2', '3'],
+      ['4', '5', '6', '7']
     ];
 
     Scene.addEntity(Cursor);  //add cursor to the scene

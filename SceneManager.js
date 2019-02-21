@@ -96,11 +96,11 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
     levelMusic.play(); //plays the level song
 
     Promise.all([
-      createCharacter('character'),
+      createCharacter('character', characterSelection),
       createCharacter('enemy', 4),
       createCharacter('player3', 1),
       createCharacter('player4', 2),
-      loadLevel('PinkCity'),
+      loadLevel(levelSelection),
   ])
   .then(([Character, Enemy, Player3, Player4, level]) => {
 
