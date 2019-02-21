@@ -91,9 +91,9 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
     Promise.all([
       createCharacter('character'),
-      createCharacter('enemy', 4),
-      createCharacter('player3', 1),
-      createCharacter('player4', 2),
+      createCharacter('CPU-1', 4),
+      createCharacter('CPU-2', 1),
+      createCharacter('CPU-3', 2),
       loadLevel('PinkCity'),
   ])
   .then(([Character, Enemy, Player3, Player4, level]) => {
