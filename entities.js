@@ -5,6 +5,7 @@ var characters = ["./characters/Karate.png", "./characters/Archer.png", "./chara
 var playerNum = 1;
 function createCharacter(name, choice) {
     const Character = new Entity(name);
+    Character.type = 'player'
     Character.frameSize = 128;
     Character.size.set(28, 58); //set to actuall pixel size of character, determines collision box. kat is 18,29
     Character.origin = 'self';
@@ -32,7 +33,7 @@ function createCharacter(name, choice) {
 
     /*
     * Entity has an empty method called handle that can be overridden by child types.
-    * Usage: Tile Collider knows what an entity is but not what a character is. It 
+    * Usage: Tile Collider knows what an entity is but not what a character is. It
     * can call entity.handle but not Character.updateAnimation. Any entity can override
     * handle for any purpose.
     * @param item is a string indicating intent
@@ -85,19 +86,21 @@ function createCharacter(name, choice) {
     * @param direction is the direction to be knocked back.
     */
     Character.knockback = function(direction, distance) {
+
         Character.go.dir = 0;
         knockbackDistance = distance || Character.damage; 
+
         if(!Character.pain) {
             Character.pain = true;
             Character.jump.start(knockbackDistance * 0.9);
 
-            if(direction != 'knockUp') { 
+            if(direction != 'knockUp') {
                 var dir = 1.0;
                 if(direction == 'painRight') dir = -1;
                 Character.go.dir = dir * (knockbackDistance / 250);
                 Character.updateAnimation();
-            
-                window.setTimeout (function() { 
+
+                window.setTimeout (function() {
                     Character.pain = false;
                     // if(!Character.Walking) {
                         Character.go.dir = 0;
@@ -105,10 +108,11 @@ function createCharacter(name, choice) {
                     //     Character.go.dir -= dir * (knockbackDistance / 250);
                     // }
                     Character.updateAnimation(); 
+
                 }, knockbackDistance * 2 * 0.85);
             } else {
                 Character.updateAnimation();
-                window.setTimeout (function() {Character.pain = false;},knockbackDistance); 
+                window.setTimeout (function() {Character.pain = false;},knockbackDistance);
             }
         }
     }
@@ -171,28 +175,28 @@ function createCharacter(name, choice) {
 
     var lightAnimations = [
         new Animation(ASSET_MANAGER.getAsset( //Karate
-            characters[0]), 36, (9 * Character.frameSize + 48) - 4, 
+            characters[0]), 36, (9 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 9, false, true),
         new Animation(ASSET_MANAGER.getAsset( //Archer
-            characters[1]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[1]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Wizard
-            characters[2]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[2]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Rogue
-            characters[3]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[3]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.02, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Warrior
-            characters[4]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[4]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
-            characters[5]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[5]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Vagrant
-            characters[6]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[6]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
-            characters[7]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[7]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.06, 5, false, false)
     ];
 
@@ -209,28 +213,28 @@ function createCharacter(name, choice) {
 
     var heavyAnimations = [
         new Animation(ASSET_MANAGER.getAsset( //Karate
-            characters[0]), 36, (11 * Character.frameSize + 48) - 4, 
+            characters[0]), 36, (11 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.09, 6, false, true),
         new Animation(ASSET_MANAGER.getAsset( //Archer
-            characters[1]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[1]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.08, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Wizard
-            characters[2]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[2]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.08, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Rogue
-            characters[3]), 36, (15 * Character.frameSize + 48) - 4, 
+            characters[3]), 36, (15 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.06, 10, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Warrior
-            characters[4]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[4]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
-            characters[5]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[5]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Vagrant
-            characters[6]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[6]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
-            characters[7]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[7]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.06, 5, false, false)
     ];
 
@@ -256,28 +260,28 @@ function createCharacter(name, choice) {
 
     var specialAnimations = [
         new Animation(ASSET_MANAGER.getAsset( //Karate
-            characters[0]), 36, (5 * Character.frameSize + 24 * 2) - 6, 
+            characters[0]), 36, (5 * Character.frameSize + 24 * 2) - 6,
             Character.frameSize, Character.frameSize, 0.05, 7, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Archer
-            characters[1]), 36, (13 * Character.frameSize + 48) - 4, 
+            characters[1]), 36, (13 * Character.frameSize + 48) - 4,
             Character.frameSize - 2, Character.frameSize, 0.08, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Wizard
-            characters[2]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[2]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.08, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Rogue
-            characters[3]), 36, 48 - 4, 
+            characters[3]), 36, 48 - 4,
             Character.frameSize, Character.frameSize, 0.1, 4, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Warrior
-            characters[4]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[4]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
-            characters[5]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[5]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Vagrant
-            characters[6]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[6]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
-            characters[7]), 36, (6 * Character.frameSize + 48) - 4, 
+            characters[7]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 5, false, false)
     ];
 
@@ -296,14 +300,14 @@ function createCharacter(name, choice) {
         function() {ThrowProjectile("fireball", Character);}, //Vagrant
         function() {ThrowProjectile("arrow", Character);} //Fatcat
     ]
-  
+
     Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
         characters[Character.choice]), 0, 0, 128, 256, 1, 1, true, false);
-            
-    Character.painAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Damage.png"), 
+
+    Character.painAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Damage.png"),
         0, 0, 18, 12, 1, 1, true, false);
-    
-    Character.dustAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Dust.png"), 
+
+    Character.dustAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Dust.png"),
         0, 0, 16, 16, 0.05, 1, false, false);
 
 
@@ -321,9 +325,9 @@ function createCharacter(name, choice) {
         }
         context.scale(Character.heading, 1);
 
-        if(!Character.Light && !Character.Heavy && !Character.Special) { 
+        if(!Character.Light && !Character.Heavy && !Character.Special) {
             Character.animation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y);
-        } else if (Character.Light) { 
+        } else if (Character.Light) {
             Character.lightAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
             if(!Character.lightAttackFinished) {
                 lightAttacks[Character.choice]();
@@ -376,7 +380,7 @@ function createCharacter(name, choice) {
         context.restore();
 
         drawInfo(context);
-        
+
     }
 
     function drawInfo(context) {
@@ -399,12 +403,12 @@ function createCharacter(name, choice) {
             }
             context.fillRect(95 + 320 * (Character.player - 1), 678, 105, 40);
             context.strokeRect(95 + 320 * (Character.player - 1), 678, 105, 40);
-            
+
             for(var i = 0; i < Character.lives; i++ ) {
                 context.save();
                 context
-                Character.staticAnimation.drawFrame(0, context, 
-                    120 + (i * 18) + 320 * (Character.player - 1), 
+                Character.staticAnimation.drawFrame(0, context,
+                    120 + (i * 18) + 320 * (Character.player - 1),
                     660, 0.5);
                 context.restore();
             }
