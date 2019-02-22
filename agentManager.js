@@ -4,7 +4,7 @@ function agentManager(entity) {
     this.agent = entity;
     this.input = setupKeyboard(entity);
     this.keyHeld = true;
-    this.delay = 200;
+    this.delay = 1;
     this.target;
     this.targetDist = Infinity;
 };
@@ -12,76 +12,167 @@ function agentManager(entity) {
 agentManager.prototype.update = function () {
 
     this.selectTarget();
-    //console.log(this.agent.Ename + "s target is " + this.target.Ename);
-    //console.log(this.target.Ename + " is " + this.targetDist + " units away");
-    this.selectMove();
-    this.selectAttack();
+    console.log(this.agent.Ename + "s target is " + this.target.Ename);
+    console.log(this.target.Ename + " is " + this.targetDist + " units away");
+    this.move();
+    this.attack();
     this.keyHeld = !this.keyHeld;
 };
 
-agentManager.prototype.selectMove = function () {
+agentManager.prototype.move = function () {
+    var myX = this.agent.pos.x;
+    var myY = this.agent.pos.y;
 
-    if (this.agent.pos.x < 80) {
+    var targetX = this.target.pos.x;
+    var targetY = this.target.pos.y;
+
+    var xDist = targetX - myX;
+    var yDist = targetY - myY;
+
+    var choice = this.agent.choice;
+    var myStyle;
+    if (choice === 0 || choice === 3 || choice === 4 || choice === 6 || choice === 7) {
+        myStyle = 'melee';
+    } else {
+        myStyle = 'ranged';
+    }
+
+
+    // Check if close to killzone
+    if (myX < 80) {
         this.right();
-    } else if (this.agent.pos.x > 1120) {
+    } 
+    if (myX > 1120) {
         this.left();
     }
-    if (this.agent.pos.y > 700) {
+    if (myY > 700) {
         this.jump();
         this.jump();
-    } else if (this.agent.pos.y < 100) {
+    }
+    if (myY < 100) {
         this.down();
     }
 
-    if (this.targetDist > 100) {
-        if (this.target.pos.y < this.agent.pos.y) {
-            this.jump();
-            if (this.target.pos.x < this.agent.pos.x) {
-                this.left();
+    if (this.target.Ename === 'character') { // Target the human player
+        
+        if (myStyle === 'melee') { // Up close fighting style
+            if (this.targetDist > 50) {
+                if (xDist > 0) { 
+                    this.right();
+                    if (yDist < 0) {
+                        this.jump();
+                    } else if (yDist > 0){
+                        this.down();
+                    }
+                } else if (xDist < 0) {
+                    this.left();
+                    if (yDist < 0) {
+                        this.jump();
+                    } else if (yDist > 0){
+                        this.down();
+                    }
+                } else {
+                    if (yDist < 0) {
+                        this.jump();
+                    } else if (yDist > 0){
+                        this.down();
+                    }
+                }
+                this.attack();
             } else {
-                this.right();
+                this.attack();
             }
-        } else {
-            if (this.target.pos.y > this.agent.pos.y + 100) this.down();
-            if (this.target.pos.x < this.agent.pos.x) {
-                this.left();
+        } else { // Ranged fighting style
+            if (this.targetDist < 50) {
+                if (xDist > 0) { 
+                    this.left();
+                    if (yDist < 0) {
+                        this.down();
+                    } else if (yDist > 0){
+                        this.jump();
+                    }
+                } else if (xDist < 0) {
+                    this.right();
+                    if (yDist < 0) {
+                        this.down();
+                    } else if (yDist > 0){
+                        this.jump();
+                    }
+                } else {
+                    if (yDist < 0) {
+                        this.down();
+                    } else if (yDist > 0){
+                        this.jump();
+                    }
+                }
+                this.attack();
             } else {
-                this.right();
+                this.attack();
             }
         }
-    } else {
-        //console.log(this.agent.Ename + " Says " + this.target.Ename + " is too close!");
-        //console.log(this.target.Ename + " is " + this.targetDist + " units away!");
-        this.jump();
-        if (this.target.pos.x < this.agent.pos.x) {
-            this.right();
-        } else {
+
+    } else { // Target is an item
+        if (xDist > 0) {
+            this.right();    
+        } else if (xDist < 0) {
             this.left();
         }
-    }
 
+        if (yDist > 0) {
+            this.down();
+        } else if (yDist < 0) {
+            this.jump();
+        }
+        this.delay = 20;
+    }
 };
 
 agentManager.prototype.selectTarget = function () {
-    var closestDist = Infinity;
+    var closestEnemyDist = Infinity;
     var closestEnemy;
+
+    var closestItemDist = Infinity;
+    var closestItem;
+
     levelObject.entities.forEach(Entity => {
-        if (Entity != this.agent) {
-            // var dist = Math.hypot(Entity.pos.x-this.agent.pos.x, Entity.pos.y-this.agent.pos.x);
+        // console.log("Entity type = " + Entity.type);
+        
+        if (Entity != this.agent && Entity.Ename === 'character') {
             var dist = Math.sqrt( Math.pow((this.agent.pos.x-Entity.pos.x), 2)
                                     + Math.pow((this.agent.pos.y-Entity.pos.y), 2));
-            if (dist < closestDist) {
-                closestDist = dist;
+            if (dist < closestEnemyDist) {
+                closestEnemyDist = dist;
                 closestEnemy = Entity;
             }
+        } else if (Entity.type === 'Item') {
+            var dist = Math.sqrt( Math.pow((this.agent.pos.x - Entity.pos.x), 2)
+                                  + Math.pow((this.agent.pos.y - Entity.pos.y), 2));
+            if (dist < closestItemDist) {
+                closestItemDist = dist;
+                closestItem = Entity;
+            }                   
         }
     });
-    this.target = closestEnemy;
-    this.targetDist = closestDist;
+    if (closestItemDist < 500) {
+        this.target = closestItem;
+        this.targetDist = closestItemDist;
+    } else {
+        this.target = closestEnemy;
+        this.targetDist = closestEnemyDist;
+    }
+    
 };
 
-agentManager.prototype.selectAttack = function () {
-
+agentManager.prototype.attack = function () {
+    var random = Math.floor(Math.random() * 3);
+    if (random === 0) { // Light
+        this.light();
+    } else if (random === 1) { // Heavy 
+        this.heavy();
+    } else { // Special
+        this.special();
+    }
+    
 };
 
 agentManager.prototype.jump = function () {
@@ -91,8 +182,8 @@ agentManager.prototype.jump = function () {
     this.agent.updateAnimation();
 }
 
-agentManager.prototype.punch = function () {
-    this.agent.punch.start();
+agentManager.prototype.light = function () {
+    // this.agent.punch.start();
     this.agent.Light = true;
     this.agent.updateAnimation();
 }

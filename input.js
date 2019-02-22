@@ -15,7 +15,7 @@ function setupKeyboard(entity) {
         if (keyState) {
           // input.frozen = true;
           // window.setTimeout(function() {input.frozen = false}, 100);
-          entity.punch.start();
+          // entity.punch.start();
           entity.Light = true;
           entity.updateAnimation();
         }
