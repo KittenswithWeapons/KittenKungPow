@@ -36,10 +36,13 @@
 
             if (entity.type === 'Item' || entityObject.type === 'Item') { //item handling------------------------
               //console.log('item hit! from left');
-              if (entity.Ename === 'health'){
-                entityObject.damage -= 10;
-                if (entityObject.damage < 0) {
+              if ((entity.Ename === 'health' && entityObject.type === 'player') ||
+                        (entity.type === 'player' && entityObject.Ename === 'health')){
+                entityObject.damage -= 50;
+                entity.damage -= 50;
+                if (entityObject.damage < 0 || entity.damage < 0) {
                   entityObject.damage = 0;
+                  entity.damage = 0;
                 }
               }
               if (entityObject.type === 'Item') {
@@ -84,10 +87,13 @@
 
               if (entity.type === 'Item' || entityObject.type === 'Item') { //item handling------------------------
                 //console.log('item hit! from right');
-                if (entity.Ename === 'health'){
-                  entityObject.damage -= 10;
-                  if (entityObject.damage < 0) {
+                if ((entity.Ename === 'health' && entityObject.type === 'player') ||
+                          (entity.type === 'player' && entityObject.Ename === 'health')){
+                  entityObject.damage -= 50;
+                  entity.damage -= 50;
+                  if (entityObject.damage < 0 || entity.damage < 0) {
                     entityObject.damage = 0;
+                    entity.damage = 0;
                   }
                 }
                 if (entityObject.type === 'Item') {

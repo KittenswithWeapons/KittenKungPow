@@ -39,7 +39,7 @@ class Entity {
 			if (CPUsEnabled) {
 				if (this.isAgent) this.agentManager.delay--;
 				if (this.isAgent && this.agentManager.delay === 0) {
-				this.agentManager.delay = 15;
+				this.agentManager.delay = 20;
 				this.agentManager.update();
 				//console.log(this.Ename);
 			}
@@ -57,7 +57,11 @@ class Entity {
 					this.vel.set(0,0); //sets Velocity to 0
 					this.go.dir = 0; //terminates accelleration from before death
 					this.Walking = false;
-					this.pos.set(640, 80); //spawn in this location
+					var offset = Math.floor(Math.random() * 4) * 40;
+					if (Math.floor(Math.random() * 2) > 0) offset = offset * -1;
+					console.log("Offset = " + offset);
+					
+					this.pos.set(640 + offset, 80); //spawn in this location
 				} else {
 					levelObject.removeEntity(this);
 				}

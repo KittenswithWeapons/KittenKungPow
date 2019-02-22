@@ -1,0 +1,41 @@
+{
+    "backgrounds": [
+
+        {
+            "tile": "ground",
+            "ranges": [
+                [
+                    0, 21,
+                    17, 18
+                ]
+              ]
+        },
+        {
+            "tile": "platform",
+            "ranges": [
+
+                [
+                  31,40,
+                    15,16
+                ]
+                ,
+                [
+                	16,26,
+                    8,9
+                ]
+                ,
+                [
+                	35,40,
+                    9,10
+                ]
+                ,
+                [
+                	2,8,
+                    4,5
+                ]
+            ]
+        }
+
+    ]
+    ,"_comment" : "Current x,y maxs are: 40,25       platform order : up left, up mid, up right, addon, addon"
+}
