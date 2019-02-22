@@ -32,7 +32,9 @@ class TileCollider {
         }
         //section below works
         if (entity.type === 'projectile') {
-          levelObject.removeEntity(entity);
+          if(entity.Ename != 'cash') {
+            levelObject.removeEntity(entity);
+          }
         }
         if (entity.vel.x > 0) {
           if (entity.pos.x + entity.size.x > match.x1) {

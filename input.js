@@ -13,8 +13,6 @@ function setupKeyboard(entity) {
 
     input.addMapping('ArrowLeft', keyState => { //punch
         if (keyState) {
-          // input.frozen = true;
-          // window.setTimeout(function() {input.frozen = false}, 100);
           entity.punch.start();
           entity.Light = true;
           entity.updateAnimation();
@@ -24,8 +22,6 @@ function setupKeyboard(entity) {
     input.addMapping('ArrowUp', keyState => { //Fireball
         if (keyState) {
           if (!entity.Special) {
-            // input.frozen = true;
-            // window.setTimeout(function() {input.frozen = false}, 300);
             entity.Special = true;
             entity.updateAnimation();
           }
@@ -34,8 +30,6 @@ function setupKeyboard(entity) {
 
     input.addMapping('ArrowRight', keyState => { //Kick
         if (keyState) {
-            // input.frozen = true;
-            // window.setTimeout(function() {input.frozen = false}, 300);
             entity.Heavy = true;
             entity.updateAnimation();
         }
@@ -45,11 +39,14 @@ function setupKeyboard(entity) {
         if (keyState) {
           entity.Walking = true;
           entity.go.dir += 1;
-          entity.updateAnimation();
+           entity.updateAnimation();
         } else if(!keyState) {
           if(!entity.Walking) {
             entity.go.dir = 0;
           } else {
+            if(entity.dustFinished == true) {
+              entity.dustFinished = false;
+            }
             entity.Walking = false;
             entity.go.dir -= 1;
           }
@@ -66,6 +63,9 @@ function setupKeyboard(entity) {
           if(!entity.Walking) {
             entity.go.dir = 0;
           } else {
+            if(entity.dustFinished == true) {
+              entity.dustFinished = false;
+            }
             entity.Walking = false;
             entity.go.dir += 1;
           }
@@ -91,4 +91,8 @@ function setupKeyboard(entity) {
     input.addMapping('Digit8', keyState => {if (keyState) entity.choice = 7; entity.updateAnimation();});
 
     return input;
+}
+
+function setupEmptyKeyboard(entity) {
+  return new keyBoardState();
 }
