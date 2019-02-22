@@ -15,6 +15,7 @@ function createCharacter(name, choice) {
     Character.addTrait(new Punch());
     Character.heading = 1;
     Character.Jumping = false;
+    Character.dustFinished = false;
     Character.lightAttackFinished = false;
     Character.heavyAttackFinished = false;
     Character.specialAttackFinished = false;
@@ -128,7 +129,7 @@ function createCharacter(name, choice) {
             this.FrameLength = 1;
             this.FrameSpeed = 1;
         }
-        else if (Character.go.dir > 0 && !Character.Special) { //go right
+        else if (Character.go.dir > 0 && !Character.Special && !Character.Heavy) { //go right
             if(!Character.pain) {
                 this.startY = 172; //88*2-6
                 this.FrameLength = 8;
@@ -136,7 +137,7 @@ function createCharacter(name, choice) {
                 Character.heading = 1;
             } else {Character.heading = -1;}
         }
-        else if (Character.go.dir < 0 && !Character.Special) { //go left
+        else if (Character.go.dir < 0 && !Character.Special && !Character.Heavy) { //go left
             if(!Character.pain) {
                 this.startY = 172; //88*2-6
                 this.FrameLength = 8;
@@ -179,14 +180,30 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Rogue
             characters[3]), 36, (6 * Character.frameSize + 48) - 4, 
-            Character.frameSize, Character.frameSize, 0.02, 8, false, false)
+            Character.frameSize, Character.frameSize, 0.02, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Warrior
+            characters[4]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Soldier
+            characters[5]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Vagrant
+            characters[6]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //FatCat
+            characters[7]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.06, 5, false, false)
     ];
 
     var lightAttacks = [
-        function() {ThrowProjectile("punch", Character);},
-        function() {ThrowProjectile("arrow", Character);},
-        function() {ThrowProjectile("arrow", Character);},
-        function() {ThrowProjectile("dagger", Character);}
+        function() {ThrowProjectile("punch", Character);}, //Karate
+        function() {ThrowProjectile("arrow", Character);}, //Archer
+        function() {ThrowProjectile("punch", Character);}, //Wizard
+        function() {ThrowProjectile("dagger", Character);}, //Rogue
+        function() {ThrowProjectile("punch", Character);}, //Warrior
+        function() {ThrowProjectile("punch", Character);}, //Soldier
+        function() {ThrowProjectile("punch", Character);}, //Vagrant
+        function() {ThrowProjectile("cash", Character);} //Fatcat
     ]
 
     var heavyAnimations = [
@@ -201,14 +218,39 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.08, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Rogue
             characters[3]), 36, (15 * Character.frameSize + 48) - 4, 
-            Character.frameSize, Character.frameSize, 0.06, 10, false, false)
+            Character.frameSize, Character.frameSize, 0.06, 10, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Warrior
+            characters[4]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Soldier
+            characters[5]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Vagrant
+            characters[6]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //FatCat
+            characters[7]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.06, 5, false, false)
     ];
 
     var heavyAttacks = [
-        function() {window.setTimeout(function() {ThrowProjectile("kick", Character);}, 200)},
-        function() {ThrowProjectile("trippleArrow", Character);},
-        function() {ThrowProjectile("trippleArrow", Character);},
-        function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character);}, 200)}
+        function() {window.setTimeout(function() {ThrowProjectile("kick", Character);}, 200)}, //Karate
+        function() {ThrowProjectile("trippleArrow", Character);}, //Archer
+        function() {ThrowProjectile("kick", Character);}, //Wizard
+        function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character);}, 200)}, //Rogue
+        function() {ThrowProjectile("kick", Character);}, //Warrior
+        function() {ThrowProjectile("kick", Character);}, //Soldier
+        function() {ThrowProjectile("kick", Character);}, //Vagrant
+        function() { console.log("hey");
+            // ThrowProjectile("slam", Character);
+            // Character.go.dir = 0;
+            // setupEmptyKeyboard(Character);
+            // window.setTimeout(function() {Character.go.dir = Character.heading * 1;}, 200);
+            // window.setTimeout(function() {
+            //     Character.go.dir = 0;
+            //     setupKeyboard(Character);
+            // }, 3000);
+        } //Fatcat
     ]
 
     var specialAnimations = [
@@ -223,23 +265,35 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.08, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Rogue
             characters[3]), 36, 48 - 4, 
-            Character.frameSize, Character.frameSize, 0.1, 4, false, false)
+            Character.frameSize, Character.frameSize, 0.1, 4, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Warrior
+            characters[4]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Soldier
+            characters[5]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Vagrant
+            characters[6]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //FatCat
+            characters[7]), 36, (6 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.04, 5, false, false)
     ];
 
     var specialAttacks = [
         function() {window.setTimeout(function() {ThrowProjectile("fireball", Character);}, 350)}, //Karate
-        function() {
-            window.setTimeout(function() {
-                ThrowProjectile("forcePush", Character);
-                Character.heading *= -1;
-                ThrowProjectile("forcePush", Character);
-                Character.heading *= -1;
-            }, 280);
-        },
-        function() {window.setTimeout(function() {ThrowProjectile("fireball", Character);}, 350)}, //Wizard
-        function() {
-            ThrowProjectile("shadeStep", Character);
-        }, //Rogue
+        function() {window.setTimeout(function() { //Archer
+                        ThrowProjectile("forcePush", Character);
+                        Character.heading *= -1;
+                        ThrowProjectile("forcePush", Character);
+                        Character.heading *= -1;
+                    }, 280); },
+        function() {ThrowProjectile("fireball", Character);}, //Wizard
+        function() {ThrowProjectile("shadeStep", Character);}, //Rogue
+        function() {ThrowProjectile("fireball", Character);}, //Warrior
+        function() {ThrowProjectile("fireball", Character);}, //Soldier
+        function() {ThrowProjectile("fireball", Character);}, //Vagrant
+        function() {ThrowProjectile("arrow", Character);} //Fatcat
     ]
   
     Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
@@ -247,6 +301,9 @@ function createCharacter(name, choice) {
             
     Character.painAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Damage.png"), 
         0, 0, 18, 12, 1, 1, true, false);
+    
+    Character.dustAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Dust.png"), 
+        0, 0, 16, 16, 0.05, 1, false, false);
 
 
     //                                                                                         //
@@ -300,6 +357,16 @@ function createCharacter(name, choice) {
                 Character.Special = false;
                 Character.specialAttackFinished = false;
                 Character.specialAnimation.elapsedTime = 0;
+            }
+        }
+
+        if(Character.Walking && Character.grounded) {
+            if(!Character.dustFinished) {
+                Character.dustAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x-7, this.pos.y+46);
+            }
+            if(Character.dustAnimation.isDone()) {
+                Character.dustAnimation.elapsedTime = 0;
+                Character.dustFinished = true;
             }
         }
         if(Character.pain) {

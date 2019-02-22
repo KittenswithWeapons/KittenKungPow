@@ -15,25 +15,15 @@ class Level {
     addEntity(entity) {
       this.entities.add(entity);
       this.entityCollider.addEntityCollider(entity);
+    }
 
-      if(entity.type == 'projectile') {
-        if(entity.Ename == 'forcePush') {
-          var that = this;
-          window.setTimeout(function() {
-            that.entities.delete(entity);
-            that.entityCollider.removeEntityCollider(entity);}, 150);
-        } else if (entity.Ename == 'punch' || entity.Ename == 'dagger') {
-          var that = this;
-          window.setTimeout(function() {
-            that.entities.delete(entity);
-            that.entityCollider.removeEntityCollider(entity);}, 60);
-        } else if (entity.Ename == 'kick' || entity.Ename == 'uppercut') {
-          var that = this;
-          window.setTimeout(function() {
-            that.entities.delete(entity);
-            that.entityCollider.removeEntityCollider(entity);}, 50);
-        }
-      }
+    addTempEntity(entity, timeout) {
+      this.entities.add(entity);
+      this.entityCollider.addEntityCollider(entity);
+      var that = this;
+      window.setTimeout(function() {
+        that.entities.delete(entity);
+        that.entityCollider.removeEntityCollider(entity);}, timeout);
     }
 
     removeEntity(entity) {
@@ -57,7 +47,7 @@ class Level {
             entity.pos.y += entity.vel.y * deltaTime;
             this.tileCollider.checkY(entity);
 
-            if (entity.type === 'projectile'){ //turns off gravity for projectiles
+            if (entity.type === 'projectile' && entity.Ename != 'cash'){ //turns off gravity for projectiles
       				entity.vel.y = 0;
       			} else {
               entity.vel.y += this.gravity * deltaTime;
