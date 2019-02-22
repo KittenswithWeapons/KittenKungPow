@@ -85,6 +85,7 @@ function createCharacter(name, choice) {
     * @param direction is the direction to be knocked back.
     */
     Character.knockback = function(direction, distance) {
+        Character.go.dir = 0;
         knockbackDistance = distance || Character.damage; 
         if(!Character.pain) {
             Character.pain = true;
@@ -93,16 +94,16 @@ function createCharacter(name, choice) {
             if(direction != 'knockUp') { 
                 var dir = 1.0;
                 if(direction == 'painRight') dir = -1;
-                Character.go.dir += dir * (knockbackDistance / 250);
+                Character.go.dir = dir * (knockbackDistance / 250);
                 Character.updateAnimation();
             
                 window.setTimeout (function() { 
                     Character.pain = false;
-                    if(!Character.Walking) {
+                    // if(!Character.Walking) {
                         Character.go.dir = 0;
-                    } else {
-                        Character.go.dir -= dir * (knockbackDistance / 250);
-                    }
+                    // } else {
+                    //     Character.go.dir -= dir * (knockbackDistance / 250);
+                    // }
                     Character.updateAnimation(); 
                 }, knockbackDistance * 2 * 0.85);
             } else {
