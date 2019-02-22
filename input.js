@@ -13,7 +13,6 @@ function setupKeyboard(entity) {
 
     input.addMapping('ArrowLeft', keyState => { //punch
         if (keyState) {
-          entity.punch.start();
           entity.Light = true;
           entity.updateAnimation();
         }
@@ -79,6 +78,12 @@ function setupKeyboard(entity) {
         } else {
           entity.passdown.cancel();
         }
+    });
+
+    input.addMapping('KeyC', keyState => { //Enable CPU movement
+      if (keyState) {
+        CPUsEnabled = !CPUsEnabled;
+      }
     });
 
     input.addMapping('Digit1', keyState => {if (keyState) entity.choice = 0; entity.updateAnimation();});
