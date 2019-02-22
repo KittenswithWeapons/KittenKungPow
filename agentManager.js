@@ -7,10 +7,20 @@ function agentManager(entity) {
     this.delay = 1;
     this.target;
     this.targetDist = Infinity;
+    this.myStyle;
+    this.choice;
+
 };
 
 agentManager.prototype.update = function () {
-
+    this.choice = this.agent.choice;
+    console.log("Choice = " + this.choice);
+    
+    if (this.choice === 0 || this.choice === 3 || this.choice === 4 || this.choice === 6 || this.choice === 7) {
+        this.myStyle = 'melee';
+    } else {
+        this.myStyle = 'ranged';
+    }
     this.selectTarget();
     console.log(this.agent.Ename + "s target is " + this.target.Ename);
     console.log(this.target.Ename + " is " + this.targetDist + " units away");
@@ -29,33 +39,40 @@ agentManager.prototype.move = function () {
     var xDist = targetX - myX;
     var yDist = targetY - myY;
 
-    var choice = this.agent.choice;
-    var myStyle;
-    if (choice === 0 || choice === 3 || choice === 4 || choice === 6 || choice === 7) {
-        myStyle = 'melee';
-    } else {
-        myStyle = 'ranged';
-    }
-
-
     // Check if close to killzone
     if (myX < 80) {
         this.right();
+        if (myX < 80) {
+            this.right();
+        } 
     } 
     if (myX > 1120) {
         this.left();
+        if (myX > 1120) {
+            this.left();
+        }
     }
     if (myY > 700) {
         this.jump();
-        this.jump();
+        if (myY > 700) {
+            this.jump();
+        }
     }
     if (myY < 100) {
         this.down();
+        if (myY < 100) {
+            this.down();
+        }
     }
 
     if (this.target.Ename === 'character') { // Target the human player
-        
-        if (myStyle === 'melee') { // Up close fighting style
+        if (xDist > 0) { // Face the target to the right
+            this.agent.heading = 1;
+        } else { // or to the left
+            this.agent.heading = -1;
+        }
+
+        if (this.myStyle === 'melee') { // Up close fighting style
             if (this.targetDist > 50) {
                 if (xDist > 0) { 
                     this.right();
@@ -78,9 +95,9 @@ agentManager.prototype.move = function () {
                         this.down();
                     }
                 }
-                this.attack();
+                this.attack(true);
             } else {
-                this.attack();
+                this.attack(false);
             }
         } else { // Ranged fighting style
             if (this.targetDist < 50) {
@@ -105,9 +122,14 @@ agentManager.prototype.move = function () {
                         this.jump();
                     }
                 }
-                this.attack();
+                this.attack(true);
             } else {
-                this.attack();
+                if (yDist < 0) {
+                    this.jump();
+                } else if (yDist > 0){
+                    this.down();
+                }
+                this.attack(false);
             }
         }
 
@@ -153,6 +175,7 @@ agentManager.prototype.selectTarget = function () {
             }                   
         }
     });
+
     if (closestItemDist < 500) {
         this.target = closestItem;
         this.targetDist = closestItemDist;
@@ -163,15 +186,37 @@ agentManager.prototype.selectTarget = function () {
     
 };
 
-agentManager.prototype.attack = function () {
-    var random = Math.floor(Math.random() * 3);
-    if (random === 0) { // Light
-        this.light();
-    } else if (random === 1) { // Heavy 
-        this.heavy();
-    } else { // Special
-        this.special();
+agentManager.prototype.attack = function (isTargetClose) {
+
+    var random;
+    if (isTargetClose) {
+        if (this.myStyle === 'melee') {
+            random = Math.floor(Math.random() * 2);
+            if (random === 0) this.light();
+            else this.heavy();
+        } else {
+            this.special();
+        }
+    } else {
+        if (this.myStyle === 'melee') {
+            this.special();
+        } else {
+            random = Math.floor(Math.random() * 2);
+            if (random === 0) this.light();
+            else this.heavy();
+        }
     }
+    if (random > 0) {
+        random = Math.floor(Math.random() * 3);        
+        if (random === 0) { // Light
+            this.light();
+        } else if (random === 1) { // Heavy 
+            this.heavy();
+        } else { // Special
+            this.special();
+        }
+    }
+    
     
 };
 
@@ -204,6 +249,9 @@ agentManager.prototype.right = function () {
         this.agent.go.dir = 1;
         this.agent.updateAnimation();
       } else {
+        if(this.agent.dustFinished == true) {
+            this.agent.dustFinished = false;
+          }
         this.agent.Walking = false;
         this.agent.go.dir = 0;
         this.agent.updateAnimation();
@@ -216,6 +264,9 @@ agentManager.prototype.left = function () {
         this.agent.go.dir = -1;
         this.agent.updateAnimation();
       } else {
+        if(this.agent.dustFinished == true) {
+            this.agent.dustFinished = false;
+          }
         this.agent.Walking = false;
         this.agent.go.dir = 0;
         this.agent.updateAnimation();
