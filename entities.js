@@ -54,10 +54,10 @@ function createCharacter(name, choice) {
                 Character.knockback(intent);
                 break;
             case 'pushLeft':
-                Character.knockback('painLeft', 150);
+                Character.knockback('painLeft', 300);
                 break;
             case 'pushRight':
-                Character.knockback('painRight', 150);
+                Character.knockback('painRight', 300);
                 break;
             case 'knockUp':
                 Character.knockback(intent, 400);
@@ -130,7 +130,7 @@ function createCharacter(name, choice) {
 
         if (Character.Jumping  && !Character.Special && !Character.grounded) { //grounded is set on checkY in TileCollider
             this.startX = (3 * Character.frameSize + 36);
-            this.startY = (2 * Character.frameSize + 48) - 2;
+            this.startY = (2 * Character.frameSize + 20) - 2;
             this.FrameLength = 1;
             this.FrameSpeed = 1;
         }
@@ -162,9 +162,9 @@ function createCharacter(name, choice) {
             this.FrameSpeed, this.FrameLength,
             this.FrameLoop, this.FrameReverse);
 
-        Character.lightAnimation = lightAnimations[Character.choice];
-        Character.heavyAnimation = heavyAnimations[Character.choice];
-        Character.specialAnimation = specialAnimations[Character.choice];
+        Character.lightAnimation = Character.lightAnimations[Character.choice];
+        Character.heavyAnimation = Character.heavyAnimations[Character.choice];
+        Character.specialAnimation = Character.specialAnimations[Character.choice];
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -173,7 +173,7 @@ function createCharacter(name, choice) {
     //                               Animations and Attacks                                    //
     //                                                                                         //
 
-    var lightAnimations = [
+    Character.lightAnimations = [
         new Animation(ASSET_MANAGER.getAsset( //Karate
             characters[0]), 36, (9 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 9, false, true),
@@ -200,7 +200,7 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.06, 5, false, false)
     ];
 
-    var lightAttacks = [
+    Character.lightAttacks = [
         function() {ThrowProjectile("punch", Character);}, //Karate
         function() {ThrowProjectile("arrow", Character);}, //Archer
         function() {ThrowProjectile("punch", Character);}, //Wizard
@@ -211,7 +211,7 @@ function createCharacter(name, choice) {
         function() {ThrowProjectile("cash", Character);} //Fatcat
     ]
 
-    var heavyAnimations = [
+    Character.heavyAnimations = [
         new Animation(ASSET_MANAGER.getAsset( //Karate
             characters[0]), 36, (11 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.09, 6, false, true),
@@ -238,15 +238,15 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.06, 5, false, false)
     ];
 
-    var heavyAttacks = [
+    Character.heavyAttacks = [
         function() {window.setTimeout(function() {ThrowProjectile("kick", Character);}, 200)}, //Karate
-        function() {ThrowProjectile("trippleArrow", Character);}, //Archer
+        function() {window.setTimeout(function() {ThrowProjectile("trippleArrow", Character);}, 200)}, //Archer
         function() {ThrowProjectile("kick", Character);}, //Wizard
         function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character);}, 200)}, //Rogue
         function() {ThrowProjectile("kick", Character);}, //Warrior
         function() {ThrowProjectile("kick", Character);}, //Soldier
         function() {ThrowProjectile("kick", Character);}, //Vagrant
-        function() { console.log("hey");
+        function() { window.setTimeout(function() {ThrowProjectile("kick", Character);}, 200)
             // ThrowProjectile("slam", Character);
             // Character.go.dir = 0;
             // setupEmptyKeyboard(Character);
@@ -258,7 +258,7 @@ function createCharacter(name, choice) {
         } //Fatcat
     ]
 
-    var specialAnimations = [
+    Character.specialAnimations = [
         new Animation(ASSET_MANAGER.getAsset( //Karate
             characters[0]), 36, (5 * Character.frameSize + 24 * 2) - 6,
             Character.frameSize, Character.frameSize, 0.05, 7, false, false),
@@ -281,11 +281,11 @@ function createCharacter(name, choice) {
             characters[6]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
-            characters[7]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 5, false, false)
+            characters[7]), 36, (5 * Character.frameSize + 48) - 4, 
+            Character.frameSize, Character.frameSize, 0.05, 10, false, false)
     ];
 
-    var specialAttacks = [
+    Character.specialAttacks = [
         function() {window.setTimeout(function() {ThrowProjectile("fireball", Character);}, 350)}, //Karate
         function() {window.setTimeout(function() { //Archer
                         ThrowProjectile("forcePush", Character);
@@ -298,7 +298,18 @@ function createCharacter(name, choice) {
         function() {ThrowProjectile("fireball", Character);}, //Warrior
         function() {ThrowProjectile("fireball", Character);}, //Soldier
         function() {ThrowProjectile("fireball", Character);}, //Vagrant
-        function() {ThrowProjectile("arrow", Character);} //Fatcat
+        function() {
+            Character.go.dir = 0;
+            setupEmptyKeyboard(Character);
+            window.setTimeout(function() {
+                Character.go.dir = Character.heading * 1;
+                ThrowProjectile("slam", Character);
+            }, 200);
+            window.setTimeout(function() {
+                Character.go.dir = 0;
+                setupKeyboard(Character);
+            }, 500);
+        } //Fatcat
     ]
 
     Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
@@ -330,7 +341,7 @@ function createCharacter(name, choice) {
         } else if (Character.Light) {
             Character.lightAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
             if(!Character.lightAttackFinished) {
-                lightAttacks[Character.choice]();
+                Character.lightAttacks[Character.choice]();
                 Character.lightAttackFinished = true;
             }
             if(Character.lightAnimation.isDone()) {
@@ -342,7 +353,7 @@ function createCharacter(name, choice) {
         } else if (Character.Heavy) {
             Character.heavyAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
             if(!Character.heavyAttackFinished) {
-                heavyAttacks[Character.choice]();
+                Character.heavyAttacks[Character.choice]();
                 Character.heavyAttackFinished = true;
             }
             if(Character.heavyAnimation.isDone()) {
@@ -354,7 +365,7 @@ function createCharacter(name, choice) {
         } else if (Character.Special) {
             Character.specialAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
             if(!Character.specialAttackFinished) {
-                specialAttacks[Character.choice]();
+                Character.specialAttacks[Character.choice]();
                 Character.specialAttackFinished = true;
             }
             if(Character.specialAnimation.isDone()) {

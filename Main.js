@@ -22,6 +22,7 @@ ASSET_MANAGER.queueDownload("./characters/Warrior.png");
 ASSET_MANAGER.queueDownload("./characters/Soldier.png");
 ASSET_MANAGER.queueDownload("./characters/Vagrant.png");
 ASSET_MANAGER.queueDownload("./characters/FatCat.png");
+ASSET_MANAGER.queueDownload("./characters/fatcatBig.png");
 ASSET_MANAGER.queueDownload("./Enviroment/PinkCitytiles.png");
 ASSET_MANAGER.queueDownload("./Enviroment/PinkCity.gif");
 ASSET_MANAGER.queueDownload("./Enviroment/woodenBarrel.png");
