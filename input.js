@@ -1,5 +1,6 @@
-function setupKeyboard(entity) {
-    const input = new keyBoardState(); //new keyboard
+function setupKeyboard(entity, keyboard) {
+    const input = keyboard || new keyBoardState(); //new keyboard
+    entity.input = input;
 
     input.addMapping('Space', keyState => { //jump
         //console.log(keyState);
@@ -35,6 +36,7 @@ function setupKeyboard(entity) {
   });
 
     input.addMapping('KeyD', keyState => { //go right
+      if(!entity.Special) {
         if (keyState) {
           entity.Walking = true;
           entity.go.dir += 1;
@@ -51,6 +53,7 @@ function setupKeyboard(entity) {
           }
           entity.updateAnimation();
         }
+      }
     });
 
     input.addMapping('KeyA', keyState => { //go left
@@ -98,6 +101,6 @@ function setupKeyboard(entity) {
     return input;
 }
 
-function setupEmptyKeyboard(entity) {
+function setupEmptyKeyboard(input) {
   return new keyBoardState();
 }

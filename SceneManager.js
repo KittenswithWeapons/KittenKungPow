@@ -8,7 +8,7 @@ function displayStartScene(canvas, context) {
   //display the Start Screen
   var img = new Image();
   img.onload = function () {context.drawImage(img, 0, 0);}
-  img.src = './SceneBackgrounds/KWW_StartScreen.jpg';
+  img.src = './SceneBackgrounds/TitleScreen2.png';
 
   //sound
   mainMusic = new sound('./sound/MainTheme.wav');
@@ -183,7 +183,7 @@ function loadScene(name) {
   const sceneBackgroundLayer = createSceneBackgroundLayer(scene);   //background layer
   scene.comp.layers.push(sceneBackgroundLayer);
 
-  if (name === 'Level_SelectBackground') { //load in level image previews to the display
+  if (name === 'levelSelect') { //load in level image previews to the display
     const levelPreviewLayer = createLevelPreviewLayer(scene);   //background layer
     scene.comp.layers.push(levelPreviewLayer);
   }
