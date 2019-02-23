@@ -4,13 +4,15 @@ KITTENS WITH WEAPONS!!
 
 Updated Control Scheme and other details coming soon!
 
-
 Current Controls:
 
-A - move left
-D - move right
-S - pass down thru platform
-SPACE - jump
+C - CURRENTLY ENABLES AI ENEMIES!
 
-UP-ARROW - throw projectile
-LEFT-ARROW - punch
+A - Move left
+D - Move right
+S - Pass down thru platform
+SPACE - Jump
+
+UP-ARROW - Special attack
+LEFT-ARROW - Light attack
+RIGHT-ARROW Heavy attack
