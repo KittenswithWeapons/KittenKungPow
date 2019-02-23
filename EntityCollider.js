@@ -34,8 +34,10 @@
         if (entity.vel.x > 0) {
           if (entity.pos.x + entity.size.x >= entityObject.pos.x && entity.pos.x + entity.size.x <= entityObject.pos.x + entityObject.size.x/2) { // /3
 
-            if (entity.type === 'Item' || entityObject.type === 'Item') { //item handling------------------------
+            //item handling----------------------------------------------------------------------------------
+            if (entity.type === 'Item' || entityObject.type === 'Item') {
               //console.log('item hit! from left');
+              //health
               if ((entity.Ename === 'health' && entityObject.type === 'player') ||
                         (entity.type === 'player' && entityObject.Ename === 'health')){
                 entityObject.damage -= 50;
@@ -45,6 +47,13 @@
                   entity.damage = 0;
                 }
               }
+              //damage fish
+              if ((entity.Ename === 'damage' && entityObject.type === 'player') ||
+                        (entity.type === 'player' && entityObject.Ename === 'damage')){
+                //do effecty type things
+              }
+
+
               if (entityObject.type === 'Item') {
                 levelObject.removeEntity(entityObject);
               } else {
@@ -52,7 +61,7 @@
               }
               return;
             }
-            //item handling END---------------------------------------------
+            //item handling END------------------------------------------------------------------------------
 
 
             if (entity.type === 'projectile') {
@@ -85,8 +94,10 @@
         } else if (entity.vel.x < 0) {
             if (entity.pos.x >= entityObject.pos.x + entityObject.size.x/2 && entity.pos.x <= entityObject.pos.x + entityObject.size.x ) { //division divides the char in hald and then segments further to catch between frames
 
-              if (entity.type === 'Item' || entityObject.type === 'Item') { //item handling------------------------
-                //console.log('item hit! from right');
+              //item handling----------------------------------------------------------------------------------
+              if (entity.type === 'Item' || entityObject.type === 'Item') {
+                //console.log('item hit! from left');
+                //health
                 if ((entity.Ename === 'health' && entityObject.type === 'player') ||
                           (entity.type === 'player' && entityObject.Ename === 'health')){
                   entityObject.damage -= 50;
@@ -96,6 +107,13 @@
                     entity.damage = 0;
                   }
                 }
+                //damage fish
+                if ((entity.Ename === 'damage' && entityObject.type === 'player') ||
+                          (entity.type === 'player' && entityObject.Ename === 'damage')){
+                  //do effecty type things
+                }
+
+
                 if (entityObject.type === 'Item') {
                   levelObject.removeEntity(entityObject);
                 } else {
@@ -103,7 +121,7 @@
                 }
                 return;
               }
-              //item handling END---------------------------------------------
+              //item handling END------------------------------------------------------------------------------
 
 
               if (entity.type === 'projectile') {

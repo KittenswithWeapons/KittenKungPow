@@ -6,7 +6,7 @@ class Level {
         this.entities = new Set();
         this.tiles = new Matrix();
         this.itemCounter = 0;
-        this.itemSpawnRate = 10; //number of seconds between item spawns
+        this.itemSpawnRate = 15; //number of seconds between item spawns
 
         this.tileCollider = new TileCollider(this.tiles);
         this.entityCollider = new EntityCollider(this.entities);   //added
@@ -30,6 +30,7 @@ class Level {
       this.entities.delete(entity);
       this.entityCollider.removeEntityCollider(entity);
     }
+
 
     update(deltaTime) {
         if (this.itemCounter > this.itemSpawnRate * 600) {   //item spawning, Seconds * framerate
@@ -57,4 +58,14 @@ class Level {
 
         });
     }
+}
+
+function itemPicker(level) { //picks the item to spawn
+  choice = getRandomInt(1, 3); //between 1 and number of items + 1
+  if (choice === 1) {
+    level.addEntity(new createItem('health'));
+  }
+  if (choice === 2) {
+    level.addEntity(new createItem('damage'));
+  }
 }
