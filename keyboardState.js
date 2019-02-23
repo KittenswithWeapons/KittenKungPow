@@ -6,13 +6,13 @@ class keyBoardState {
 		this.keyStates = new Map(); //holds the current state of a key
 		this.keyMap = new Map(); //holds the callback functions for a code
 		this.frozen = false;
+		this.hold = new Map();
 	}
 
 
 	addMapping(code, callback) {
 		this.keyMap.set(code, callback);
 	}
-
 
 	handleEvent(event) {
 			const {code} = event;

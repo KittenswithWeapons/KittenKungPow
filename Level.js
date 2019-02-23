@@ -32,7 +32,7 @@ class Level {
     }
 
     update(deltaTime) {
-        if (this.itemCounter > this.itemSpawnRate * 60) {   //item spawning, Seconds * framerate
+        if (this.itemCounter > this.itemSpawnRate * 600) {   //item spawning, Seconds * framerate
           this.addEntity(new createItem('health'));
           this.itemCounter = 0;
         }

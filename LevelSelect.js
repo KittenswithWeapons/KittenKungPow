@@ -1,7 +1,7 @@
 function selectLevel(canvas, context, Cselected) {
   Promise.all([
     createCursor('cursor'),
-    loadScene('Level_SelectBackground'),
+    loadScene('levelSelect'),
 ])
 .then(([Cursor, Scene]) => {
     //console.log('level got passed: '+ Cselected);

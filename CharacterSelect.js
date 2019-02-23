@@ -11,32 +11,33 @@ function selectCharacters(canvas, context) {
     createCharacterPreview('vagrant', 6),
     createCharacterPreview('fatCat', 7),
 
-    loadScene('Char_SelectBackground'),
+    //loadScene('Char_SelectBackground'),
+    loadScene('charSelect'),
 ])
 .then(([Cursor, KarateKat, Archer, Wizard, Rogue, Warrior, Soldier, Vagrant, FatCat, Scene]) => {
     Scene.addEntity(KarateKat);
-    KarateKat.pos.set(275, 150);
+    KarateKat.pos.set(175, 115);
 
     Scene.addEntity(Archer);
-    Archer.pos.set(475, 150);
+    Archer.pos.set(445, 115);
 
     Scene.addEntity(Wizard);
-    Wizard.pos.set(675, 150);
+    Wizard.pos.set(725, 115);
 
     Scene.addEntity(Rogue);
-    Rogue.pos.set(875, 150);
+    Rogue.pos.set(1000, 115);
 
     Scene.addEntity(Warrior);
-    Warrior.pos.set(275, 350);
+    Warrior.pos.set(175, 335);
 
     Scene.addEntity(Soldier);
-    Soldier.pos.set(475, 350);
+    Soldier.pos.set(445, 335);
 
     Scene.addEntity(Vagrant);
-    Vagrant.pos.set(675, 350);
+    Vagrant.pos.set(725, 335);
 
     Scene.addEntity(FatCat);
-    FatCat.pos.set(875, 350);
+    FatCat.pos.set(1000, 335);
 
     choiceRow = 0;
     choiceCol = 0;
@@ -53,25 +54,25 @@ function selectCharacters(canvas, context) {
       if (e.code === 'KeyD') {    //right
         if(choiceCol < CChoices[choiceRow].length-1) {
           choiceCol++;
-          Cursor.pos.x += 200;
+          Cursor.pos.x += 275;
         }
       }
       if (e.code === 'KeyA') {    //left
         if(choiceCol > 0) {
           choiceCol--;
-          Cursor.pos.x -= 200;
+          Cursor.pos.x -= 275;
         }
       }
       if (e.code === 'KeyS') {    //down
         if(choiceRow < CChoices.length-1) {
           choiceRow++;
-          Cursor.pos.y += 200;
+          Cursor.pos.y += 220;
         }
       }
       if (e.code === 'KeyW') {     //up
         if(choiceRow > 0) {
           choiceRow--;
-          Cursor.pos.y -= 200;
+          Cursor.pos.y -= 220;
         }
       }
     };

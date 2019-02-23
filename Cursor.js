@@ -2,7 +2,7 @@ function createCursor(name){
         const Cursor = new Entity(name);
 
         Cursor.size.set(40, 65); //set to actuall pixel size of Cursor
-        Cursor.pos.set(360, 310);
+        Cursor.pos.set(280, 275);
 
         var img = new Image();
         img.onload = function () {
