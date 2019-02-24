@@ -52,7 +52,7 @@ class Entity {
 				//character death handling / respawn
 
 				this.lives--; //decrement lives
-				if (this.lives >= 0) {
+				if (this.lives > 0) {
 					this.damage = 0; //damage reset after death
 					this.vel.set(0,0); //sets Velocity to 0
 					this.go.dir = 0; //terminates accelleration from before death
@@ -64,6 +64,15 @@ class Entity {
 					this.pos.set(640 + offset, 80); //spawn in this location
 				} else {
 					levelObject.removeEntity(this);
+					playerNum--;
+					if (playerNum == 2) {
+						var pNum = levelObject.getLastCharacter().player;
+						window.setTimeout(function() {
+							var r = confirm("Player " + pNum + " Wins!");
+							location.reload();
+						}, 1000);
+						
+					}
 				}
 			}
 		} else {

@@ -86,7 +86,6 @@ function createCharacter(name, choice) {
     * @param direction is the direction to be knocked back.
     */
     Character.knockback = function(direction, distance) {
-
         Character.go.dir = 0;
         knockbackDistance = distance * 1.3 || Character.damage * 1.5; // jake turned up the knockback *
 
@@ -391,11 +390,11 @@ function createCharacter(name, choice) {
         context.restore();
 
         drawInfo(context);
-
+        //if(PlayerNum < 
     }
 
     function drawInfo(context) {
-        if (Character.lives >= 0) {
+        if (Character.lives > 0) {
             context
             context.globalAlpha = 0.8;
             context.lineWidth = 5;

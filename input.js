@@ -33,10 +33,9 @@ function setupKeyboard(entity, keyboard) {
             entity.Heavy = true;
             entity.updateAnimation();
         }
-  });
+    });
 
     input.addMapping('KeyD', keyState => { //go right
-      if(!entity.Special) {
         if (keyState) {
           entity.Walking = true;
           entity.go.dir += 1;
@@ -53,7 +52,6 @@ function setupKeyboard(entity, keyboard) {
           }
           entity.updateAnimation();
         }
-      }
     });
 
     input.addMapping('KeyA', keyState => { //go left

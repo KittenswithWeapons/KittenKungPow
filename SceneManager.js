@@ -2,13 +2,21 @@
 
 let LevelSelection;
 let CharacterSelection;
+var myCanvas;
+var myContext;
 
 
 function displayStartScene(canvas, context) {
+  myCanvas = canvas;
+  myContext = context;
   //display the Start Screen
   var img = new Image();
   img.onload = function () {context.drawImage(img, 0, 0);}
   img.src = './SceneBackgrounds/TitleScreen2.png';
+
+  // titleScene = loadScene('TitleScreen3');
+  // titleScene.addEntity(createTitleCat('titleCat'));
+
 
   //sound
   mainMusic = new sound('./sound/MainTheme.wav');
@@ -19,22 +27,23 @@ function displayStartScene(canvas, context) {
   // next screen --------------------
   screenNextHandler = function(e) {
     var key = e.which || e.keyCode;
-    if (key === 13) { // 13 is enter
+    if(key === 13) { // 13 is enter
       mainMusic.stop(); //stops the main music
+      
       displayCharSelectScene(canvas, context);
       this.removeEventListener('keypress', screenNextHandler, false);
     }
   };
   //move to the next scene
   this.addEventListener('keypress', screenNextHandler, false);
-  // other animation or whatsnot for main splash page
+
 }
 
 
 
 function displayCharSelectScene(canvas, context) {
   //diplay the character selection screen allowing for character selection
-  context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
+  //context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // character selection -------------------------------------
 
   CharacterSelection = selectCharacters(canvas, context);
@@ -44,7 +53,7 @@ function displayCharSelectScene(canvas, context) {
 
 function displayLevelSelectScene(canvas, context, CSelections) {
   //display the level selection screen
-  context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
+  //context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // level selection----------------------------------------
   LevelSelection = selectLevel(canvas, context, CSelections);
 }
@@ -78,7 +87,7 @@ function Pause(context,level) {
 
 
 function displayFightScene(canvas, context, levelSelection, characterSelection) {
-    context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
+    //context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
 
     console.log("returned char selection: "+ characterSelection + "    returned level selection: "+ levelSelection);
 
@@ -179,6 +188,7 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
 
 function loadScene(name) {
+  console.log(name);
   const scene = new Scene(name);
   const sceneBackgroundLayer = createSceneBackgroundLayer(scene);   //background layer
   scene.comp.layers.push(sceneBackgroundLayer);

@@ -103,6 +103,7 @@ function selectCharacters(canvas, context) {
         //delete scene ---------------------------------------------------
         CharTimer.update = function update(deltaTime) {/*end timer*/}
         Scene.removeEntity(Cursor);
+        Scene.clearScene();
         //----------------------------------------------------------------
         displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
         this.removeEventListener('keypress', cursorHandler, false);
