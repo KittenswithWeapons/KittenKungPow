@@ -125,7 +125,7 @@ function drawLevelPreviewImages(context) {
     img4.onload = function () {
     context.drawImage(img4, 83, 144 + 288); //position the level preview image
     }
-    img4.src = "./LevelPreviews/PinkCityPreview.PNG";
+    img4.src = "./LevelPreviews/LightMeowsPreview.PNG";
 
     var img5 = new Image();
     img5.onload = function () {

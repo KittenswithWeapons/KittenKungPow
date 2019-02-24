@@ -86,9 +86,8 @@ function createCharacter(name, choice) {
     * @param direction is the direction to be knocked back.
     */
     Character.knockback = function(direction, distance) {
-
-        //Character.go.dir = 0;
-        knockbackDistance = distance || Character.damage; 
+        Character.go.dir = 0;
+        knockbackDistance = distance * 1.3 || Character.damage * 1.5; // jake turned up the knockback *
 
         if(!Character.pain) {
             Character.pain = true;
@@ -107,7 +106,7 @@ function createCharacter(name, choice) {
                     // } else {
                     //     Character.go.dir -= dir * (knockbackDistance / 250);
                     // }
-                    Character.updateAnimation(); 
+                    Character.updateAnimation();
 
                 }, knockbackDistance * 2 * 0.85);
             } else {
@@ -281,7 +280,7 @@ function createCharacter(name, choice) {
             characters[6]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
-            characters[7]), 36, (5 * Character.frameSize + 48) - 4, 
+            characters[7]), 36, (5 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.05, 10, false, false)
     ];
 
