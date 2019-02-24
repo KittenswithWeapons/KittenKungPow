@@ -65,6 +65,7 @@ function selectLevel(canvas, context, Cselected) {
         //delete scene ---------------------------------------------------
         LevTimer.update = function update(deltaTime) {/*end timer*/}
         Scene.removeEntity(Cursor);
+        Scene.clearScene();
         //----------------------------------------------------------------
         displayFightScene(canvas, context, LChoices[choiceRow][choiceCol], Cselected);
         this.removeEventListener('keypress', cursorHandler, false);

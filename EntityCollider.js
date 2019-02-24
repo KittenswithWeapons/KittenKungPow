@@ -13,6 +13,10 @@
     this.entities.delete(entity);
   }
 
+  clearEntityColliders() {
+    this.entities.clear();
+  }
+
 
   checkEntityCollision(entity) {
     var xCollideFallFactor = 50;

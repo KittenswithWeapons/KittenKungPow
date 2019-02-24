@@ -31,6 +31,16 @@ class Level {
       this.entityCollider.removeEntityCollider(entity);
     }
 
+    getLastCharacter() {
+      var e;
+      this.entities.forEach(function(entity) {
+        if(entity.type == 'player') {
+          e = entity;
+        }
+      });
+      return e;
+    }
+
     update(deltaTime) {
         if (this.itemCounter > this.itemSpawnRate * 600) {   //item spawning, Seconds * framerate
           this.addEntity(new createItem('health'));

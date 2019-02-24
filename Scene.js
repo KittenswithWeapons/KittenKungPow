@@ -13,6 +13,10 @@ class Scene{
       this.entities.delete(entity);
     }
 
+    clearScene() {
+      this.entities.clear();
+    }
+
     update(deltaTime) {
         this.entities.forEach(entity => {
             entity.update(deltaTime);

@@ -87,7 +87,7 @@ function createCharacter(name, choice) {
     */
     Character.knockback = function(direction, distance) {
 
-        Character.go.dir = 0;
+        //Character.go.dir = 0;
         knockbackDistance = distance || Character.damage; 
 
         if(!Character.pain) {
@@ -391,11 +391,11 @@ function createCharacter(name, choice) {
         context.restore();
 
         drawInfo(context);
-
+        //if(PlayerNum < 
     }
 
     function drawInfo(context) {
-        if (Character.lives >= 0) {
+        if (Character.lives > 0) {
             context
             context.globalAlpha = 0.8;
             context.lineWidth = 5;

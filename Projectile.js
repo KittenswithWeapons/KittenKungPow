@@ -10,7 +10,7 @@ function createProjectile(name, originEntity) {
     if(name == 'fireball') {
         Projectile.size.set(25, 30);         //size of the projectile.
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);   //position of the Projectile starts from where the origin character is, may need to offset
-        Projectile.damageValue = 20;
+        Projectile.damageValue = 20;//20
     } else if(name == 'arrow') {
         Projectile.size.set(20, 9);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 30);

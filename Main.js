@@ -13,6 +13,7 @@ var CPUsEnabled = false;
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed
 ASSET_MANAGER.queueDownload("./characters/Karate.png");
+ASSET_MANAGER.queueDownload("./characters/idleBig.png");
 ASSET_MANAGER.queueDownload("./effects/Damage.png");
 ASSET_MANAGER.queueDownload("./effects/Dust.png");
 ASSET_MANAGER.queueDownload("./characters/Archer.png");
