@@ -94,24 +94,23 @@ function createCharacter(name, choice) {
         } else {
           dirSave = -1;
         }
-        knockbackDistance = distance * 1.3 || Character.damage * 2.5; // jake turned up the knockback *
+        var dir = 1.0;
+        if (direction == 'painRight') {
+          dir = -1;
+        }
+
+        knockbackDistance = distance * 5 || Character.damage * 5; // jake turned up the knockback *
         if(!Character.pain) {
             Character.pain = true;
-
             if(direction != 'knockUp') {
-                var dir = 1.0;
-                if (direction == 'painRight') {
-                  dir = -1;
-                }
                 Character.kback.start(knockbackDistance, dir);
                 Character.updateAnimation();
 
                 window.setTimeout (function() {
                     Character.pain = false;
                     Character.updateAnimation();
-                }, knockbackDistance * 0.85);
+                }, knockbackDistance * 2 * 0.85);
             } else {
-
                 Character.updateAnimation();
                 window.setTimeout (function() {Character.pain = false;},knockbackDistance);
             }

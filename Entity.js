@@ -46,11 +46,12 @@ class Entity {
 		}
 
 		if (this.inKillzone()) {
+
 			if (this.type === 'projectile') {
 				levelObject.removeEntity(this);
 			} else {
 				//character death handling / respawn
-
+				//console.log( this.Ename + ' death at: ' + this.pos.x + ' , ' + this.pos.y);
 				this.lives--; //decrement lives
 				if (this.lives > 0) {
 					this.damage = 0; //damage reset after death
