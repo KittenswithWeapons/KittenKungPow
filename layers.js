@@ -46,7 +46,7 @@ function drawBackgroundImage(name, context) {
 }
 
 function drawSceneBackgroundImage(scene, context) {
-    console.log("draw");
+    //console.log("draw");
     var img = new Image();
     img.onload = function () {
     context.drawImage(img, 0, 0);
@@ -63,7 +63,7 @@ function createSpriteLayer(entities) {
 }
 
 function createSceneBackgroundLayer(scene) {
-    console.log(scene);
+    //console.log(scene);
     const buffer = document.createElement('canvas');
     buffer.width = 1280;
     buffer.height = 720;
