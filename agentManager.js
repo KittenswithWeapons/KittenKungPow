@@ -24,9 +24,11 @@ agentManager.prototype.update = function () {
     this.selectTarget();
     // console.log(this.agent.Ename + "s target is " + this.target.Ename);
     // console.log(this.target.Ename + " is " + this.targetDist + " units away");
-    this.move();
-    this.attack();
-    this.keyHeld = !this.keyHeld;
+    if(this.target !== undefined) { //jake added this if statement to handle when the agent has no target
+      this.move();
+      this.attack();
+      this.keyHeld = !this.keyHeld;
+    }
 };
 
 agentManager.prototype.move = function () {

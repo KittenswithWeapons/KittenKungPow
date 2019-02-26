@@ -109,7 +109,7 @@ function createCharacter(name, choice) {
                 window.setTimeout (function() {
                     Character.pain = false;
                     Character.updateAnimation();
-                }, knockbackDistance * 2 * 0.85);
+                }, knockbackDistance * 0.85);
             } else {
 
                 Character.updateAnimation();

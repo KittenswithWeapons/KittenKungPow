@@ -15,7 +15,7 @@ class Knockback extends Trait {
 	start(velocity, dir) {
     this.dir = dir;
 		this.velocity = velocity || 400;
-    this.duration = 10/velocity;
+    this.duration = 5/velocity;
 		this.engageTime = this.duration;
 	}
 
@@ -25,8 +25,8 @@ class Knockback extends Trait {
 
 	update(entity, deltaTime) {
     if (this.engageTime > 0) {
-      entity.vel.x = this.dir * this.velocity * 2;
-  		entity.vel.y = -this.velocity;
+      entity.vel.x += this.dir * this.velocity * 3;
+  		entity.vel.y -= this.velocity * .5;
     	this.engageTime -= deltaTime;
     }
 	}
