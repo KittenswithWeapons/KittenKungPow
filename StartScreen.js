@@ -2,7 +2,7 @@ function startScreen(canvas, context) {
   Promise.all([
     loadScene('TitleScreen2'),
 ])
-.then(([Scene]) => {
+.then(([StartScene]) => {
 
 
     //sound
@@ -14,8 +14,8 @@ function startScreen(canvas, context) {
     //Timer for the Start Screen
     const sTimer = new Timer(deltaTime);
     sTimer.update = function update(deltaTime) {
-    Scene.update(deltaTime);
-    Scene.comp.draw(context);
+    StartScene.update(deltaTime);
+    StartScene.comp.draw(context);
     }
 
     sTimer.start(); //timer start
@@ -27,12 +27,15 @@ function startScreen(canvas, context) {
         //delete scene ---------------------------------------------------
         mainMusic.stop(); //stops the main music
         sTimer.update = function update(deltaTime) {/*end timer*/}
-        Scene.clearScene();
+        StartScene.clearScene();
         //----------------------------------------------------------------
         displayCharSelectScene(canvas, context);
+        this.removeEventListener('keypress', nextHandler, false);
+        return;
       }
     };
     //move to the next scene
     this.addEventListener('keypress', nextHandler, false);
     });
+    return;
 }

@@ -8,7 +8,8 @@ var myContext;
 
 function displayStartScene(canvas, context) {
   context.clearRect(0, 0, 1280,720);
-  startScreen(canvas, context)
+  startScreen(canvas, context);
+
 }
 
 
@@ -159,7 +160,7 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
 
 function loadScene(name) {
-  console.log(name);
+  //console.log(name);
   const scene = new Scene(name);
   const sceneBackgroundLayer = createSceneBackgroundLayer(scene);   //background layer
   scene.comp.layers.push(sceneBackgroundLayer);

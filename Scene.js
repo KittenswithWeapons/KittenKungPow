@@ -14,7 +14,7 @@ class Scene{
     }
 
     clearScene() {
-      this.entities.clear();
+      this.entities = new Set();
     }
 
     update(deltaTime) {
