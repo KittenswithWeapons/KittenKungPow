@@ -59,8 +59,8 @@ class Entity {
 					this.Walking = false;
 					var offset = Math.floor(Math.random() * 4) * 40;
 					if (Math.floor(Math.random() * 2) > 0) offset = offset * -1;
-					console.log("Offset = " + offset);
-					
+					//console.log("Offset = " + offset);
+
 					this.pos.set(640 + offset, 80); //spawn in this location
 				} else {
 					levelObject.removeEntity(this);
@@ -71,7 +71,7 @@ class Entity {
 							var r = confirm("Player " + pNum + " Wins!");
 							location.reload();
 						}, 1000);
-						
+
 					}
 				}
 			}

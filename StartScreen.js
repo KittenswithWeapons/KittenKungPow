@@ -4,7 +4,6 @@ function startScreen(canvas, context) {
 ])
 .then(([StartScene]) => {
 
-
     //sound
     mainMusic = new sound('./sound/MainTheme.wav');
     mainMusic.sound.volume = .04; //main theme volume

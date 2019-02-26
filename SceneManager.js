@@ -117,8 +117,9 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
       level.addEntity(Character); //adds character to the level
       level.addEntity(Enemy);
-      level.addEntity(Player3);
-      level.addEntity(Player4);
+      //level.addEntity(Player3);
+      //level.addEntity(Player4);
+      
       //sets up controls
       const input = setupKeyboard(Character);
       const controllerInput = setUpControllers(Character);

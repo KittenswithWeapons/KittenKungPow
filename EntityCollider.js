@@ -71,6 +71,7 @@
             if (entity.type === 'projectile') {
               //console.log('projectile hit');
               entityObject.damage += entity.damageValue;
+              //console.log(entity.Ename);
               if(entity.Ename == 'forcePush') {
                 entityObject.handle('pushLeft');
               } else if(entity.Ename == 'dagger') {
