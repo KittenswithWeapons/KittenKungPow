@@ -14,19 +14,21 @@ function agentManager(entity) {
 
 agentManager.prototype.update = function () {
     this.choice = this.agent.choice;
-    console.log("Choice = " + this.choice);
-    
+    //console.log("Choice = " + this.choice);
+
     if (this.choice === 0 || this.choice === 3 || this.choice === 4 || this.choice === 6 || this.choice === 7) {
         this.myStyle = 'melee';
     } else {
         this.myStyle = 'ranged';
     }
     this.selectTarget();
-    console.log(this.agent.Ename + "s target is " + this.target.Ename);
-    console.log(this.target.Ename + " is " + this.targetDist + " units away");
-    this.move();
-    this.attack();
-    this.keyHeld = !this.keyHeld;
+    // console.log(this.agent.Ename + "s target is " + this.target.Ename);
+    // console.log(this.target.Ename + " is " + this.targetDist + " units away");
+    if(this.target !== undefined) { //jake added this if statement to handle when the agent has no target
+      this.move();
+      this.attack();
+      this.keyHeld = !this.keyHeld;
+    }
 };
 
 agentManager.prototype.move = function () {
@@ -44,8 +46,8 @@ agentManager.prototype.move = function () {
         this.right();
         if (myX < 80) {
             this.right();
-        } 
-    } 
+        }
+    }
     if (myX > 1120) {
         this.left();
         if (myX > 1120) {
@@ -74,7 +76,7 @@ agentManager.prototype.move = function () {
 
         if (this.myStyle === 'melee') { // Up close fighting style
             if (this.targetDist > 50) {
-                if (xDist > 0) { 
+                if (xDist > 0) {
                     this.right();
                     if (yDist < 0) {
                         this.jump();
@@ -101,7 +103,7 @@ agentManager.prototype.move = function () {
             }
         } else { // Ranged fighting style
             if (this.targetDist < 50) {
-                if (xDist > 0) { 
+                if (xDist > 0) {
                     this.left();
                     if (yDist < 0) {
                         this.down();
@@ -135,7 +137,7 @@ agentManager.prototype.move = function () {
 
     } else { // Target is an item
         if (xDist > 0) {
-            this.right();    
+            this.right();
         } else if (xDist < 0) {
             this.left();
         }
@@ -158,7 +160,7 @@ agentManager.prototype.selectTarget = function () {
 
     levelObject.entities.forEach(Entity => {
         // console.log("Entity type = " + Entity.type);
-        
+
         if (Entity != this.agent && Entity.Ename === 'character') {
             var dist = Math.sqrt( Math.pow((this.agent.pos.x-Entity.pos.x), 2)
                                     + Math.pow((this.agent.pos.y-Entity.pos.y), 2));
@@ -172,7 +174,7 @@ agentManager.prototype.selectTarget = function () {
             if (dist < closestItemDist) {
                 closestItemDist = dist;
                 closestItem = Entity;
-            }                   
+            }
         }
     });
 
@@ -183,7 +185,7 @@ agentManager.prototype.selectTarget = function () {
         this.target = closestEnemy;
         this.targetDist = closestEnemyDist;
     }
-    
+
 };
 
 agentManager.prototype.attack = function (isTargetClose) {
@@ -207,17 +209,17 @@ agentManager.prototype.attack = function (isTargetClose) {
         }
     }
     if (random > 0) {
-        random = Math.floor(Math.random() * 3);        
+        random = Math.floor(Math.random() * 3);
         if (random === 0) { // Light
             this.light();
-        } else if (random === 1) { // Heavy 
+        } else if (random === 1) { // Heavy
             this.heavy();
         } else { // Special
             this.special();
         }
     }
-    
-    
+
+
 };
 
 agentManager.prototype.jump = function () {

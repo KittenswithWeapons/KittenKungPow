@@ -14,6 +14,7 @@ function createCharacter(name, choice) {
     Character.addTrait(new Go());
     Character.addTrait(new PassDown());
     Character.addTrait(new Punch());
+    Character.addTrait(new Knockback());
     Character.heading = 1;
     Character.Jumping = false;
     Character.dustFinished = false;
@@ -86,34 +87,37 @@ function createCharacter(name, choice) {
     * @param direction is the direction to be knocked back.
     */
     Character.knockback = function(direction, distance) {
-        Character.go.dir = 0;
-        knockbackDistance = distance * 1.3 || Character.damage * 1.5; // jake turned up the knockback *
+        if (Character.go.dir > 0) {
+          dirSave = 1;
+        } else if (Character.go.dir === 0) {
+          dirSave = 0;
+        } else {
+          dirSave = -1;
+        }
+        var dir = 1.0;
+        if (direction == 'painRight') {
+          dir = -1;
+        }
 
+        knockbackDistance = distance * .6 || Character.damage; // jake turned up the knockback *
         if(!Character.pain) {
             Character.pain = true;
-            Character.jump.start(knockbackDistance * 0.9);
-
             if(direction != 'knockUp') {
-                var dir = 1.0;
-                if(direction == 'painRight') dir = -1;
-                Character.go.dir = dir * (knockbackDistance / 250);
+                Character.go.enable = false;
+                Character.kback.start(knockbackDistance, dir);
                 Character.updateAnimation();
 
                 window.setTimeout (function() {
                     Character.pain = false;
-                    // if(!Character.Walking) {
-                        Character.go.dir = 0;
-                    // } else {
-                    //     Character.go.dir -= dir * (knockbackDistance / 250);
-                    // }
                     Character.updateAnimation();
-
+                    Character.go.enable = true;
                 }, knockbackDistance * 2 * 0.85);
             } else {
                 Character.updateAnimation();
                 window.setTimeout (function() {Character.pain = false;},knockbackDistance);
             }
         }
+        //Character.kback.start(knockbackDistance, dir);
     }
 
     Character.updateAnimation = function () {
@@ -390,7 +394,7 @@ function createCharacter(name, choice) {
         context.restore();
 
         drawInfo(context);
-        //if(PlayerNum < 
+        //if(PlayerNum <
     }
 
     function drawInfo(context) {

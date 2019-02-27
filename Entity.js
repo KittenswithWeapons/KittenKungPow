@@ -46,11 +46,12 @@ class Entity {
 		}
 
 		if (this.inKillzone()) {
+
 			if (this.type === 'projectile') {
 				levelObject.removeEntity(this);
 			} else {
 				//character death handling / respawn
-
+				//console.log( this.Ename + ' death at: ' + this.pos.x + ' , ' + this.pos.y);
 				this.lives--; //decrement lives
 				if (this.lives > 0) {
 					this.damage = 0; //damage reset after death
@@ -59,8 +60,8 @@ class Entity {
 					this.Walking = false;
 					var offset = Math.floor(Math.random() * 4) * 40;
 					if (Math.floor(Math.random() * 2) > 0) offset = offset * -1;
-					console.log("Offset = " + offset);
-					
+					//console.log("Offset = " + offset);
+
 					this.pos.set(640 + offset, 80); //spawn in this location
 				} else {
 					levelObject.removeEntity(this);
@@ -71,7 +72,7 @@ class Entity {
 							var r = confirm("Player " + pNum + " Wins!");
 							location.reload();
 						}, 1000);
-						
+
 					}
 				}
 			}
