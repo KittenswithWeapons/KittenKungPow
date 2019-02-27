@@ -86,7 +86,7 @@ function createCharacter(name, choice) {
     * @param direction is the direction to be knocked back.
     */
     Character.knockback = function(direction, distance) {
-        Character.go.dir = 0;
+        //Character.go.dir = 0;
         knockbackDistance = distance * 1.3 || Character.damage * 1.5; // jake turned up the knockback *
 
         if(!Character.pain) {
