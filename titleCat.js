@@ -1,15 +1,22 @@
 function createTitleCat(name) {
     const titleCat = new Entity(name);
-    titleCat.frameHeight = 172;
-    titleCat.frameWidth = 105;
+    titleCat.frameWidth = 552;
+    titleCat.frameHeight = 336;
+    titleCat.drawCount = 0;
+    titleCat.frameNum = 0;
 
     titleCat.updateAnimation = function () {
       titleCat.animation = new Animation(ASSET_MANAGER.getAsset(
-            "./SceneBackgrounds/CatFaceAnimationBig.png"), 0, 0, 
-            titleCat.frameWidth, titleCat.frameHeight, 0.5, 5, true, false);
+            "./SceneBackgrounds/CatFaceAnimation.png"), titleCat.frameWidth * titleCat.frameNum, 0, 
+            titleCat.frameWidth, titleCat.frameHeight, 1, 1, true, false);
     }
 
     titleCat.draw = function (context) {
+      if(titleCat.drawCount++ > 50) {
+        titleCat.frameNum = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+        titleCat.updateAnimation();
+        titleCat.drawCount = 0;
+      }
       titleCat.animation.drawFrame(deltaTime, context, this.pos.x, this.pos.y);
     }
     titleCat.updateAnimation();

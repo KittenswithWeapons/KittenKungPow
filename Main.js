@@ -31,6 +31,7 @@ ASSET_MANAGER.queueDownload("./Projectiles/fireball.png");
 ASSET_MANAGER.queueDownload("./Projectiles/Arrow.png");
 ASSET_MANAGER.queueDownload("./Projectiles/shadeStep.png");
 ASSET_MANAGER.queueDownload("./Projectiles/Cash.png");
+ASSET_MANAGER.queueDownload("./SceneBackgrounds/CatFaceAnimation.png");
 
 ASSET_MANAGER.downloadAll(function () {});
 
