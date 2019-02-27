@@ -11,6 +11,7 @@ class Knockback extends Trait {
 		this.speed = this.velocity * 50;
 		this.engageTime = 0;
     this.dir = 0;
+		this.dirSave = 0;
 	}
 
 	start(velocity, dir) {
@@ -38,5 +39,6 @@ class Knockback extends Trait {
 			}
 			//console.log('velocityX ' + entity.vel.x);
     }
+
 	}
 }

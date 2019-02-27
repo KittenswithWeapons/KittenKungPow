@@ -103,19 +103,23 @@ function createCharacter(name, choice) {
         if(!Character.pain) {
             Character.pain = true;
             if(direction != 'knockUp') {
+                // Character.vel.x = -Character.vel.x;
+                // Character.vel.y = -Character.vel.y;
+                Character.go.enable = false;
                 Character.kback.start(knockbackDistance, dir);
                 Character.updateAnimation();
 
                 window.setTimeout (function() {
                     Character.pain = false;
                     Character.updateAnimation();
+                    Character.go.enable = true;
                 }, knockbackDistance * 2 * 0.85);
             } else {
                 Character.updateAnimation();
                 window.setTimeout (function() {Character.pain = false;},knockbackDistance);
             }
         }
-        Character.kback.start(knockbackDistance, dir);
+        //Character.kback.start(knockbackDistance, dir);
     }
 
     Character.updateAnimation = function () {

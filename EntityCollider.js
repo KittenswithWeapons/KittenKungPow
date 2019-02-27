@@ -20,6 +20,7 @@
 
   checkEntityCollision(entity) {
     var xCollideFallFactor = 50;
+    var dirSave = 0;
     this.entities.forEach(entityObject => {
       if (entity !== entityObject) {
         //check all for collision
@@ -72,6 +73,7 @@
               //console.log('projectile hit');
               entityObject.damage += entity.damageValue;
               //console.log(entity.Ename);
+
               if(entity.Ename == 'forcePush') {
                 entityObject.handle('pushLeft');
               } else if(entity.Ename == 'dagger') {
@@ -85,6 +87,7 @@
                 levelObject.removeEntity(entity);
                 entityObject.handle('painLeft');
               }
+
               //console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
               return;
             }
@@ -132,6 +135,8 @@
               if (entity.type === 'projectile') {
                 //console.log('projectile hit');
                 entityObject.damage += entity.damageValue;
+
+
                 if(entity.Ename == 'forcePush') {
                   entityObject.handle('pushRight');
                 } else if(entity.Ename == 'dagger') {
@@ -145,6 +150,7 @@
                   levelObject.removeEntity(entity);
                   entityObject.handle('painRight');
                 }
+
                 //console.log(entityObject.Ename + '- damage: ' + entityObject.damage);
                 return;
               }
