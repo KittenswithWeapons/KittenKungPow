@@ -6,9 +6,9 @@ class Knockback extends Trait {
 	constructor() {
 		super('kback');
 
-		this.duration = 0.1;
-		this.velocity = 400;
-		this.speed = this.velocity * 50;
+		this.duration = 0.4;
+		this.velocity = 0;
+		this.speed = 0;
 		this.engageTime = 0;
     this.dir = 0;
 		this.dirSave = 0;
@@ -16,8 +16,8 @@ class Knockback extends Trait {
 
 	start(velocity, dir) {
     this.dir = dir;
-		this.velocity = velocity*2 || 400;
-    this.duration = 10/velocity;
+		this.velocity = velocity;
+		this.speed = this.velocity * 5;
 		this.engageTime = this.duration;
 	}
 
@@ -27,14 +27,12 @@ class Knockback extends Trait {
 
 	update(entity, deltaTime) {
     if (this.engageTime > 0) {
-			if (this.engageTime > this.duration * 0.8) {
-				entity.vel.y = -this.speed/2 * deltaTime;
-	      entity.vel.x = this.speed * this.dir * deltaTime;
+			if (this.engageTime > this.duration * .95) {
+				entity.vel.y = -this.speed*1.5;
+	      entity.vel.x = this.speed * this.dir ;
 	    	this.engageTime -= deltaTime;
 			} else {
-				//console.log('still movin ' + this.speed +' '+ this.dir);
-
-				entity.vel.x = this.speed * this.dir * deltaTime;
+				entity.vel.x = this.speed * this.dir;
 				this.engageTime -= deltaTime;
 			}
 			//console.log('velocityX ' + entity.vel.x);
