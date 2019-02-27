@@ -8,14 +8,15 @@ class Knockback extends Trait {
 
 		this.duration = 0.1;
 		this.velocityY = 400;
-		this.velocityX = 12000
+		this.velocityX = this.velocityY * 30;
 		this.engageTime = 0;
     this.dir = 0;
 	}
 
 	start(velocity, dir) {
     this.dir = dir;
-		this.velocity = velocity || 400;
+		this.velocityY = velocity;
+		this.velocityX = this.velocityY * 30;
 		this.engageTime = this.duration;
 	}
 
@@ -24,22 +25,15 @@ class Knockback extends Trait {
 	}
 
 	update(entity, deltaTime) {
-    if (this.engageTime > 0) {
-			if (this.engageTime > this.duration * .95) {
-
-				entity.vel.y = -this.velocityY;
-
-	      entity.vel.x = this.velocityX * this.dir * deltaTime ;
-
-				this.engageTime -= deltaTime;
-			} else {
-
-				entity.vel.x = this.velocityX * this.dir * deltaTime;
-
-				this.engageTime -= deltaTime;
-			}
-			//console.log('velocityX ' + entity.vel.x);
-    }
+		if ((this.engageTime) > 0) {
+			console.log(this.velocityX);
+			entity.vel.x = this.velocityX * 1.5 * this.dir * deltaTime;
+			this.engageTime -= deltaTime;
+			if (this.velocityX > 1500) {
+					entity.vel.x = this.velocityX * 3 * this.dir * deltaTime;
+					entity.vel.y = -this.velocityY * 2;
+	    }
+		}
 
 	}
 }
