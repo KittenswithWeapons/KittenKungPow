@@ -1,8 +1,12 @@
 function startScreen(canvas, context) {
   Promise.all([
-    loadScene('TitleScreen2'),
+    createTitleCat('titlecat'),
+    loadScene('TitleScreen3'),
 ])
-.then(([StartScene]) => {
+.then(([TitleCat, StartScene]) => {
+
+    StartScene.addEntity(TitleCat);
+    TitleCat.pos.set(370, 390);
 
     //sound
     mainMusic = new sound('./sound/MainTheme.wav');
