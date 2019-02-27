@@ -99,11 +99,10 @@ function createCharacter(name, choice) {
           dir = -1;
         }
 
-        knockbackDistance = distance / 2 || Character.damage / 2; // jake turned up the knockback *
+        knockbackDistance = distance || Character.damage; // jake turned up the knockback *
         if(!Character.pain) {
             Character.pain = true;
             if(direction != 'knockUp') {
-
                 Character.go.enable = false;
                 Character.kback.start(knockbackDistance, dir);
                 Character.updateAnimation();
