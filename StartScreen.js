@@ -7,6 +7,7 @@ function startScreen(canvas, context) {
 
     StartScene.addEntity(TitleCat);
     TitleCat.pos.set(370, 390);
+
     //sound
     mainMusic = new sound('./sound/MainTheme.wav');
     mainMusic.sound.volume = .04; //main theme volume
