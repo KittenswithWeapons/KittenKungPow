@@ -1,4 +1,4 @@
-function createProjectile(name, originEntity) {
+function createProjectile(name, originEntity, damageModifier) {
     const Projectile = new Entity(name); //creates the projectile as an entity
     Projectile.origin = originEntity;
     Projectile.type = 'projectile';
@@ -6,19 +6,21 @@ function createProjectile(name, originEntity) {
     Projectile.addTrait(new Throw());
     Projectile.heading = originEntity.heading;
     Projectile.throw.dir = Projectile.heading; //propels the projectile in the direction that the character is facing
+    Projectile.damageModifier = damageModifier || 1;
+    //console.log(damageModifier);
 
     if(name == 'fireball') {
         Projectile.size.set(25, 30);         //size of the projectile.
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);   //position of the Projectile starts from where the origin character is, may need to offset
-        Projectile.damageValue = 20;//20
+        Projectile.damageValue = 20 * Projectile.damageModifier;//20
     } else if(name == 'arrow') {
         Projectile.size.set(20, 9);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 30);
-        Projectile.damageValue = 10;
+        Projectile.damageValue = 10 * Projectile.damageModifier;
     } else if(name == 'trippleArrow') {
         Projectile.size.set(20, 30);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);
-        Projectile.damageValue = 30;
+        Projectile.damageValue = 30 * Projectile.damageModifier;
     } else if(name == 'forcePush') {
         Projectile.size.set(10, 50);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
@@ -26,19 +28,19 @@ function createProjectile(name, originEntity) {
     } else if(name == 'punch') {
         Projectile.size.set(15, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
-        Projectile.damageValue = 10;
+        Projectile.damageValue = 10 * Projectile.damageModifier;
     } else if(name == 'kick') {
         Projectile.size.set(20, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
-        Projectile.damageValue = 30;
+        Projectile.damageValue = 30 * Projectile.damageModifier;
     } else if(name == 'dagger') {
         Projectile.size.set(15, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
-        Projectile.damageValue = 3;
+        Projectile.damageValue = 3 * Projectile.damageModifier;
     } else if(name == 'uppercut') {
         Projectile.size.set(20, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
-        Projectile.damageValue = 10;
+        Projectile.damageValue = 10 * Projectile.damageModifier;
     } else if(name == 'shadeStep') {
         Projectile.size.set(10, 10);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
@@ -46,13 +48,13 @@ function createProjectile(name, originEntity) {
     } else if(name == 'cash') {
         Projectile.size.set(18, 22);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 35);
-        Projectile.damageValue = 10;
+        Projectile.damageValue = 10 * Projectile.damageModifier;
         Projectile.vel.y -= 300;
         window.setTimeout(function() {Projectile.vel.y += 300;}, 700);
     } else if(name == 'slam') {
         Projectile.size.set(10, 50);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
-        Projectile.damageValue = 30;
+        Projectile.damageValue = 30 * Projectile.damageModifier;
     }
 
     Projectile.handle = function(intent) {
@@ -82,7 +84,7 @@ function createProjectile(name, originEntity) {
             case 'punch':
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
                     "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
-                break; 
+                break;
             case 'kick':
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
                     "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
@@ -90,7 +92,7 @@ function createProjectile(name, originEntity) {
             case 'dagger':
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
                     "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
-                break; 
+                break;
             case 'uppercut':
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
                     "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
@@ -100,13 +102,13 @@ function createProjectile(name, originEntity) {
                     "./Projectiles/shadeStep.png"), 0, 0, 11, 12, 1, 1, true, false);
                 break;
             case 'cash':
-                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( 
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
                     "./Projectiles/Cash.png"), 0, 0, 18, 22, 1, 1, true, false);
                 break;
             case 'slam':
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
                     "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
-                break; 
+                break;
         }
     }
 
@@ -151,14 +153,14 @@ function createProjectile(name, originEntity) {
 }
 
 
-function ThrowProjectile(name, originEntity) {
+function ThrowProjectile(name, originEntity, damageModifier) {
     if(name == 'forcePush') {
-        levelObject.addTempEntity(createProjectile(name, originEntity), 150)
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 150)
     } else if (name == 'punch' || name == 'dagger') {
-        levelObject.addTempEntity(createProjectile(name, originEntity), 60)
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 60)
     } else if (name == 'kick' || name == 'uppercut') {
-        levelObject.addTempEntity(createProjectile(name, originEntity), 50)
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 50)
     } else {
-        levelObject.addEntity(createProjectile(name, originEntity));
+        levelObject.addEntity(createProjectile(name, originEntity, damageModifier));
     }
 }

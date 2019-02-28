@@ -7,13 +7,26 @@ function createItem(name) {
     Item.src = "./Items/fish.png"; //default value
 
     if (name === 'health') {
-      Item.size.set(32, 61); //beer size     *not 64 y because of tile collider checkY buffer size
-      Item.src = "./Items/beer.png";
+      Item.size.set(26, 43); //milk size     *not 46 y because of tile collider checkY buffer size
+      Item.src = "./Items/milk.png";
     }
 
     else if (name === 'damage') {
       Item.size.set(40, 40); //fish size     *not 43 y because of tile collider checkY buffer size
       Item.src = "./Items/fish.png";
+    }
+
+    else if (name === 'speed') {
+      Item.size.set(40, 37); //choco size     *not 40 y because of tile collider checkY buffer size
+      Item.src = "./Items/choco.png";
+    }
+    else if (name === 'pickler') {
+      Item.size.set(42, 36); //pickle size     *not 39 y because of tile collider checkY buffer size
+      Item.src = "./Items/pickle.png";
+    }
+    else if (name === 'berry') {
+      Item.size.set(41, 38); //pickle size     *not 41 y because of tile collider checkY buffer size
+      Item.src = "./Items/berry.png";
     }
 
 

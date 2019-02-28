@@ -7,14 +7,16 @@ function createCharacter(name, choice) {
     const Character = new Entity(name);
     Character.type = 'player'
     Character.frameSize = 128;
-    Character.size.set(28, 58); //set to actuall pixel size of character, determines collision box. kat is 18,29
+    Character.size.set(28, 58); //set to actuall pixel size of character, determines collision box.
     Character.origin = 'self';
+
     Character.addTrait(new Velocity());
     Character.addTrait(new Jump());
     Character.addTrait(new Go());
     Character.addTrait(new PassDown());
     Character.addTrait(new Punch());
     Character.addTrait(new Knockback());
+
     Character.heading = 1;
     Character.Jumping = false;
     Character.dustFinished = false;
@@ -26,10 +28,14 @@ function createCharacter(name, choice) {
     Character.Heavy = false;
     Character.Special = false;
     Character.pain = false;
+
     Character.damage = 0;
+    Character.damageModifier = 1;
+
     Character.lives = 3;
     Character.choice = choice || 0;
     Character.player = playerNum;
+
     playerNum++;
 
     /*
@@ -204,14 +210,14 @@ function createCharacter(name, choice) {
     ];
 
     Character.lightAttacks = [
-        function() {ThrowProjectile("punch", Character);}, //Karate
-        function() {ThrowProjectile("arrow", Character);}, //Archer
-        function() {ThrowProjectile("punch", Character);}, //Wizard
-        function() {ThrowProjectile("dagger", Character);}, //Rogue
-        function() {ThrowProjectile("punch", Character);}, //Warrior
-        function() {ThrowProjectile("punch", Character);}, //Soldier
-        function() {ThrowProjectile("punch", Character);}, //Vagrant
-        function() {ThrowProjectile("cash", Character);} //Fatcat
+        function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Karate
+        function() {ThrowProjectile("arrow", Character, Character.damageModifier);}, //Archer
+        function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Wizard
+        function() {ThrowProjectile("dagger", Character, Character.damageModifier);}, //Rogue
+        function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Warrior
+        function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Soldier
+        function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Vagrant
+        function() {ThrowProjectile("cash", Character, Character.damageModifier);} //Fatcat
     ]
 
     Character.heavyAnimations = [
@@ -242,14 +248,14 @@ function createCharacter(name, choice) {
     ];
 
     Character.heavyAttacks = [
-        function() {window.setTimeout(function() {ThrowProjectile("kick", Character);}, 200)}, //Karate
-        function() {window.setTimeout(function() {ThrowProjectile("trippleArrow", Character);}, 200)}, //Archer
-        function() {ThrowProjectile("kick", Character);}, //Wizard
-        function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character);}, 200)}, //Rogue
-        function() {ThrowProjectile("kick", Character);}, //Warrior
-        function() {ThrowProjectile("kick", Character);}, //Soldier
-        function() {ThrowProjectile("kick", Character);}, //Vagrant
-        function() { window.setTimeout(function() {ThrowProjectile("kick", Character);}, 200)
+        function() {window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)}, //Karate
+        function() {window.setTimeout(function() {ThrowProjectile("trippleArrow", Character, Character.damageModifier);}, 200)}, //Archer
+        function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Wizard
+        function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character, Character.damageModifier);}, 200)}, //Rogue
+        function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Warrior
+        function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Soldier
+        function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Vagrant
+        function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)
             // ThrowProjectile("slam", Character);
             // Character.go.dir = 0;
             // setupEmptyKeyboard(Character);
@@ -289,24 +295,24 @@ function createCharacter(name, choice) {
     ];
 
     Character.specialAttacks = [
-        function() {window.setTimeout(function() {ThrowProjectile("fireball", Character);}, 350)}, //Karate
+        function() {window.setTimeout(function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, 350)}, //Karate
         function() {window.setTimeout(function() { //Archer
-                        ThrowProjectile("forcePush", Character);
+                        ThrowProjectile("forcePush", Character, Character.damageModifier);
                         Character.heading *= -1;
-                        ThrowProjectile("forcePush", Character);
+                        ThrowProjectile("forcePush", Character, Character.damageModifier);
                         Character.heading *= -1;
                     }, 280); },
-        function() {ThrowProjectile("fireball", Character);}, //Wizard
-        function() {ThrowProjectile("shadeStep", Character);}, //Rogue
-        function() {ThrowProjectile("fireball", Character);}, //Warrior
-        function() {ThrowProjectile("fireball", Character);}, //Soldier
-        function() {ThrowProjectile("fireball", Character);}, //Vagrant
+        function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Wizard
+        function() {ThrowProjectile("shadeStep", Character, Character.damageModifier);}, //Rogue
+        function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Warrior
+        function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Soldier
+        function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Vagrant
         function() {
             Character.go.dir = 0;
             setupEmptyKeyboard(Character);
             window.setTimeout(function() {
                 Character.go.dir = Character.heading * 1;
-                ThrowProjectile("slam", Character);
+                ThrowProjectile("slam", Character, Character.damageModifier);
             }, 200);
             window.setTimeout(function() {
                 Character.go.dir = 0;

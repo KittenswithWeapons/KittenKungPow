@@ -26,7 +26,7 @@ class Knockback extends Trait {
 
 	update(entity, deltaTime) {
 		if ((this.engageTime) > 0) {
-			console.log(this.velocityX);
+			//console.log(this.velocityX);
 			entity.vel.x = this.velocityX * 1.5 * this.dir * deltaTime;
 			this.engageTime -= deltaTime;
 			if (this.velocityX > 1500) {
