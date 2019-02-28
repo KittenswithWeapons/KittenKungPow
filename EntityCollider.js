@@ -41,8 +41,8 @@
 
             //item handling----------------------------------------------------------------------------------
             if (entity.type === 'Item' || entityObject.type === 'Item') {
-              //console.log('item hit! from left');
-              //health
+
+              //health Milk
               if ((entity.Ename === 'health' && entityObject.type === 'player') ||
                         (entity.type === 'player' && entityObject.Ename === 'health')){
                 entityObject.damage -= 50;
@@ -52,13 +52,47 @@
                   entity.damage = 0;
                 }
               }
-              //damage fish
+              //damage fish: doubles damage for 5 seconds
               if ((entity.Ename === 'damage' && entityObject.type === 'player') ||
                         (entity.type === 'player' && entityObject.Ename === 'damage')){
+                entity.damageModifier = 2;
+                entityObject.damageModifier = 2;
+                window.setTimeout(function() {
+                  entity.damageModifier = 1;
+                  entityObject.damageModifier = 1;
+                }, 5000);
+              }
+
+              //Choco Speed Bar: doubles speed for 3 seconds
+              if ((entity.Ename === 'speed' && entityObject.type === 'player') ||
+                        (entity.type === 'player' && entityObject.Ename === 'speed')){
+                if (entity.type === 'player') {
+                  entity.go.speed = entity.go.speed * 2;
+                } else if (entityObject.type === 'player') {
+                  entityObject.go.speed = entityObject.go.speed * 2;
+                }
+                window.setTimeout(function() {
+                  if (entity.type === 'player') {
+                    entity.go.speed = entity.go.speed * .5;
+                  } else if (entityObject.type === 'player') {
+                    entityObject.go.speed = entityObject.go.speed * .5;
+                  }
+                }, 3000);
+              }
+
+              //Pickle
+              if ((entity.Ename === 'pickler' && entityObject.type === 'player') ||
+                        (entity.type === 'player' && entityObject.Ename === 'pickler')){
                 //do effecty type things
               }
 
+              //Berry
+              if ((entity.Ename === 'berry' && entityObject.type === 'player') ||
+                        (entity.type === 'player' && entityObject.Ename === 'berry')){
+                //do effecty type things
+              }
 
+              //---------------------------------------
               if (entityObject.type === 'Item') {
                 levelObject.removeEntity(entityObject);
               } else {
@@ -104,8 +138,8 @@
 
               //item handling----------------------------------------------------------------------------------
               if (entity.type === 'Item' || entityObject.type === 'Item') {
-                //console.log('item hit! from left');
-                //health
+
+                //health Milk
                 if ((entity.Ename === 'health' && entityObject.type === 'player') ||
                           (entity.type === 'player' && entityObject.Ename === 'health')){
                   entityObject.damage -= 50;
@@ -115,13 +149,48 @@
                     entity.damage = 0;
                   }
                 }
-                //damage fish
+
+                //damage fish: doubles damage for 5 seconds
                 if ((entity.Ename === 'damage' && entityObject.type === 'player') ||
                           (entity.type === 'player' && entityObject.Ename === 'damage')){
+                  entity.damageModifier = 2;
+                  entityObject.damageModifier = 2;
+                  window.setTimeout(function() {
+                    entity.damageModifier = 1;
+                    entityObject.damageModifier = 1;
+                  }, 5000);
+                }
+
+                //Choco Speed Bar: doubles speed for 3 seconds
+                if ((entity.Ename === 'speed' && entityObject.type === 'player') ||
+                          (entity.type === 'player' && entityObject.Ename === 'speed')){
+                  if (entity.type === 'player') {
+                    entity.go.speed = entity.go.speed * 2;
+                  } else if (entityObject.type === 'player') {
+                    entityObject.go.speed = entityObject.go.speed * 2;
+                  }
+                  window.setTimeout(function() {
+                    if (entity.type === 'player') {
+                      entity.go.speed = entity.go.speed * .5;
+                    } else if (entityObject.type === 'player') {
+                      entityObject.go.speed = entityObject.go.speed * .5;
+                    }
+                  }, 3000);
+                }
+
+                //Pickle
+                if ((entity.Ename === 'pickler' && entityObject.type === 'player') ||
+                          (entity.type === 'player' && entityObject.Ename === 'pickler')){
                   //do effecty type things
                 }
 
+                //Berry
+                if ((entity.Ename === 'berry' && entityObject.type === 'player') ||
+                          (entity.type === 'player' && entityObject.Ename === 'berry')){
+                  //do effecty type things
+                }
 
+                //---------------------------------------
                 if (entityObject.type === 'Item') {
                   levelObject.removeEntity(entityObject);
                 } else {

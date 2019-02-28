@@ -6,7 +6,7 @@ class Level {
         this.entities = new Set();
         this.tiles = new Matrix();
         this.itemCounter = 0;
-        this.itemSpawnRate = 15; //number of seconds between item spawns
+        this.itemSpawnRate = 1; //number of seconds between item spawns, should be around 15 or 20
 
         this.tileCollider = new TileCollider(this.tiles);
         this.entityCollider = new EntityCollider(this.entities);   //added
@@ -74,11 +74,20 @@ class Level {
 }
 
 function itemPicker(level) { //picks the item to spawn
-  choice = getRandomInt(1, 3); //between 1 and number of items + 1
+  choice = getRandomInt(1, 6); //between 1 and number of items + 1
   if (choice === 1) {
     level.addEntity(new createItem('health'));
   }
   if (choice === 2) {
     level.addEntity(new createItem('damage'));
+  }
+  if (choice === 3) {
+    level.addEntity(new createItem('speed'));
+  }
+  if (choice === 4) {
+    level.addEntity(new createItem('pickler'));
+  }
+  if (choice === 5) {
+    level.addEntity(new createItem('berry'));
   }
 }
