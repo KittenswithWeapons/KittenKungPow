@@ -25,6 +25,5 @@ class Timer {
 
     start() {
         this.enqueue();
-
     }
 }

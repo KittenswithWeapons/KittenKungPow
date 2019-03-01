@@ -48,7 +48,7 @@ function selectCharacters(canvas, context) {
 
     Scene.addEntity(Cursor);  //add cursor to the scene
     //cursor movement
-    cursorHandler = function(e) {
+    characterCursorHandler = function(e) {
       var key = e.which || e.keyCode;
       //console.log(key);
       if (e.code === 'KeyD') {    //right
@@ -77,7 +77,7 @@ function selectCharacters(canvas, context) {
       }
     };
     //adds cursor control to window
-    this.addEventListener('keypress', cursorHandler, false);
+    this.addEventListener('keydown', characterCursorHandler, false);
 
 
 
@@ -102,11 +102,11 @@ function selectCharacters(canvas, context) {
         //delete scene ---------------------------------------------------
         Scene.removeEntity(Cursor);
         Scene.clearScene();
-        
+        this.removeEventListener('keydown', characterCursorHandler, false);
+        this.removeEventListener('keydown', charNextHandler, false);
         //----------------------------------------------------------------
         displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
-        this.removeEventListener('keydown', cursorHandler, false);
-        this.removeEventListener('keydown', charNextHandler, false);
+
         return CChoices[choiceRow][choiceCol];
       }
     };
