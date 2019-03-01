@@ -23,6 +23,7 @@ function selectLevel(canvas, context, Cselected) {
         if(choiceCol < LChoices[choiceRow].length-1) {
           choiceCol++;
           Cursor.pos.x += 256 + 30;
+          console.log('right');
         }
       }
       if (e.code === 'KeyA') {    //left
@@ -50,21 +51,18 @@ function selectLevel(canvas, context, Cselected) {
     Lselected = LChoices[choiceRow][choiceCol];
 
     //Timer for the Level Selection Screen
-    const LevTimer = new Timer(deltaTime);
-    LevTimer.update = function update(deltaTime) {
+
+    masterTimer.update = function update(deltaTime) {
     Scene.update(deltaTime);
     Scene.comp.draw(context);
     }
 
-    LevTimer.start(); //timer start
 
     // next screen --------------------
     charNextHandler = function(e) {
       if (e.code === 'Enter') {
         //console.log('Level selected: ' + LChoices[choiceRow][choiceCol]);
         //delete scene ---------------------------------------------------
-        LevTimer.update = function update(deltaTime) {/*end timer*/}
-        LevTimer.stop();
         Scene.removeEntity(Cursor);
         Scene.clearScene();
         //----------------------------------------------------------------
