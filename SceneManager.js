@@ -162,14 +162,13 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
       input.listenTo(window);
 
-      const timer = new Timer(deltaTime);
-      timer.update = function update(deltaTime) {
+
+      masterTimer.update = function update(deltaTime) {
           level.update(deltaTime);
           level.comp.draw(context);
 
       }
 
-      timer.start();
       });
 
 }

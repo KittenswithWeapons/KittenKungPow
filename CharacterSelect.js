@@ -48,7 +48,7 @@ function selectCharacters(canvas, context) {
 
     Scene.addEntity(Cursor);  //add cursor to the scene
     //cursor movement
-    cursorHandler = function(e) {
+    characterCursorHandler = function(e) {
       var key = e.which || e.keyCode;
       //console.log(key);
       if (e.code === 'KeyD') {    //right
@@ -77,7 +77,7 @@ function selectCharacters(canvas, context) {
       }
     };
     //adds cursor control to window
-    this.addEventListener('keypress', cursorHandler, false);
+    this.addEventListener('keydown', characterCursorHandler, false);
 
 
 
@@ -87,13 +87,12 @@ function selectCharacters(canvas, context) {
 
 
     //Timer for the Character Selection Screen
-    const CharTimer = new Timer(deltaTime);
-    CharTimer.update = function update(deltaTime) {
+    masterTimer.update = function update(deltaTime) {
     Scene.update(deltaTime);
     Scene.comp.draw(context);
     }
 
-    CharTimer.start(); //timer start
+
 
     // next screen --------------------
     charNextHandler = function(e) {
@@ -101,14 +100,13 @@ function selectCharacters(canvas, context) {
         Cselected[0] = CChoices[CselectedNum];
         //console.log('characters selected: ' + CChoices[choiceRow][choiceCol]);
         //delete scene ---------------------------------------------------
-        CharTimer.update = function update(deltaTime) {/*end timer*/}
-        CharTimer.stop();
         Scene.removeEntity(Cursor);
         Scene.clearScene();
+        this.removeEventListener('keydown', characterCursorHandler, false);
+        this.removeEventListener('keydown', charNextHandler, false);
         //----------------------------------------------------------------
         displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
-        this.removeEventListener('keydown', cursorHandler, false);
-        this.removeEventListener('keydown', charNextHandler, false);
+
         return CChoices[choiceRow][choiceCol];
       }
     };

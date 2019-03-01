@@ -15,13 +15,12 @@ function startScreen(canvas, context) {
     mainMusic.play(); //plays the main theme
 
     //Timer for the Start Screen
-    const sTimer = new Timer(deltaTime);
-    sTimer.update = function update(deltaTime) {
+
+    masterTimer.update = function update(deltaTime) {
     StartScene.update(deltaTime);
     StartScene.comp.draw(context);
     }
 
-    sTimer.start(); //timer start
 
     // next screen --------------------
     nextHandler = function(e) {
@@ -29,8 +28,6 @@ function startScreen(canvas, context) {
         //console.log('Level selected: ' + LChoices[choiceRow][choiceCol]);
         //delete scene ---------------------------------------------------
         mainMusic.stop(); //stops the main music
-        sTimer.update = function update(deltaTime) {/*end timer*/}
-        sTimer.stop();
         StartScene.clearScene();
         //----------------------------------------------------------------
         displayCharSelectScene(canvas, context);

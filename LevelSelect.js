@@ -16,7 +16,7 @@ function selectLevel(canvas, context, Cselected) {
     ];
 
     //cursor movement
-    cursorHandler = function(e) {
+    levelCursorHandler = function(e) {
       var key = e.which || e.keyCode;
       //console.log(key);
       if (e.code === 'KeyD') {    //right
@@ -45,37 +45,35 @@ function selectLevel(canvas, context, Cselected) {
       }
     };
     //adds cursor control to window
-    this.addEventListener('keypress', cursorHandler, false);
+    this.addEventListener('keydown', levelCursorHandler, false);
 
     Lselected = LChoices[choiceRow][choiceCol];
 
     //Timer for the Level Selection Screen
-    const LevTimer = new Timer(deltaTime);
-    LevTimer.update = function update(deltaTime) {
+
+    masterTimer.update = function update(deltaTime) {
     Scene.update(deltaTime);
     Scene.comp.draw(context);
+    //console.log('Level update');
     }
 
-    LevTimer.start(); //timer start
 
     // next screen --------------------
-    charNextHandler = function(e) {
+    levelNextHandler = function(e) {
       if (e.code === 'Enter') {
         //console.log('Level selected: ' + LChoices[choiceRow][choiceCol]);
         //delete scene ---------------------------------------------------
-        LevTimer.update = function update(deltaTime) {/*end timer*/}
-        LevTimer.stop();
         Scene.removeEntity(Cursor);
         Scene.clearScene();
+        this.removeEventListener('keydown', levelCursorHandler, false);
+        this.removeEventListener('keydown', levelNextHandler, false);
         //----------------------------------------------------------------
         displayFightScene(canvas, context, LChoices[choiceRow][choiceCol], Cselected);
-        this.removeEventListener('keydown', cursorHandler, false);
-        this.removeEventListener('keydown', charNextHandler, false);
         return Lselected;
       }
     };
     //move to the next scene
-    this.addEventListener('keydown', charNextHandler, false);
+    this.addEventListener('keydown', levelNextHandler, false);
 
 
     return Lselected; //returns what Level was selected

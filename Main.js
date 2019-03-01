@@ -8,7 +8,7 @@ const killzone = 200; // Max distance from the edge of the screen that will trig
 var levelObject;
 var levelChoice;
 var CPUsEnabled = false;
-
+const masterTimer = new Timer(deltaTime);
 
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed
@@ -55,6 +55,7 @@ window.onload = function() {
 
   //start the Game
   //displayFightScene(canvas, context);
+  masterTimer.start();
   displayStartScene(canvas, context);
 
 
