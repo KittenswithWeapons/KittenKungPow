@@ -112,6 +112,24 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
         Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
         Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
       }
+      if (levelSelection === 'BlueNight') {
+        Character.pos.set(300, 200); //sets the character position
+        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
+        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+      }
+      if (levelSelection === 'Ocean') {
+        Character.pos.set(300, 200); //sets the character position
+        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
+        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+      }
+      if (levelSelection === 'Dojo') {
+        Character.pos.set(300, 200); //sets the character position
+        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
+        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+      }
 
       level.comp.layers.push(createCollisionLayer(level));
 

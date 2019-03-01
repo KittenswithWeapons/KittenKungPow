@@ -7,12 +7,12 @@ function selectLevel(canvas, context, Cselected) {
     //console.log('level got passed: '+ Cselected);
     Scene.addEntity(Cursor);  //add cursor to the scene
     Cursor.pos.set(83 + 250, 275);
-    
+
     choiceRow = 0;
     choiceCol = 0;
     LChoices = [
       ['PinkCity', 'FutureTown', 'FutureCity', 'Waterfall'],
-      ['LightMeows', 'FutureTown', 'FutureCity', 'Waterfall']
+      ['LightMeows', 'BlueNight', 'Ocean', 'Dojo']
     ];
 
     //cursor movement
