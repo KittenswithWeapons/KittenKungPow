@@ -102,17 +102,18 @@ function selectCharacters(canvas, context) {
         //console.log('characters selected: ' + CChoices[choiceRow][choiceCol]);
         //delete scene ---------------------------------------------------
         CharTimer.update = function update(deltaTime) {/*end timer*/}
+        CharTimer.stop();
         Scene.removeEntity(Cursor);
         Scene.clearScene();
         //----------------------------------------------------------------
         displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
-        this.removeEventListener('keypress', cursorHandler, false);
-        this.removeEventListener('keypress', charNextHandler, false);
+        this.removeEventListener('keydown', cursorHandler, false);
+        this.removeEventListener('keydown', charNextHandler, false);
         return CChoices[choiceRow][choiceCol];
       }
     };
     //move to the next scene
-    this.addEventListener('keypress', charNextHandler, false);
+    this.addEventListener('keydown', charNextHandler, false);
 
 
     return CChoices[choiceRow][choiceCol]; //returns what character was selected
