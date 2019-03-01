@@ -47,7 +47,7 @@ class Entity {
 
 		if (this.inKillzone()) {
 
-			if (this.type === 'projectile') {
+			if (this.type === 'projectile' || this.type === 'Item') {
 				levelObject.removeEntity(this);
 			} else {
 				//character death handling / respawn
@@ -66,6 +66,7 @@ class Entity {
 				} else {
 					levelObject.removeEntity(this);
 					playerNum--;
+					console.log(playerNum);
 					if (playerNum == 2) {
 						var pNum = levelObject.getLastCharacter().player;
 						window.setTimeout(function() {

@@ -64,17 +64,18 @@ function selectLevel(canvas, context, Cselected) {
         //console.log('Level selected: ' + LChoices[choiceRow][choiceCol]);
         //delete scene ---------------------------------------------------
         LevTimer.update = function update(deltaTime) {/*end timer*/}
+        LevTimer.stop();
         Scene.removeEntity(Cursor);
         Scene.clearScene();
         //----------------------------------------------------------------
         displayFightScene(canvas, context, LChoices[choiceRow][choiceCol], Cselected);
-        this.removeEventListener('keypress', cursorHandler, false);
-        this.removeEventListener('keypress', charNextHandler, false);
+        this.removeEventListener('keydown', cursorHandler, false);
+        this.removeEventListener('keydown', charNextHandler, false);
         return Lselected;
       }
     };
     //move to the next scene
-    this.addEventListener('keypress', charNextHandler, false);
+    this.addEventListener('keydown', charNextHandler, false);
 
 
     return Lselected; //returns what Level was selected

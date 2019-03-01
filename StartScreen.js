@@ -30,15 +30,16 @@ function startScreen(canvas, context) {
         //delete scene ---------------------------------------------------
         mainMusic.stop(); //stops the main music
         sTimer.update = function update(deltaTime) {/*end timer*/}
+        sTimer.stop();
         StartScene.clearScene();
         //----------------------------------------------------------------
         displayCharSelectScene(canvas, context);
-        this.removeEventListener('keypress', nextHandler, false);
+        this.removeEventListener('keydown', nextHandler, false);
         return;
       }
     };
     //move to the next scene
-    this.addEventListener('keypress', nextHandler, false);
+    this.addEventListener('keydown', nextHandler, false);
     });
     return;
 }

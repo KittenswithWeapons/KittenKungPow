@@ -7,7 +7,7 @@ var myContext;
 
 
 function displayStartScene(canvas, context) {
-  context.clearRect(0, 0, 1280,720);
+  //context.clearRect(0, 0, 1280,720);
   startScreen(canvas, context);
 
 }
@@ -16,7 +16,7 @@ function displayStartScene(canvas, context) {
 
 function displayCharSelectScene(canvas, context) {
   //diplay the character selection screen allowing for character selection
-  context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
+  //context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // character selection -------------------------------------
   CharacterSelection = selectCharacters(canvas, context);
 }
@@ -25,7 +25,7 @@ function displayCharSelectScene(canvas, context) {
 
 function displayLevelSelectScene(canvas, context, CSelections) {
   //display the level selection screen
-  context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
+  //context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // level selection----------------------------------------
   LevelSelection = selectLevel(canvas, context, CSelections);
 }
@@ -59,7 +59,7 @@ function Pause(context,level) {
 
 
 function displayFightScene(canvas, context, levelSelection, characterSelection) {
-    context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
+    //context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
 
     console.log("returned char selection: "+ characterSelection + "    returned level selection: "+ levelSelection);
 
@@ -134,9 +134,9 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
       level.comp.layers.push(createCollisionLayer(level));
 
       level.addEntity(Character); //adds character to the level
-      // level.addEntity(Enemy);
+      level.addEntity(Enemy);
       level.addEntity(Player3);
-      // level.addEntity(Player4);
+      level.addEntity(Player4);
 
       //sets up controls
       const input = setupKeyboard(Character);
