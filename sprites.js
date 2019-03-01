@@ -26,6 +26,21 @@ function loadBackgroundSprites(name) {
           sprites.defineTile('ground', 1, 0);
           sprites.defineTile('platform', 1, 0);
           return sprites;
+        } else if (name === 'BlueNight') {
+          const sprites = new SpriteSheet(image, 32, 32);
+          sprites.defineTile('ground', 0, 0);
+          sprites.defineTile('platform', 0, 0);
+          return sprites;
+        } else if (name === 'Ocean') {
+          const sprites = new SpriteSheet(image, 32, 32);
+          sprites.defineTile('ground', 0, 0);
+          sprites.defineTile('platform', 0, 0);
+          return sprites;
+        } else if (name === 'Dojo') {
+          const sprites = new SpriteSheet(image, 32, 32);
+          sprites.defineTile('ground', 0, 0);
+          sprites.defineTile('platform', 0, 0);
+          return sprites;
         }
     });
 }
