@@ -70,11 +70,6 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
       }
     });
 
-    //sound
-    levelMusic = new sound('./sound/Wild_Pogo.mp3');
-    levelMusic.sound.volume = .01; //level volume
-    levelMusic.sound.loop = true; //loops the level song
-    levelMusic.play(); //plays the level song
 
     Promise.all([
 
@@ -93,42 +88,88 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
         Enemy.pos.set(900, 280); Enemy.heading = -1; //sets enemy pos and heading
         Player3.pos.set(450, 480); Player3.heading = 1; //sets enemy pos and heading
         Player4.pos.set(800, 480); Player4.heading = -1; //sets enemy pos and heading
+
+        levelMusic = new sound('./sound/Wild_Pogo.mp3');
+        levelMusic.sound.volume = .1; //level volume
+        levelMusic.sound.loop = true; //loops the level song
+        levelMusic.play(); //plays the level song
       }
       if (levelSelection === 'FutureTown') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
         Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
         Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+
+        levelMusic = new sound('./sound/SWbattle.mp3');
+        levelMusic.sound.volume = .1; //level volume
+        levelMusic.sound.loop = true; //loops the level song
+        levelMusic.play(); //plays the level song
       }
       if (levelSelection === 'FutureCity') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
         Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
         Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+
+        levelMusic = new sound('./sound/PulsePower.mp3');
+        levelMusic.sound.volume = .1; //level volume
+        levelMusic.sound.loop = true; //loops the level song
+        levelMusic.play(); //plays the level song
       }
       if (levelSelection === 'Waterfall') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
         Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
         Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+
+        levelMusic = new sound('./sound/Jurassic.mp3'); // "The thrilling and powerful soundtrack really makes the whole game have an epic and prehistoric feel. 10/10" - IGN
+        levelMusic.sound.volume = .1; //level volume
+        levelMusic.sound.loop = true; //loops the level song
+        levelMusic.play(); //plays the level song
+      }
+      if (levelSelection === 'LightMeows') {
+        Character.pos.set(300, 200); //sets the character position
+        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
+        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+
+        levelMusic = new sound('./sound/RedEyes.mp3');
+        levelMusic.sound.volume = .1; //level volume
+        levelMusic.sound.loop = true; //loops the level song
+        levelMusic.play(); //plays the level song
       }
       if (levelSelection === 'BlueNight') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
         Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
         Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+
+        levelMusic = new sound('./sound/MysteryofBetelgeuse.mp3');
+        levelMusic.sound.volume = .1; //level volume
+        levelMusic.sound.loop = true; //loops the level song
+        levelMusic.play(); //plays the level song
       }
       if (levelSelection === 'Ocean') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
         Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
         Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+
+        levelMusic = new sound('./sound/TurboKnightRasengan.mp3');
+        levelMusic.sound.volume = .1; //level volume
+        levelMusic.sound.loop = true; //loops the level song
+        levelMusic.play(); //plays the level song
       }
       if (levelSelection === 'Dojo') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
         Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
         Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
+
+        levelMusic = new sound('./sound/Impossible.mp3');
+        levelMusic.sound.volume = .1; //level volume
+        levelMusic.sound.loop = true; //loops the level song
+        levelMusic.play(); //plays the level song
       }
 
       level.comp.layers.push(createCollisionLayer(level));

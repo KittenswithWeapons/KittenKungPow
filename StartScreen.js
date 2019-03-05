@@ -10,7 +10,7 @@ function startScreen(canvas, context) {
 
     //sound
     mainMusic = new sound('./sound/MainTheme.wav');
-    mainMusic.sound.volume = .04; //main theme volume
+    mainMusic.sound.volume = .05; //main theme volume
     mainMusic.sound.loop = true; //loops the main theme
     mainMusic.play(); //plays the main theme
 
