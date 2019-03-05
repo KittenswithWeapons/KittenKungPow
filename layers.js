@@ -131,19 +131,19 @@ function drawLevelPreviewImages(context) {
     img5.onload = function () {
     context.drawImage(img5, 83 + 256 + 30, 144 + 288); //position the level preview image
     }
-    img5.src = "./LevelPreviews/FutureTownPreview.JPG";
+    img5.src = "./LevelPreviews/BlueNightPreview.PNG";
 
     var img6 = new Image();
     img6.onload = function () {
     context.drawImage(img6, 83 + 512 + 60, 144 + 288); //position the level preview image
     }
-    img6.src = "./LevelPreviews/FutureCityPreview.JPG";
+    img6.src = "./LevelPreviews/OceanPreview.PNG";
 
     var img7 = new Image();
     img7.onload = function () {
     context.drawImage(img7, 83 + 768 + 90, 144 + 288); //position the level preview image
     }
-    img7.src = "./LevelPreviews/WaterfallPreview.PNG";
+    img7.src = "./LevelPreviews/DojoPreview.PNG";
 
 
     //add more images for previews

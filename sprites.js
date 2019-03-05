@@ -33,7 +33,7 @@ function loadBackgroundSprites(name) {
           return sprites;
         } else if (name === 'Ocean') {
           const sprites = new SpriteSheet(image, 32, 32);
-          sprites.defineTile('ground', 1, 0);
+          sprites.defineTile('ground', 0, 2);
           sprites.defineTile('platform', 1, 0);
           return sprites;
         } else if (name === 'Dojo') {

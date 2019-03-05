@@ -6,7 +6,7 @@ class Level {
         this.entities = new Set();
         this.tiles = new Matrix();
         this.itemCounter = 0;
-        this.itemSpawnRate = 5; //number of seconds between item spawns, should be around 15 or 20
+        this.itemSpawnRate = 15; //number of seconds between item spawns, should be around 15 or 20
 
         this.tileCollider = new TileCollider(this.tiles);
         this.entityCollider = new EntityCollider(this.entities);   //added
