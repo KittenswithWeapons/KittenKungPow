@@ -1,5 +1,7 @@
+var myInput;
 function setupKeyboard(entity, keyboard) {
     const input = keyboard || new keyBoardState(); //new keyboard
+    myInput = input;
     entity.input = input;
 
     input.addMapping('Space', keyState => { //jump
@@ -40,7 +42,7 @@ function setupKeyboard(entity, keyboard) {
           entity.Walking = true;
           entity.go.dir += 1;
            entity.updateAnimation();
-        } else if(!keyState) {
+        } else {
           if(!entity.Walking) {
             entity.go.dir = 0;
           } else {
@@ -48,7 +50,7 @@ function setupKeyboard(entity, keyboard) {
               entity.dustFinished = false;
             }
             entity.Walking = false;
-            entity.go.dir -= 1;
+              entity.go.dir -= 1;
           }
           entity.updateAnimation();
         }
@@ -67,7 +69,7 @@ function setupKeyboard(entity, keyboard) {
               entity.dustFinished = false;
             }
             entity.Walking = false;
-            entity.go.dir += 1;
+              entity.go.dir += 1;
           }
           entity.updateAnimation();
         }
@@ -99,6 +101,116 @@ function setupKeyboard(entity, keyboard) {
     return input;
 }
 
-function setupEmptyKeyboard(input) {
-  return new keyBoardState();
+
+
+
+function removeMovement() {
+  myInput.removeMapping('KeyA');
+  myInput.removeMapping('KeyD');
+  myInput.removeMapping('Space');
+}
+
+function restoreMovement(entity) {
+  myInput.addMapping('KeyD', keyState => { //go right
+    if (!keyState) {
+      myInput.removeMapping('KeyD');
+      myInput.addMapping('KeyD', keyState => { //go right
+        if (keyState) {
+          entity.Walking = true;
+          entity.go.dir += 1;
+          entity.updateAnimation();
+        } else {
+          if(!entity.Walking) {
+            entity.go.dir = 0;
+          } else {
+            if(entity.dustFinished == true) {
+              entity.dustFinished = false;
+            }
+            entity.Walking = false;
+              entity.go.dir -= 1;
+          }
+          entity.updateAnimation();
+        }
+      });
+    } else {
+      entity.Walking = true;
+      entity.go.dir += 1;
+      entity.updateAnimation();
+      myInput.removeMapping('KeyD');
+      myInput.addMapping('KeyD', keyState => { //go right
+        if (keyState) {
+          entity.Walking = true;
+          entity.go.dir += 1;
+          entity.updateAnimation();
+        } else {
+          if(!entity.Walking) {
+            entity.go.dir = 0;
+          } else {
+            if(entity.dustFinished == true) {
+              entity.dustFinished = false;
+            }
+            entity.Walking = false;
+              entity.go.dir -= 1;
+          }
+          entity.updateAnimation();
+        }
+      });
+    }
+  });
+
+  myInput.addMapping('KeyA', keyState => { //go left
+      if (!keyState) {
+        myInput.removeMapping('KeyA');
+        myInput.addMapping('KeyA', keyState => { //go left
+          if (keyState) {
+            entity.Walking = true;
+            entity.go.dir -= 1;
+            entity.updateAnimation();
+          } else {
+            if(!entity.Walking) {
+              entity.go.dir = 0;
+            } else {
+              if(entity.dustFinished == true) {
+                entity.dustFinished = false;
+              }
+              entity.Walking = false;
+                entity.go.dir += 1;
+            }
+            entity.updateAnimation();
+          }
+        });
+      } else {
+        entity.Walking = true;
+        entity.go.dir -= 1;
+        entity.updateAnimation();
+        myInput.removeMapping('KeyA');
+        myInput.addMapping('KeyA', keyState => { //go left
+          if (keyState) {
+            entity.Walking = true;
+            entity.go.dir -= 1;
+            entity.updateAnimation();
+          } else {
+            if(!entity.Walking) {
+              entity.go.dir = 0;
+            } else {
+              if(entity.dustFinished == true) {
+                entity.dustFinished = false;
+              }
+              entity.Walking = false;
+                entity.go.dir += 1;
+            }
+            entity.updateAnimation();
+          }
+        });
+      }
+  });
+
+  myInput.addMapping('Space', keyState => { //jump
+    if (keyState) {
+        entity.Jumping = true;
+        entity.grounded = false;
+        entity.jump.start();
+        entity.updateAnimation();
+    }
+  });
 }

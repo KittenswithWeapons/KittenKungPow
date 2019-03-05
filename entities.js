@@ -120,6 +120,7 @@ function createCharacter(name, choice) {
                 }, knockbackDistance * 2 * 0.85);
             } else {
                 Character.updateAnimation();
+                Character.jump.start(knockbackDistance);
                 window.setTimeout (function() {Character.pain = false;},knockbackDistance);
             }
         }
@@ -251,20 +252,11 @@ function createCharacter(name, choice) {
         function() {window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)}, //Karate
         function() {window.setTimeout(function() {ThrowProjectile("trippleArrow", Character, Character.damageModifier);}, 200)}, //Archer
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Wizard
-        function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character, Character.damageModifier);}, 200)}, //Rogue
+        function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character, Character.damageModifier);}, 300)}, //Rogue
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Warrior
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Soldier
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Vagrant
-        function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)
-            // ThrowProjectile("slam", Character);
-            // Character.go.dir = 0;
-            // setupEmptyKeyboard(Character);
-            // window.setTimeout(function() {Character.go.dir = Character.heading * 1;}, 200);
-            // window.setTimeout(function() {
-            //     Character.go.dir = 0;
-            //     setupKeyboard(Character);
-            // }, 3000);
-        } //Fatcat
+        function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)} //Fatcat
     ]
 
     Character.specialAnimations = [
@@ -309,15 +301,17 @@ function createCharacter(name, choice) {
         function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Vagrant
         function() {
             Character.go.dir = 0;
-            setupEmptyKeyboard(Character);
+            removeMovement();
             window.setTimeout(function() {
-                Character.go.dir = Character.heading * 1;
+                Character.go.dir = Character.heading;
                 ThrowProjectile("slam", Character, Character.damageModifier);
             }, 200);
             window.setTimeout(function() {
+                restoreMovement(Character);
+            }, 400); 
+            window.setTimeout(function() {
                 Character.go.dir = 0;
-                setupKeyboard(Character);
-            }, 500);
+            }, 400);
         } //Fatcat
     ]
 
