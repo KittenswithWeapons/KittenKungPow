@@ -107,6 +107,7 @@ function selectCharacters(canvas, context) {
         //----------------------------------------------------------------
         displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
 
+
         return CChoices[choiceRow][choiceCol];
       }
     };

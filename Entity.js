@@ -70,8 +70,14 @@ class Entity {
 					if (playerNum == 2) {
 						var pNum = levelObject.getLastCharacter().player;
 						window.setTimeout(function() {
-							var r = confirm("Player " + pNum + " Wins!");
-							location.reload();
+							if (singlePlayerFlag) {
+								SPlevelchoice++;
+								SPenemy++;
+								SinglePlayer(canvas, context, pNum.choice);
+							} else {
+								var r = confirm("Player " + pNum + " Wins!");
+								location.reload();
+							}
 						}, 1000);
 
 					}
