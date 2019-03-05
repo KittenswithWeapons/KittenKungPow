@@ -160,6 +160,8 @@ function ThrowProjectile(name, originEntity, damageModifier) {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 60)
     } else if (name == 'kick' || name == 'uppercut') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 50)
+    } else if (name == 'slam') {
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 300)
     } else {
         levelObject.addEntity(createProjectile(name, originEntity, damageModifier));
     }
