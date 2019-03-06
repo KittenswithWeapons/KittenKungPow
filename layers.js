@@ -181,6 +181,8 @@ function drawCharPreviewImages(context) {
 }
 // ----------------------------------------------Character preview images layer done
 
+
+
 function createModesLayer(scene) {
     const buffer = document.createElement('canvas');
     buffer.width = 1280;
@@ -199,13 +201,13 @@ function drawModesLayer(context) {
   // Mode switch images-------------------------------------------------------
   var storyModeIMG = new Image();
   storyModeIMG.onload = function () {
-  context.drawImage(storyModeIMG, 340, 1180); //position 
+  context.drawImage(storyModeIMG, 690, 670); //position
   }
   storyModeIMG.src = "./Options/StoryModeOff.png";
 
   var freePlayIMG = new Image();
   freePlayIMG.onload = function () {
-  context.drawImage(freePlayIMG, 690, 1180); //position
+  context.drawImage(freePlayIMG, 340, 670); //position
   }
   freePlayIMG.src = "./Options/FreePlayOn.png";
 
