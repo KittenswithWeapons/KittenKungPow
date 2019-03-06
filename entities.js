@@ -29,6 +29,7 @@ function createCharacter(name, choice) {
     Character.Heavy = false;
     Character.Special = false;
     Character.pain = false;
+    Character.laserHeight = 0;
 
     Character.damage = 0;
     Character.damageModifier = 1;
@@ -87,13 +88,14 @@ function createCharacter(name, choice) {
                 Character.heading = 1;
                 break;
             case 'noKnockback':
-                if(!Character.pain) {
-                    Character.pain = true;
-                    Character.updateAnimation();
-                    window.setTimeout (function() {
-                        Character.pain = false;
-                        Character.updateAnimation();},20);
-                }
+            Character.knockback('knockUp', 2);
+                // if(!Character.pain) {
+                //     Character.pain = true;
+                //     Character.updateAnimation();
+                //     window.setTimeout (function() {
+                //         Character.pain = false;
+                //         Character.updateAnimation();},20);
+                // }
                 break;
         }
     }
@@ -392,9 +394,13 @@ function createCharacter(name, choice) {
             }
         } else if (Character.Heavy) {
             if(Character.choice == 2) {
-                Character.skyLaserAnimation.setFrameHeight(800 - (720 - this.pos.y) - 15);
+                if(Character.laserHeight < this.pos.y) {
+                    Character.skyLaserAnimation.setFrameHeight(800 - (720 - Character.laserHeight) + 10);
+                    Character.laserHeight += 40;
+                } else {
+                    Character.impactAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x + 50, Character.laserHeight-20);
+                }
                 Character.skyLaserAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x + 114, 0);
-                Character.impactAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x + 50, this.pos.y-10);
             }
             Character.heavyAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
             if(!Character.heavyAttackFinished) {
@@ -404,6 +410,7 @@ function createCharacter(name, choice) {
             if(Character.heavyAnimation.isDone()) {
                 Character.animation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y);
                 Character.Heavy = false;
+                Character.laserHeight = 0;
                 Character.heavyAttackFinished = false;
                 Character.heavyAnimation.elapsedTime = 0;
             }
