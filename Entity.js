@@ -66,14 +66,31 @@ class Entity {
 				} else {
 					levelObject.removeEntity(this);
 					playerNum--;
-					console.log(playerNum);
+					//console.log(' player num '+playerNum);
 					if (playerNum == 2) {
 						var pNum = levelObject.getLastCharacter().player;
+						//console.log('End Round');
 						window.setTimeout(function() {
-							if (singlePlayerFlag) {
-								SPlevelchoice++;
-								SPenemy++;
-								SinglePlayer(canvas, context, pNum.choice);
+							if (singlePlayerFlag) {					//singleplayer level change handling
+								SPlevelchoice++; //next level
+								SPenemy++; //next enemy
+
+								//maybe a win screen here...................................................
+
+								//..........................................................................
+								//LOSS
+								if (pNum != 1) {
+									console.log('YOU LOSE!');
+									location.reload(); //restarts the game
+
+								}
+								//
+
+								var playerChar = levelObject.getLastCharacter().choice; // returns the player selected character to be playable in the next round
+								levelMusic.stop(); //stops music on the level
+								playerNum--; //needed to reset player count
+								displaySinglePlayer(playerChar); //next level START
+
 							} else {
 								var r = confirm("Player " + pNum + " Wins!");
 								location.reload();

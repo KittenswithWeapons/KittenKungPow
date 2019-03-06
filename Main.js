@@ -54,6 +54,7 @@ window.onload = function() {
   //start the Game
   //displayFightScene(canvas, context);
   masterTimer.start();
+  resize();
   displayStartScene(canvas, context);
 
 

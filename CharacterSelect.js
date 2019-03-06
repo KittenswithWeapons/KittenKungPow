@@ -105,7 +105,8 @@ function selectCharacters(canvas, context) {
         this.removeEventListener('keydown', characterCursorHandler, false);
         this.removeEventListener('keydown', charNextHandler, false);
         //----------------------------------------------------------------
-        displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
+        //displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
+        displaySinglePlayer(CChoices[choiceRow][choiceCol])
 
 
         return CChoices[choiceRow][choiceCol];

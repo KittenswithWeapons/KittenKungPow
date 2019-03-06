@@ -1,12 +1,14 @@
-var singlePlayerFlag = false;
+var singlePlayerFlag = false; //flag for single player
 
-var SingleplayerLevels = [
-  ['PinkCity', 'FutureTown', 'FutureCity', 'Waterfall'],
-  ['LightMeows', 'BlueNight', 'Ocean', 'Dojo']
+var levelMusic; //level music
+
+var SingleplayerLevels = [  //single player list
+  'PinkCity', 'FutureTown', 'FutureCity', 'Waterfall',
+  'LightMeows', 'BlueNight', 'Ocean', 'Dojo'
 ];
 
-var SPlevelchoice = 0;
-var SPenemy = 0;
+var SPlevelchoice = 0; //level choice from level list
+var SPenemy = 0; //enemy choice
 
 
 function SinglePlayer(canvas, context, characterSelection) {
@@ -18,10 +20,12 @@ function SinglePlayer(canvas, context, characterSelection) {
         console.log('enter');
       }
     });
+    context.clearRect(0, 0, 1280,720);
 
     levelSelection = SingleplayerLevels[SPlevelchoice]; //which level to load
 
-    levelSelection = 'PinkCity';
+    console.log("returned char selection: "+ characterSelection + "    returned level selection: "+ levelSelection);
+
     Promise.all([
 
       createCharacter('character', characterSelection),
@@ -35,8 +39,6 @@ function SinglePlayer(canvas, context, characterSelection) {
       if (levelSelection === 'PinkCity') {
         Character.pos.set(400, 200); //sets the character position
         Enemy.pos.set(900, 280); Enemy.heading = -1; //sets enemy pos and heading
-        Player3.pos.set(450, 480); Player3.heading = 1; //sets enemy pos and heading
-        Player4.pos.set(800, 480); Player4.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/Wild_Pogo.mp3');
         levelMusic.sound.volume = .1; //level volume
@@ -46,8 +48,6 @@ function SinglePlayer(canvas, context, characterSelection) {
       if (levelSelection === 'FutureTown') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
-        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
-        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/SWbattle.mp3');
         levelMusic.sound.volume = .1; //level volume
@@ -57,8 +57,6 @@ function SinglePlayer(canvas, context, characterSelection) {
       if (levelSelection === 'FutureCity') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
-        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
-        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/PulsePower.mp3');
         levelMusic.sound.volume = .1; //level volume
@@ -68,8 +66,6 @@ function SinglePlayer(canvas, context, characterSelection) {
       if (levelSelection === 'Waterfall') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
-        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
-        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/Jurassic.mp3'); // "The thrilling and powerful soundtrack really makes the whole game have an epic and prehistoric feel. 10/10" - IGN
         levelMusic.sound.volume = .1; //level volume
@@ -79,8 +75,6 @@ function SinglePlayer(canvas, context, characterSelection) {
       if (levelSelection === 'LightMeows') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
-        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
-        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/RedEyes.mp3');
         levelMusic.sound.volume = .1; //level volume
@@ -90,8 +84,6 @@ function SinglePlayer(canvas, context, characterSelection) {
       if (levelSelection === 'BlueNight') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
-        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
-        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/MysteryofBetelgeuse.mp3');
         levelMusic.sound.volume = .1; //level volume
@@ -101,8 +93,6 @@ function SinglePlayer(canvas, context, characterSelection) {
       if (levelSelection === 'Ocean') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
-        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
-        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/TurboKnightRasengan.mp3');
         levelMusic.sound.volume = .1; //level volume
@@ -112,8 +102,6 @@ function SinglePlayer(canvas, context, characterSelection) {
       if (levelSelection === 'Dojo') {
         Character.pos.set(300, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
-        Player3.pos.set(500, 200); Player3.heading = -1; //sets enemy pos and heading
-        Player4.pos.set(1000, 280); Player4.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/Impossible.mp3');
         levelMusic.sound.volume = .1; //level volume

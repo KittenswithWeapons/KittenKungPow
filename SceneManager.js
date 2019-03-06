@@ -8,6 +8,8 @@ var myContext;
 
 function displayStartScene(canvas, context) {
   //context.clearRect(0, 0, 1280,720);
+  myCanvas = canvas;
+  myContext = context;
   startScreen(canvas, context);
 
 }
@@ -28,6 +30,10 @@ function displayLevelSelectScene(canvas, context, CSelections) {
   //context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   // level selection----------------------------------------
   LevelSelection = selectLevel(canvas, context, CSelections);
+}
+
+function displaySinglePlayer(char) {
+  SinglePlayer(myCanvas, myContext, char);
 }
 
 
