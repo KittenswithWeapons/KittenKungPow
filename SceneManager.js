@@ -180,7 +180,7 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
       level.addEntity(Player4);
 
       //sets up controls
-      const input = setupKeyboard(Character);
+      // const input = setupKeyboard(Character);
       const controllerInput = setUpControllers(Character);
 
       // Draw character icons and lives
@@ -201,17 +201,54 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
           });
       });
 
-      input.listenTo(window);
-
-
-      masterTimer.update = function update(deltaTime) {
+      
+      var displayFightTimer = 300;
+        masterTimer.update = function update(deltaTime) {
+          displayFightTimer--;
+          // console.log(displayFightTimer);          
           level.update(deltaTime);
           level.comp.draw(context);
+          if (displayFightTimer > 200) {
+            context.globalAlpha = 1.0;
+            context.strokeStyle = 'red';
+            context.fillStyle = 'white';
+            context.lineWidth = 4;
+            context.font = "130px Arial";
+            var txt = "READY!!!";
+            var txtWidth = context.measureText(txt).width;
+            console.log(txtWidth);
+            context.fillText(txt, 1280/2 - txtWidth/2, 720/2);
+            context.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
 
-      }
+          } else if (displayFightTimer > 100 && displayFightTimer < 200) {
+            context.globalAlpha = 1.0;
+            context.strokeStyle = 'red';
+            context.fillStyle = 'white';
+            context.lineWidth = 4;
+            context.font = "130px Arial";
+            var txt = "SET!!!";
+            var txtWidth = context.measureText(txt).width;
+            console.log(txtWidth);
+            context.fillText(txt, 1280/2 - txtWidth/2, 720/2);
+            context.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
 
+          } else if (displayFightTimer > 0 && displayFightTimer < 100) {
+            context.globalAlpha = 1.0;
+            context.strokeStyle = 'red';
+            context.fillStyle = 'white';
+            context.lineWidth = 4;
+            context.font = "130px Arial";
+            var txt = "FIGHT!!!";
+            var txtWidth = context.measureText(txt).width;
+            console.log(txtWidth);
+            context.fillText(txt, 1280/2 - txtWidth/2, 720/2);
+            context.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
+
+          } else if (displayFightTimer === 0) {
+            Character.input.listenTo(window);
+          }
+        }
       });
-
 }
 
 
