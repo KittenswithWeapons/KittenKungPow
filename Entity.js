@@ -22,7 +22,7 @@ class Entity {
 				this.traits = [];
 				this.isAgent = false;
 				this.agentManager = null;
-				this.difficulty = 2; // CPU difficulty setting is 1-3. 1 being easiest and 3 being the hardest
+				this.difficulty = 1; // CPU difficulty setting is 1-3. 1 being easiest and 3 being the hardest
 				this.input = new setupKeyboard(this);
 				if (name.startsWith("CPU-")) {
 					this.isAgent = true;
@@ -48,7 +48,6 @@ class Entity {
 			}
 
 		if (this.inKillzone()) {
-
 			if (this.type === 'projectile' || this.type === 'Item') {
 				levelObject.removeEntity(this);
 			} else {
@@ -65,11 +64,11 @@ class Entity {
 
 					this.pos.set(640 + offset, 80); //spawn in this location
 				} else {
-
 					levelObject.removeEntity(this);
 					playerNum--;
+					//console.log(levelObject.getLastCharacter());
 					//console.log(' player num '+playerNum);
-					if (playerNum == 2) {
+					if (playerNum == 2 || !levelObject.isPlayerStillAlive()) {
 						var pNum = levelObject.getLastCharacter().player;
 						//console.log('End Round');
 						window.setTimeout(function() {
@@ -96,21 +95,18 @@ class Entity {
 								//WIN end
 
 							} else {
-								var r = confirm("Player " + pNum + " Wins!");
-								location.reload();
+								if(pNum != 1) {
+									var r = confirm("CPUs WIN");
+									location.reload();
+								} else {
+									var r = confirm("Player " + pNum + " Wins!");
+									location.reload();
+								}
 							}
 						}, 1000);
-
-
-						} else {
-							var pNum = levelObject.getLastCharacter().player;
-							window.setTimeout(function() {
-								var r = alert("CPUs Win!");
-								location.reload();
-							}, 1000);
-						}
 					}
-				}		
+				}
+			}		
 		} else {
 			//console.log(this.Ename);
 			if (this.Ename === 'character') {

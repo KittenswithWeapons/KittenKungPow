@@ -51,7 +51,7 @@ agentManager.prototype.update = function () {
     }
     this.thinkCount++;
     if (this.thinkCount !== 0) {
-        console.log((this.thinkSuccess/this.thinkCount)*100 +"%" );  
+        //console.log((this.thinkSuccess/this.thinkCount)*100 +"%" );  
     }
     
 };
