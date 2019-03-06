@@ -61,7 +61,8 @@ function createProjectile(name, originEntity, damageModifier) {
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
         Projectile.damageValue = 2 * Projectile.damageModifier;
     } else if(name == 'laser') {
-        Projectile.size.set(15, originEntity.pos.y + 55);
+        Projectile.throw.setSpeed(25000);
+        Projectile.size.set(15, originEntity.laserHeight + 55);
         Projectile.pos.set(originEntity.pos.x + originEntity.heading * 95, 0);
         Projectile.damageValue = 0.2;
     } else if(name == 'clone') {
@@ -193,7 +194,7 @@ function ThrowProjectile(name, originEntity, damageModifier) {
     } else if (name == 'zap') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 180)
     } else if (name == 'laser') {
-        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 180)
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 150)
     } else if (name == 'clone') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 500)
     } else {
