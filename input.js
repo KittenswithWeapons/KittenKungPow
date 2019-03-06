@@ -133,9 +133,22 @@ function restoreMovement(entity) {
         }
       });
     } else {
-      entity.Walking = true;
-      entity.go.dir += 1;
-      entity.updateAnimation();
+      if (keyState) {
+        entity.Walking = true;
+        entity.go.dir += 1;
+        entity.updateAnimation();
+      } else {
+        if(!entity.Walking) {
+          entity.go.dir = 0;
+        } else {
+          if(entity.dustFinished == true) {
+            entity.dustFinished = false;
+          }
+          entity.Walking = false;
+            entity.go.dir -= 1;
+        }
+        entity.updateAnimation();
+      }
       myInput.removeMapping('KeyD');
       myInput.addMapping('KeyD', keyState => { //go right
         if (keyState) {
@@ -180,9 +193,22 @@ function restoreMovement(entity) {
           }
         });
       } else {
-        entity.Walking = true;
-        entity.go.dir -= 1;
-        entity.updateAnimation();
+        if (keyState) {
+          entity.Walking = true;
+          entity.go.dir -= 1;
+          entity.updateAnimation();
+        } else {
+          if(!entity.Walking) {
+            entity.go.dir = 0;
+          } else {
+            if(entity.dustFinished == true) {
+              entity.dustFinished = false;
+            }
+            entity.Walking = false;
+              entity.go.dir += 1;
+          }
+          entity.updateAnimation();
+        }
         myInput.removeMapping('KeyA');
         myInput.addMapping('KeyA', keyState => { //go left
           if (keyState) {
