@@ -86,6 +86,7 @@ function selectCharacters(canvas, context) {
 
 
 
+
     //Timer for the Character Selection Screen
     masterTimer.update = function update(deltaTime) {
     Scene.update(deltaTime);

@@ -207,11 +207,11 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
           });
       });
 
-      
+
       var displayFightTimer = 300;
         masterTimer.update = function update(deltaTime) {
           displayFightTimer--;
-          // console.log(displayFightTimer);          
+          // console.log(displayFightTimer);
           level.update(deltaTime);
           level.comp.draw(context);
           if (displayFightTimer > 200) {
@@ -272,8 +272,13 @@ function loadScene(name) {
     scene.comp.layers.push(levelPreviewLayer);
   }
 
+  if (name === 'charSelect') { // char select scene
+    const modeLayer = createModesLayer(scene);   //mode layer
+    scene.comp.layers.push(modeLayer);
+  }
+
   const spriteLayer = createSpriteLayer(scene.entities);    //entity layer
   scene.comp.layers.push(spriteLayer);
-
+  console.log(scene.comp.layers);
   return scene;
 }
