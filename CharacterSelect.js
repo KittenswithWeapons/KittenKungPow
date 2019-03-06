@@ -105,9 +105,22 @@ function selectCharacters(canvas, context) {
         this.removeEventListener('keydown', characterCursorHandler, false);
         this.removeEventListener('keydown', charNextHandler, false);
         //----------------------------------------------------------------
-        displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
-
+        if(singlePlayerFlag) {
+          displaySinglePlayer(CChoices[choiceRow][choiceCol])  //SinglePlayer tester
+        } else {
+          displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
+        }
         return CChoices[choiceRow][choiceCol];
+      }
+
+      if (e.code === 'KeyP') {                    // this simply enables or disables singleplayer mode. this needs to changed to be handled by a scene later... or a lazier way.
+        if (!singlePlayerFlag) {
+          console.log('SinglePlayer ENABLED');
+          singlePlayerFlag = true;
+        } else {
+          console.log('SinglePlayer DISABLED');
+          singlePlayerFlag = false;
+        }
       }
     };
     //move to the next scene

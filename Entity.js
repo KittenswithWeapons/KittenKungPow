@@ -65,27 +65,42 @@ class Entity {
 
 					this.pos.set(640 + offset, 80); //spawn in this location
 				} else {
-					if (this.Ename !== 'character') {
-						levelObject.removeEntity(this);
-						playerNum--;
-						// console.log(playerNum);
-						if (playerNum == 2) {
-							var pNum = levelObject.getLastCharacter().player;
-							window.setTimeout(function() {
-								var r = alert("Player " + pNum + " Wins!");
-								location.reload();
-							}, 1000);
 
-						}
-					} else {
-						levelObject.removeEntity(this);
-						playerNum--;
-						if (playerNum == 2) {
-							var pNum = levelObject.getLastCharacter().player;
-							window.setTimeout(function() {
-								var r = alert("CPU " + pNum + " Wins!");
+					levelObject.removeEntity(this);
+					playerNum--;
+					//console.log(' player num '+playerNum);
+					if (playerNum == 2) {
+						var pNum = levelObject.getLastCharacter().player;
+						//console.log('End Round');
+						window.setTimeout(function() {
+							if (singlePlayerFlag) {					//singleplayer level change handling
+								SPlevelchoice++; //next level
+								SPenemy++; //next enemy
+
+								//LOSS
+								if (pNum != 1) {
+									console.log('YOU LOSE!');
+									location.reload(); //restarts the game
+								}
+								//
+
+								//maybe a win screen here...................................................
+
+								//..........................................................................
+
+								//WIN - next level
+								var playerChar = levelObject.getLastCharacter().choice; // returns the player selected character to be playable in the next round
+								levelMusic.stop(); //stops music on the level
+								playerNum--; //needed to reset player count
+								displaySinglePlayer(playerChar); //next level START
+								//WIN end
+
+							} else {
+								var r = confirm("Player " + pNum + " Wins!");
 								location.reload();
-							}, 1000);
+							}
+						}, 1000);
+
 
 						} else {
 							var pNum = levelObject.getLastCharacter().player;
