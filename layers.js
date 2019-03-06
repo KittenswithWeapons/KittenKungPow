@@ -181,6 +181,48 @@ function drawCharPreviewImages(context) {
 }
 // ----------------------------------------------Character preview images layer done
 
+function createModesLayer(scene) {
+    const buffer = document.createElement('canvas');
+    buffer.width = 1280;
+    buffer.height = 720;
+
+    const context = buffer.getContext('2d');
+
+    //console.log('done');
+    return function drawModes(context) {
+        drawModesLayer(context);
+        context.drawImage(buffer, 0, 0);
+    };
+}
+
+function drawModesLayer(context) {
+  // Mode switch images-------------------------------------------------------
+  var storyModeIMG = new Image();
+  storyModeIMG.onload = function () {
+  context.drawImage(storyModeIMG, 340, 1180); //position 
+  }
+  storyModeIMG.src = "./Options/StoryModeOff.png";
+
+  var freePlayIMG = new Image();
+  freePlayIMG.onload = function () {
+  context.drawImage(freePlayIMG, 690, 1180); //position
+  }
+  freePlayIMG.src = "./Options/FreePlayOn.png";
+
+  if (singlePlayerFlag) {
+    storyModeIMG.src = "./Options/StoryModeOn.png";
+    freePlayIMG.src = "./Options/FreePlayOff.png";
+  } else {
+    storyModeIMG.src = "./Options/StoryModeOff.png";
+    freePlayIMG.src = "./Options/FreePlayOn.png";
+  }
+  //--------------------------------------------------------------------------
+}
+
+
+
+
+
 
 
 
