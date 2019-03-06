@@ -110,8 +110,7 @@ class Entity {
 							}, 1000);
 						}
 					}
-				}
-			}
+				}		
 		} else {
 			//console.log(this.Ename);
 			if (this.Ename === 'character') {
