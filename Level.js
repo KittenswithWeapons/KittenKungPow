@@ -41,6 +41,16 @@ class Level {
       return e;
     }
 
+    isPlayerStillAlive() {
+      var result = false;
+      this.entities.forEach(function(entity) {
+        if(entity.Ename == 'character') {
+          result = true;
+        }
+      });
+      return result;
+    }
+
 
     update(deltaTime) {
         if (this.itemCounter > this.itemSpawnRate * 60) {   //item spawning, Seconds * framerate
