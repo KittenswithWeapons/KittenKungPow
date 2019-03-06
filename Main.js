@@ -16,6 +16,7 @@ ASSET_MANAGER.queueDownload("./characters/Karate.png");
 ASSET_MANAGER.queueDownload("./characters/idleBig.png");
 ASSET_MANAGER.queueDownload("./effects/Damage.png");
 ASSET_MANAGER.queueDownload("./effects/Dust.png");
+ASSET_MANAGER.queueDownload("./effects/impact.png");
 ASSET_MANAGER.queueDownload("./characters/Archer.png");
 ASSET_MANAGER.queueDownload("./characters/Wizard.png");
 ASSET_MANAGER.queueDownload("./characters/Rogue.png");
@@ -29,6 +30,8 @@ ASSET_MANAGER.queueDownload("./Projectiles/fireball.png");
 ASSET_MANAGER.queueDownload("./Projectiles/Arrow.png");
 ASSET_MANAGER.queueDownload("./Projectiles/shadeStep.png");
 ASSET_MANAGER.queueDownload("./Projectiles/Cash.png");
+ASSET_MANAGER.queueDownload("./Projectiles/sideLightning.png");
+ASSET_MANAGER.queueDownload("./Projectiles/skyLaser.png");
 ASSET_MANAGER.queueDownload("./SceneBackgrounds/CatFaceAnimation.png");
 
 ASSET_MANAGER.downloadAll(function () {});

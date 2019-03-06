@@ -5,6 +5,7 @@ var characters = ["./characters/Karate.png", "./characters/Archer.png", "./chara
 var playerNum = 1;
 function createCharacter(name, choice) {
     const Character = new Entity(name);
+    Character.context = null;
     Character.type = 'player'
     Character.frameSize = 128;
     Character.size.set(28, 58); //set to actuall pixel size of character, determines collision box.
@@ -85,6 +86,15 @@ function createCharacter(name, choice) {
                 Character.pos.y = data.pos.y - 10;
                 Character.heading = 1;
                 break;
+            case 'noKnockback':
+                if(!Character.pain) {
+                    Character.pain = true;
+                    Character.updateAnimation();
+                    window.setTimeout (function() {
+                        Character.pain = false;
+                        Character.updateAnimation();},20);
+                }
+                break;
         }
     }
 
@@ -140,13 +150,13 @@ function createCharacter(name, choice) {
 
         if (Character.Jumping  && !Character.Special && !Character.grounded) { //grounded is set on checkY in TileCollider
             this.startX = (3 * Character.frameSize + 36);
-            this.startY = (2 * Character.frameSize + 20) - 2;
+            this.startY = (2 * Character.frameSize + 20);
             this.FrameLength = 1;
             this.FrameSpeed = 1;
         }
         else if (Character.go.dir > 0 && !Character.Special && !Character.Heavy) { //go right
             if(!Character.pain) {
-                this.startY = 172; //88*2-6
+                this.startY = 170; //88*2-6
                 this.FrameLength = 8;
                 this.FrameSpeed = 0.07;
                 Character.heading = 1;
@@ -154,7 +164,7 @@ function createCharacter(name, choice) {
         }
         else if (Character.go.dir < 0 && !Character.Special && !Character.Heavy) { //go left
             if(!Character.pain) {
-                this.startY = 172; //88*2-6
+                this.startY = 170; //88*2-6
                 this.FrameLength = 8;
                 this.FrameSpeed = 0.07;
                 Character.heading = -1
@@ -191,8 +201,8 @@ function createCharacter(name, choice) {
             characters[1]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Wizard
-            characters[2]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            characters[2]), (7 * Character.frameSize + 36), (2 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize-20, 0.3, 1, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Rogue
             characters[3]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.02, 8, false, false),
@@ -213,7 +223,7 @@ function createCharacter(name, choice) {
     Character.lightAttacks = [
         function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Karate
         function() {ThrowProjectile("arrow", Character, Character.damageModifier);}, //Archer
-        function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Wizard
+        function() {ThrowProjectile("zap", Character, Character.damageModifier);}, //Wizard
         function() {ThrowProjectile("dagger", Character, Character.damageModifier);}, //Rogue
         function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Warrior
         function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Soldier
@@ -229,8 +239,8 @@ function createCharacter(name, choice) {
             characters[1]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.08, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Wizard
-            characters[2]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.08, 8, false, false),
+            characters[2]), 36, (3 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize, 0.8, 1, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Rogue
             characters[3]), 36, (15 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.06, 10, false, false),
@@ -251,7 +261,18 @@ function createCharacter(name, choice) {
     Character.heavyAttacks = [
         function() {window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)}, //Karate
         function() {window.setTimeout(function() {ThrowProjectile("trippleArrow", Character, Character.damageModifier);}, 200)}, //Archer
-        function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Wizard
+        function() {
+            // Character.go.dir = 0;
+            // removeMovement();
+            // window.setTimeout(function() {
+            //     restoreMovement(Character);
+            // }, 700);
+            for(var i = 0; i < 25; i++) {
+                window.setTimeout(function() {
+                    ThrowProjectile("laser", Character, Character.damageModifier);
+                }, i * 25);
+            }
+        }, //Wizard
         function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character, Character.damageModifier);}, 300)}, //Rogue
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Warrior
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Soldier
@@ -267,8 +288,8 @@ function createCharacter(name, choice) {
             characters[1]), 36, (13 * Character.frameSize + 48) - 4,
             Character.frameSize - 2, Character.frameSize, 0.08, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Wizard
-            characters[2]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.08, 8, false, false),
+            characters[2]), 36, (1 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize-20, 0.07, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Rogue
             characters[3]), 36, 48 - 4,
             Character.frameSize, Character.frameSize, 0.1, 4, false, false),
@@ -294,7 +315,12 @@ function createCharacter(name, choice) {
                         ThrowProjectile("forcePush", Character, Character.damageModifier);
                         Character.heading *= -1;
                     }, 280); },
-        function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Wizard
+        function() { //Wizard
+                    ThrowProjectile("clone", Character, Character.damageModifier);
+                    Character.heading *= -1;
+                    ThrowProjectile("clone", Character, Character.damageModifier);
+                    Character.heading *= -1;
+                    },
         function() {ThrowProjectile("shadeStep", Character, Character.damageModifier);}, //Rogue
         function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Warrior
         function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Soldier
@@ -321,6 +347,13 @@ function createCharacter(name, choice) {
     Character.painAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Damage.png"),
         0, 0, 18, 12, 1, 1, true, false);
 
+    Character.zapAnimation = new Animation(ASSET_MANAGER.getAsset("./Projectiles/sideLightning.png"),
+        0, 0, 170, 50, 0.08, 2, true, false);
+    Character.skyLaserAnimation = new Animation(ASSET_MANAGER.getAsset("./Projectiles/skyLaser.png"),
+        0, 0, 128, 800, 0.08, 2, true, false);
+    Character.impactAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/impact.png"),
+        0, 0, 256, 80, 0.06, 2, true, false);
+
     Character.dustAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Dust.png"),
         0, 0, 16, 16, 0.05, 1, false, false);
 
@@ -331,6 +364,9 @@ function createCharacter(name, choice) {
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     Character.draw = function (context) {
+        if(Character.context == null) {
+            Character.context = context;
+        }
         context.save();
         if(Character.heading === -1) {
             context.translate(40, -5);
@@ -342,6 +378,7 @@ function createCharacter(name, choice) {
         if(!Character.Light && !Character.Heavy && !Character.Special) {
             Character.animation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y);
         } else if (Character.Light) {
+            if(Character.choice == 2) { Character.zapAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x+18, Character.pos.y+12);}
             Character.lightAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
             if(!Character.lightAttackFinished) {
                 Character.lightAttacks[Character.choice]();
@@ -354,6 +391,11 @@ function createCharacter(name, choice) {
                 Character.lightAnimation.elapsedTime = 0;
             }
         } else if (Character.Heavy) {
+            if(Character.choice == 2) {
+                Character.skyLaserAnimation.setFrameHeight(800 - (720 - this.pos.y) - 15);
+                Character.skyLaserAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x + 114, 0);
+                Character.impactAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x + 50, this.pos.y-10);
+            }
             Character.heavyAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
             if(!Character.heavyAttackFinished) {
                 Character.heavyAttacks[Character.choice]();
@@ -446,7 +488,7 @@ function createCharacter(name, choice) {
             context.strokeText("player " + Character.player, 99 + 320 * (Character.player - 1), 689);
             context.lineWidth = 2;
             context.font = "20px Arial";
-            context.strokeText(Character.damage, 100 + 320 * (Character.player - 1), 710);
+            context.strokeText(Math.floor(Character.damage), 100 + 320 * (Character.player - 1), 710);
         }
     }
 
@@ -468,6 +510,10 @@ function Animation(spriteSheet, startX, startY, frameWidth, frameHeight, frameDu
     this.elapsedTime = 0;
     this.loop = loop;
     this.reverse = reverse;
+}
+
+Animation.prototype.setFrameHeight = function(frameHeight) {
+    this.frameHeight = frameHeight;
 }
 
 Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
@@ -501,6 +547,10 @@ Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
         locX, locY,
         this.frameWidth * scaleBy,
         this.frameHeight * scaleBy);
+}
+
+Animation.prototype.drawStatic = function (ctx, x, y) {
+    ctx.drawImage(this.spriteSheet, x, y);
 }
 
 Animation.prototype.currentFrame = function () {

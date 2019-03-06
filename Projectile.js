@@ -55,7 +55,21 @@ function createProjectile(name, originEntity, damageModifier) {
         Projectile.size.set(10, 50);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
         Projectile.damageValue = 30 * Projectile.damageModifier;
+    } else if(name == 'zap') {
+        Projectile.throw.setSpeed(25000);
+        Projectile.size.set(15, 20);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
+        Projectile.damageValue = 2 * Projectile.damageModifier;
+    } else if(name == 'laser') {
+        Projectile.size.set(15, originEntity.pos.y + 55);
+        Projectile.pos.set(originEntity.pos.x + originEntity.heading * 95, 0);
+        Projectile.damageValue = 0.2;
+    } else if(name == 'clone') {
+        Projectile.size.set(28, 58);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
+        Projectile.damageValue = 0;
     }
+    
 
     Projectile.handle = function(intent) {
         if(intent == 'getThrower'){
@@ -109,6 +123,18 @@ function createProjectile(name, originEntity, damageModifier) {
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
                     "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
                 break;
+            case 'zap':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
+            case 'laser':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
+            case 'clone':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
+                    "./characters/Wizard.png"), 36, 170, 128, 84, 0.07, 8, true, false);
+                break;
         }
     }
 
@@ -144,6 +170,8 @@ function createProjectile(name, originEntity, damageModifier) {
             Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y);
         } else if (name == 'cash') {
             Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x - 20, this.pos.y);
+        } else if (name == 'clone') {
+            Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y);
         }
         context.restore();
     }
@@ -162,6 +190,12 @@ function ThrowProjectile(name, originEntity, damageModifier) {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 50)
     } else if (name == 'slam') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 300)
+    } else if (name == 'zap') {
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 180)
+    } else if (name == 'laser') {
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 180)
+    } else if (name == 'clone') {
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 500)
     } else {
         levelObject.addEntity(createProjectile(name, originEntity, damageModifier));
     }

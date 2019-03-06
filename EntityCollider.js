@@ -110,8 +110,10 @@
 
               if(entity.Ename == 'forcePush') {
                 entityObject.handle('pushLeft');
-              } else if(entity.Ename == 'dagger') {
+              } else if(entity.Ename == 'zap') {
                 entityObject.handle('painLeft');
+              } else if(entity.Ename == 'laser' || entity.Ename == 'clone') {
+                entityObject.handle('noKnockback');
               } else if(entity.Ename == 'uppercut') {
                 entityObject.handle('knockUp');
               } else if(entity.Ename == 'shadeStep') {
@@ -208,8 +210,10 @@
 
                 if(entity.Ename == 'forcePush') {
                   entityObject.handle('pushRight');
-                } else if(entity.Ename == 'dagger') {
+                } else if(entity.Ename == 'zap') {
                   entityObject.handle('painRight');
+                } else if(entity.Ename == 'laser' || entity.Ename == 'clone') {
+                    entityObject.handle('noKnockback');
                 } else if(entity.Ename == 'uppercut') {
                   entityObject.handle('knockUp');
                 } else if(entity.Ename == 'shadeStep') {

@@ -32,11 +32,11 @@ class TileCollider {
         }
         //section below works
         if (entity.type === 'projectile') {
-          if(entity.Ename != 'cash') {
+          if(entity.Ename != 'cash' && entity.Ename != 'laser') {
             levelObject.removeEntity(entity);
           }
         }
-        if (entity.vel.x > 0) {
+        if (entity.vel.x > 0 && entity.Ename != 'laser') {
           if (entity.pos.x + entity.size.x > match.x1) {
             if (entity.vel.y !== 0 && match.tile.name === 'platform') { //or statement is experimental for turning off x clip during jump, first arguement of statement stays
               //do nothing
@@ -48,7 +48,7 @@ class TileCollider {
               //console.log('OOPS hit a big ol ' + match.tile.name + ' on the right');
             }
           }
-        } else if (entity.vel.x < 0) {
+        } else if (entity.vel.x < 0 && entity.Ename != 'laser') {
           if (entity.pos.x < match.x2) {
             if (entity.vel.y !== 0 && match.tile.name === 'platform') { //or statement is experimental for turning off x clip during jump, first arguement of statement stays
               //do nothing

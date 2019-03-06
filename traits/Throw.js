@@ -6,6 +6,10 @@ class Throw extends Trait {
         this.speed = 15000;  //should be about 10,000ish
     }
 
+    setSpeed(speed) {
+        this.speed = speed;
+    }
+
     update(entity, deltaTime) {
 
       //moves the projectile
