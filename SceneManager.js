@@ -279,6 +279,16 @@ function loadScene(name) {
 
   const spriteLayer = createSpriteLayer(scene.entities);    //entity layer
   scene.comp.layers.push(spriteLayer);
-  console.log(scene.comp.layers);
+  //console.log(scene.comp.layers);
+  return scene;
+}
+
+function loadDialog(name, dialogNum) {
+  const scene = new Scene(name);
+
+  const dialogBackgroundLayer = createDialogBackgroundLayer(scene, dialogNum);   //background layer  CHANGE!!!
+
+  scene.comp.layers.push(dialogBackgroundLayer);
+
   return scene;
 }
