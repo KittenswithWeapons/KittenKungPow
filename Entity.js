@@ -75,21 +75,23 @@ class Entity {
 								SPlevelchoice++; //next level
 								SPenemy++; //next enemy
 
-								//maybe a win screen here...................................................
-
-								//..........................................................................
 								//LOSS
 								if (pNum != 1) {
 									console.log('YOU LOSE!');
 									location.reload(); //restarts the game
-
 								}
 								//
 
+								//maybe a win screen here...................................................
+
+								//..........................................................................
+
+								//WIN - next level
 								var playerChar = levelObject.getLastCharacter().choice; // returns the player selected character to be playable in the next round
 								levelMusic.stop(); //stops music on the level
 								playerNum--; //needed to reset player count
 								displaySinglePlayer(playerChar); //next level START
+								//WIN end
 
 							} else {
 								var r = confirm("Player " + pNum + " Wins!");
