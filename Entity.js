@@ -22,6 +22,8 @@ class Entity {
 				this.traits = [];
 				this.isAgent = false;
 				this.agentManager = null;
+				this.difficulty = 2; // CPU difficulty setting is 1-3. 1 being easiest and 3 being the hardest
+				this.input = new setupKeyboard(this);
 				if (name.startsWith("CPU-")) {
 					this.isAgent = true;
 					this.agentManager = new agentManager(this);
@@ -39,11 +41,11 @@ class Entity {
 			if (CPUsEnabled) {
 				if (this.isAgent) this.agentManager.delay--;
 				if (this.isAgent && this.agentManager.delay === 0) {
-				this.agentManager.delay = 20;
-				this.agentManager.update();
-				//console.log(this.Ename);
+					this.agentManager.delay = 20;
+					this.agentManager.update();
+					//console.log(this.Ename);
+				}
 			}
-		}
 
 		if (this.inKillzone()) {
 
@@ -60,10 +62,10 @@ class Entity {
 					this.Walking = false;
 					var offset = Math.floor(Math.random() * 4) * 40;
 					if (Math.floor(Math.random() * 2) > 0) offset = offset * -1;
-					//console.log("Offset = " + offset);
 
 					this.pos.set(640 + offset, 80); //spawn in this location
 				} else {
+
 					levelObject.removeEntity(this);
 					playerNum--;
 					//console.log(' player num '+playerNum);
@@ -99,6 +101,14 @@ class Entity {
 							}
 						}, 1000);
 
+
+						} else {
+							var pNum = levelObject.getLastCharacter().player;
+							window.setTimeout(function() {
+								var r = alert("CPUs Win!");
+								location.reload();
+							}, 1000);
+						}
 					}
 				}
 			}

@@ -2,70 +2,66 @@
 function agentManager(entity) {
     // this.level = levelObject;
     this.agent = entity;
-    this.input = setupKeyboard(entity);
+    // this.input = setupKeyboard(this.agent);
     this.keyHeld = true;
-    this.delay = 1;
+    this.delay = 300;
     this.target;
     this.targetDist = Infinity;
     this.myStyle;
     this.choice;
-
+    this.difficulty = this.agent.difficulty;
+    this.thinkSuccess = 0;
+    this.thinkCount = 0;
 };
 
 agentManager.prototype.update = function () {
     this.choice = this.agent.choice;
-    //console.log("Choice = " + this.choice);
 
     if (this.choice === 0 || this.choice === 3 || this.choice === 4 || this.choice === 6 || this.choice === 7) {
         this.myStyle = 'melee';
     } else {
         this.myStyle = 'ranged';
     }
+
     this.selectTarget();
-    // console.log(this.agent.Ename + "s target is " + this.target.Ename);
-    // console.log(this.target.Ename + " is " + this.targetDist + " units away");
-    if(this.target !== undefined) { //jake added this if statement to handle when the agent has no target
-      this.move();
-      this.attack();
-      this.keyHeld = !this.keyHeld;
+
+    var thinkChance;
+    if (this.difficulty === 1) { // Difficulty 1 thinks to make a new move 50% of the time they're updated
+        thinkChance = (Math.floor(Math.random() * 100) + 1);
+
+    } else if (this.difficulty === 2) { // Difficulty 2 thinks to make a new move 75% of the time they're updated
+        thinkChance = (Math.floor(Math.random() * 100) + 1) * 2;
+
+    } else if (this.difficulty === 3) { // Difficulty 3 always thinks to make a new move when they're updated
+        thinkChance = 100;
     }
+
+    if (thinkChance > 50) {
+        this.thinkSuccess++;
+        if(this.target !== undefined) { //jake added this if statement to handle when the agent has no target
+            if ((this.agent.pos.y > 700) || (this.agent.pos.x < 80) 
+                || (this.agent.pos.x > 1120) || (this.agent.pos.y < 100)) {
+
+                this.avoidKillzone();
+            } else {
+                this.move();
+            }  
+            this.keyHeld = !this.keyHeld;
+        }
+    }
+    this.thinkCount++;
+    if (this.thinkCount !== 0) {
+        console.log((this.thinkSuccess/this.thinkCount)*100 +"%" );  
+    }
+    
 };
 
 agentManager.prototype.move = function () {
-    var myX = this.agent.pos.x;
-    var myY = this.agent.pos.y;
-
     var targetX = this.target.pos.x;
     var targetY = this.target.pos.y;
 
-    var xDist = targetX - myX;
-    var yDist = targetY - myY;
-
-    // Check if close to killzone
-    if (myX < 80) {
-        this.right();
-        if (myX < 80) {
-            this.right();
-        }
-    }
-    if (myX > 1120) {
-        this.left();
-        if (myX > 1120) {
-            this.left();
-        }
-    }
-    if (myY > 700) {
-        this.jump();
-        if (myY > 700) {
-            this.jump();
-        }
-    }
-    if (myY < 100) {
-        this.down();
-        if (myY < 100) {
-            this.down();
-        }
-    }
+    var xDist = targetX - this.agent.pos.x;
+    var yDist = targetY - this.agent.pos.y;
 
     if (this.target.Ename === 'character') { // Target the human player
         if (xDist > 0) { // Face the target to the right
@@ -75,60 +71,55 @@ agentManager.prototype.move = function () {
         }
 
         if (this.myStyle === 'melee') { // Up close fighting style
-            if (this.targetDist > 50) {
+
+            if (this.targetDist > 50) { // move to target
                 if (xDist > 0) {
                     this.right();
-                    if (yDist < 0) {
-                        this.jump();
-                    } else if (yDist > 0){
-                        this.down();
-                    }
-                } else if (xDist < 0) {
-                    this.left();
-                    if (yDist < 0) {
-                        this.jump();
-                    } else if (yDist > 0){
-                        this.down();
-                    }
-                } else {
-                    if (yDist < 0) {
-                        this.jump();
-                    } else if (yDist > 0){
-                        this.down();
-                    }
+                    this.keyHeld = !this.keyHeld;
                 }
-                this.attack(true);
-            } else {
-                this.attack(false);
-            }
-        } else { // Ranged fighting style
-            if (this.targetDist < 50) {
-                if (xDist > 0) {
+                if (xDist < 0) {
                     this.left();
-                    if (yDist < 0) {
-                        this.down();
-                    } else if (yDist > 0){
-                        this.jump();
-                    }
-                } else if (xDist < 0) {
-                    this.right();
-                    if (yDist < 0) {
-                        this.down();
-                    } else if (yDist > 0){
-                        this.jump();
-                    }
-                } else {
-                    if (yDist < 0) {
-                        this.down();
-                    } else if (yDist > 0){
-                        this.jump();
-                    }
+                    this.keyHeld = !this.keyHeld;
                 }
-                this.attack(true);
-            } else {
                 if (yDist < 0) {
                     this.jump();
-                } else if (yDist > 0){
+                }
+                if (yDist > 0){
+                    this.down();
+                }
+                this.attack(false);
+            } else {
+                if (yDist > 0) {
+                    this.jump();
+                }
+                if (yDist < 0){
+                    this.down();
+                }
+                this.attack(true);
+            }
+        } else { // Ranged fighting style
+
+            if (this.targetDist < 50) { // move away from target
+                if (xDist > 0) {
+                    this.left();
+                    this.keyHeld = !this.keyHeld;
+                }
+                if (xDist < 0) {
+                    this.right();
+                    this.keyHeld = !this.keyHeld;
+                }
+                if (yDist < 0) {
+                    this.down();
+                }
+                if (yDist > 0){
+                    this.jump();
+                }
+                this.attack(true);
+            } else {
+                if (yDist < -5) {
+                    this.jump();
+                }
+                if (yDist > 5){
                     this.down();
                 }
                 this.attack(false);
@@ -138,16 +129,38 @@ agentManager.prototype.move = function () {
     } else { // Target is an item
         if (xDist > 0) {
             this.right();
-        } else if (xDist < 0) {
+            this.keyHeld = !this.keyHeld;
+        }
+        if (xDist < 0) {
             this.left();
+            this.keyHeld = !this.keyHeld;
         }
 
         if (yDist > 0) {
             this.down();
-        } else if (yDist < 0) {
+        }
+        if (yDist < 0) {
             this.jump();
         }
         this.delay = 20;
+    }
+};
+
+agentManager.prototype.avoidKillzone = function () {
+    
+    if (this.agent.pos.y > 700) {
+        this.jump();
+    }
+    if (this.agent.pos.x < 80) {
+        this.right();
+        this.keyHeld = !this.keyHeld;
+    }
+    if (this.agent.pos.x > 1120) {
+        this.left();
+        this.keyHeld = !this.keyHeld;
+    }
+    if (this.agent.pos.y < 100) {
+        this.down();
     }
 };
 
@@ -223,10 +236,10 @@ agentManager.prototype.attack = function (isTargetClose) {
 };
 
 agentManager.prototype.jump = function () {
-    this.agent.Jumping = true;
-    this.agent.grounded = false;
-    this.agent.jump.start();
-    this.agent.updateAnimation();
+        this.agent.Jumping = true;
+        this.agent.grounded = false;
+        this.agent.jump.start();
+        this.agent.updateAnimation();
 }
 
 agentManager.prototype.light = function () {

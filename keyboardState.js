@@ -14,6 +14,10 @@ class keyBoardState {
 		this.keyMap.set(code, callback);
 	}
 
+	removeMapping(code) {
+		this.keyMap.delete(code);
+	}
+
 	handleEvent(event) {
 			const {code} = event;
 

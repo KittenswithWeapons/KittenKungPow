@@ -32,7 +32,7 @@ function createCharacter(name, choice) {
     Character.damage = 0;
     Character.damageModifier = 1;
 
-    Character.lives = 3;
+    Character.lives = 5;
     Character.choice = choice || 0;
     Character.player = playerNum;
 
@@ -120,6 +120,7 @@ function createCharacter(name, choice) {
                 }, knockbackDistance * 2 * 0.85);
             } else {
                 Character.updateAnimation();
+                Character.jump.start(knockbackDistance);
                 window.setTimeout (function() {Character.pain = false;},knockbackDistance);
             }
         }
@@ -251,20 +252,11 @@ function createCharacter(name, choice) {
         function() {window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)}, //Karate
         function() {window.setTimeout(function() {ThrowProjectile("trippleArrow", Character, Character.damageModifier);}, 200)}, //Archer
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Wizard
-        function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character, Character.damageModifier);}, 200)}, //Rogue
+        function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character, Character.damageModifier);}, 300)}, //Rogue
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Warrior
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Soldier
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Vagrant
-        function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)
-            // ThrowProjectile("slam", Character);
-            // Character.go.dir = 0;
-            // setupEmptyKeyboard(Character);
-            // window.setTimeout(function() {Character.go.dir = Character.heading * 1;}, 200);
-            // window.setTimeout(function() {
-            //     Character.go.dir = 0;
-            //     setupKeyboard(Character);
-            // }, 3000);
-        } //Fatcat
+        function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)} //Fatcat
     ]
 
     Character.specialAnimations = [
@@ -309,15 +301,17 @@ function createCharacter(name, choice) {
         function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Vagrant
         function() {
             Character.go.dir = 0;
-            setupEmptyKeyboard(Character);
+            removeMovement();
             window.setTimeout(function() {
-                Character.go.dir = Character.heading * 1;
+                Character.go.dir = Character.heading;
                 ThrowProjectile("slam", Character, Character.damageModifier);
             }, 200);
             window.setTimeout(function() {
+                restoreMovement(Character);
+            }, 400); 
+            window.setTimeout(function() {
                 Character.go.dir = 0;
-                setupKeyboard(Character);
-            }, 500);
+            }, 400);
         } //Fatcat
     ]
 
@@ -405,7 +399,6 @@ function createCharacter(name, choice) {
 
     function drawInfo(context) {
         if (Character.lives > 0) {
-            context
             context.globalAlpha = 0.8;
             context.lineWidth = 5;
             if (Character.player === 1) {
@@ -423,15 +416,29 @@ function createCharacter(name, choice) {
             }
             context.fillRect(95 + 320 * (Character.player - 1), 678, 105, 40);
             context.strokeRect(95 + 320 * (Character.player - 1), 678, 105, 40);
-
-            for(var i = 0; i < Character.lives; i++ ) {
+            if (Character.lives <= 3) {
+                for(var i = 0; i < Character.lives; i++ ) {
+                    context.save();
+                    Character.staticAnimation.drawFrame(0, context,
+                        120 + (i * 18) + 320 * (Character.player - 1),
+                        660, 0.5);
+                    context.restore();
+                }
+            } else {
                 context.save();
-                context
                 Character.staticAnimation.drawFrame(0, context,
-                    120 + (i * 18) + 320 * (Character.player - 1),
-                    660, 0.5);
+                        120 + 320 * (Character.player - 1),
+                        660, 0.5);
                 context.restore();
+
+                context.globalAlpha = 1.0;
+                context.lineWidth = 2.4;
+                context.strokeStyle = 'black';
+                context.font = "28px Arial Narrow";
+                context.strokeText("X", 162 + 320 * (Character.player - 1),709);
+                context.strokeText(Character.lives, 180 + 320 * (Character.player - 1),709);
             }
+            
             context.globalAlpha = 1.0;
             context.lineWidth = 1;
             context.strokeStyle = 'black';
