@@ -32,7 +32,7 @@ function createCharacter(name, choice) {
     Character.damage = 0;
     Character.damageModifier = 1;
 
-    Character.lives = 3;
+    Character.lives = 5;
     Character.choice = choice || 0;
     Character.player = playerNum;
 
@@ -399,7 +399,6 @@ function createCharacter(name, choice) {
 
     function drawInfo(context) {
         if (Character.lives > 0) {
-            context
             context.globalAlpha = 0.8;
             context.lineWidth = 5;
             if (Character.player === 1) {
@@ -417,15 +416,29 @@ function createCharacter(name, choice) {
             }
             context.fillRect(95 + 320 * (Character.player - 1), 678, 105, 40);
             context.strokeRect(95 + 320 * (Character.player - 1), 678, 105, 40);
-
-            for(var i = 0; i < Character.lives; i++ ) {
+            if (Character.lives <= 3) {
+                for(var i = 0; i < Character.lives; i++ ) {
+                    context.save();
+                    Character.staticAnimation.drawFrame(0, context,
+                        120 + (i * 18) + 320 * (Character.player - 1),
+                        660, 0.5);
+                    context.restore();
+                }
+            } else {
                 context.save();
-                context
                 Character.staticAnimation.drawFrame(0, context,
-                    120 + (i * 18) + 320 * (Character.player - 1),
-                    660, 0.5);
+                        120 + 320 * (Character.player - 1),
+                        660, 0.5);
                 context.restore();
+
+                context.globalAlpha = 1.0;
+                context.lineWidth = 2.4;
+                context.strokeStyle = 'black';
+                context.font = "28px Arial Narrow";
+                context.strokeText("X", 162 + 320 * (Character.player - 1),709);
+                context.strokeText(Character.lives, 180 + 320 * (Character.player - 1),709);
             }
+            
             context.globalAlpha = 1.0;
             context.lineWidth = 1;
             context.strokeStyle = 'black';
