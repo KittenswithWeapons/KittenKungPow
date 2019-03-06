@@ -14,13 +14,19 @@ var SPenemy = 0; //enemy choice
 function SinglePlayer(canvas, context, characterSelection) {
     singlePlayerFlag = true;
 
+    //SinglePlayer complete handler
+    if (SPlevelchoice > 7) {
+      location.reload(); //currently just starts the game over
+    }
+    //SinglePlayer complete handler end
+
     canvas.removeEventListener('keypress', function (e) {
       var key = e.which || e.keyCode;
       if (key === 13) { // 13 is enter
         console.log('enter');
       }
     });
-    context.clearRect(0, 0, 1280,720);
+
 
     levelSelection = SingleplayerLevels[SPlevelchoice]; //which level to load
 
