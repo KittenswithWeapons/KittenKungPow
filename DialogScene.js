@@ -5,7 +5,7 @@ function dialogScene(canvas, context, dialogNum) {
     loadDialog('dialog', dialogNum),
 ])
 .then(([Scene]) => {
-
+    context.clearRect(0, 0, 1280,720); //turn this off after background added
 
 
     //Timer for the Character Selection Screen
