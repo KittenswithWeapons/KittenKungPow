@@ -32,7 +32,7 @@ function createCharacter(name, choice) {
     Character.laserHeight = 0;
 
     Character.damage = 0;
-    Character.damageModifier = 1;
+    Character.damageModifier = 2; //multiplies the damage........jake turned up the damage, was 1
 
     Character.lives = 5;
     Character.choice = choice || 0;
@@ -336,7 +336,7 @@ function createCharacter(name, choice) {
             }, 200);
             window.setTimeout(function() {
                 restoreMovement(Character);
-            }, 400); 
+            }, 400);
             window.setTimeout(function() {
                 Character.go.dir = 0;
             }, 400);
@@ -487,7 +487,7 @@ function createCharacter(name, choice) {
                 context.strokeText("X", 162 + 320 * (Character.player - 1),709);
                 context.strokeText(Character.lives, 180 + 320 * (Character.player - 1),709);
             }
-            
+
             context.globalAlpha = 1.0;
             context.lineWidth = 1;
             context.strokeStyle = 'black';
