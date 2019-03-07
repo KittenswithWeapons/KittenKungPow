@@ -1,4 +1,5 @@
 var singlePlayerFlag = false; //flag for single player
+var singleplayerCharSel;
 
 var levelMusic; //level music
 

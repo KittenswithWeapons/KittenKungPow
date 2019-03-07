@@ -1,4 +1,6 @@
-function dialogScene(canvas, context, charChoice, dialogNum) {
+var dialogNum = 1
+
+function dialogScene(canvas, context, dialogNum) {
   Promise.all([
     loadDialog('dialog', dialogNum),
 ])
@@ -19,7 +21,7 @@ function dialogScene(canvas, context, charChoice, dialogNum) {
         Scene.clearScene();
         this.removeEventListener('keydown', charNextHandler, false);
         //----------------------------------------------------------------
-        displaySinglePlayer(charChoice)  //SinglePlayer tester
+        displaySinglePlayer(singleplayerCharSel)  //SinglePlayer tester
       }
     };
     //move to the next scene

@@ -245,7 +245,7 @@ function drawDialogBackgroundImage(scene, context, dialogNum) {
     img.onload = function () {
     context.drawImage(img, 0, 0);
     }
-    img.src = `./SceneBackgrounds/dialog${dialogNum}.jpg`;
+    img.src = `./Dialogs/dialog${dialogNum}.png`;
 }
 
 

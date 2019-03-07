@@ -107,7 +107,9 @@ function selectCharacters(canvas, context) {
         this.removeEventListener('keydown', charNextHandler, false);
         //----------------------------------------------------------------
         if(singlePlayerFlag) {
-          displaySinglePlayer(CChoices[choiceRow][choiceCol])  //SinglePlayer tester
+          singleplayerCharSel = CChoices[choiceRow][choiceCol]
+          //displaySinglePlayer(singleplayerCharSel);  //SinglePlayer
+          dialogScene(canvas, context, dialogNum);
         } else {
           displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
         }
