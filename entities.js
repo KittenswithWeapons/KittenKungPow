@@ -156,7 +156,7 @@ function createCharacter(name, choice) {
             this.FrameLength = 1;
             this.FrameSpeed = 1;
         }
-        else if (Character.go.dir > 0 && !Character.Special && !Character.Heavy) { //go right
+        else if (Character.go.dir > 0 ){//&& !Character.Special && !Character.Heavy) { //go right
             if(!Character.pain) {
                 this.startY = 170; //88*2-6
                 this.FrameLength = 8;
@@ -164,7 +164,7 @@ function createCharacter(name, choice) {
                 Character.heading = 1;
             } else {Character.heading = -1;}
         }
-        else if (Character.go.dir < 0 && !Character.Special && !Character.Heavy) { //go left
+        else if (Character.go.dir < 0 ){//} && !Character.Special && !Character.Heavy) { //go left
             if(!Character.pain) {
                 this.startY = 170; //88*2-6
                 this.FrameLength = 8;
