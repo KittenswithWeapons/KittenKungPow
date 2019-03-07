@@ -16,7 +16,9 @@ function SinglePlayer(canvas, context, characterSelection) {
     singlePlayerFlag = true;
 
     //SinglePlayer complete handler
-    if (SPlevelchoice > 7) {
+    if (SPlevelchoice > 7) {       //////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                  // put to 8 to enable last level. need last character before it will work
+                                  //////////////////////////////////////////////////////////////////////////////////////////////////////////
       location.reload(); //currently just starts the game over------------------------------------------> HANDLE WINNING!! DO IT! DO IT NOW!
     }
     //SinglePlayer complete handler end
