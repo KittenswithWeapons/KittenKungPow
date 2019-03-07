@@ -88,7 +88,7 @@ class Entity {
 								levelMusic.stop(); //stops music on the level
 								playerNum--; //needed to reset player count
 								dialogNum++; //next dialog
-								if (dialogNum > 8) {
+								if (dialogNum > 9) {
 									//SinglePlayer completed
 									//maybe a win screen here...................................................
 

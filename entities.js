@@ -1,6 +1,6 @@
 var characters = ["./characters/Karate.png", "./characters/Archer.png", "./characters/Wizard.png",
     "./characters/Rogue.png", "./characters/Warrior.png", "./characters/Soldier.png", "./characters/Vagrant.png",
-    "./characters/FatCat.png"];
+    "./characters/FatCat.png", "./characters/FatCat.png"]; //replace last char with old lady final boss
 
 var playerNum = 1;
 function createCharacter(name, choice) {
@@ -34,7 +34,7 @@ function createCharacter(name, choice) {
     Character.damage = 0;
     Character.damageModifier = 2; //multiplies the damage........jake turned up the damage, was 1
 
-    Character.lives = 5;
+    Character.lives = 3;
     Character.choice = choice || 0;
     Character.player = playerNum;
 

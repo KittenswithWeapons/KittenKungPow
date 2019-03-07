@@ -1,0 +1,37 @@
+{
+    "backgrounds": [
+
+        {
+            "tile": "ground",
+            "ranges": [
+                [
+                    0, 40,
+                    18, 19
+                ]
+              ]
+        },
+        {
+            "tile": "platform",
+            "ranges": [
+
+                [
+                  33,37,
+                    14, 15
+                ]
+                ,
+                [
+                  3,7,
+                    14, 15
+                ]
+                ,
+                [
+                	10,30,
+                    8, 9
+                ]
+
+            ]
+        }
+
+    ]
+    ,"_comment" : "Current x,y maxs are: 40,25       platform order : "
+}

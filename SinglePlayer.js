@@ -5,7 +5,7 @@ var levelMusic; //level music
 
 var SingleplayerLevels = [  //single player list
   'PinkCity', 'FutureTown', 'FutureCity', 'Waterfall',
-  'LightMeows', 'BlueNight', 'Ocean', 'Dojo'
+  'LightMeows', 'BlueNight', 'Ocean', 'Dojo', 'Headquarters'
 ];
 
 var SPlevelchoice = 0; //level choice from level list
@@ -111,6 +111,16 @@ function SinglePlayer(canvas, context, characterSelection) {
         Enemy.pos.set(1000, 150); Enemy.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/Impossible.mp3');
+        levelMusic.sound.volume = .1; //level volume
+        levelMusic.sound.loop = true; //loops the level song
+        levelMusic.play(); //plays the level song
+      }
+
+      if (levelSelection === 'Headquarters') {
+        Character.pos.set(400, 200); //sets the character position
+        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+
+        levelMusic = new sound('./sound/Upstairs_With_Cat.mp3');  //"please change OMFG" - jake
         levelMusic.sound.volume = .1; //level volume
         levelMusic.sound.loop = true; //loops the level song
         levelMusic.play(); //plays the level song

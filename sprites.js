@@ -41,6 +41,11 @@ function loadBackgroundSprites(name) {
           sprites.defineTile('ground', 4, 0);
           sprites.defineTile('platform', 4, 0);
           return sprites;
+        } else if (name === 'Headquarters') {
+          const sprites = new SpriteSheet(image, 32, 32);
+          sprites.defineTile('ground', 0, 2);
+          sprites.defineTile('platform', 4, 0);
+          return sprites;
         }
     });
 }
