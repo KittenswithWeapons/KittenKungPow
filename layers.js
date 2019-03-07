@@ -248,6 +248,23 @@ function drawDialogBackgroundImage(scene, context, dialogNum) {
     img.src = `./Dialogs/dialog${dialogNum}.png`;
 }
 
+function createDialogLevelLayer(name) {
+    const buffer = document.createElement('canvas');
+    buffer.width = 1280;
+    buffer.height = 720;
+    const context = buffer.getContext('2d');
+    return function drawDialogLevelLayer(context) {
+        drawDialogLevelImage(name, context);
+        context.drawImage(buffer, 0, 0);
+    };
+}
+function drawDialogLevelImage(name, context) {
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 0, 0);
+    }
+    img.src = `./Enviroment/${name}.gif`;
+}
 
 
 
@@ -284,7 +301,7 @@ function createCollisionLayer(level) {
             context.rect(
                 entity.pos.x, entity.pos.y,
                 entity.size.x, entity.size.y);
-            context.stroke(); ///uncomment to draw boxes for entities
+            //context.stroke(); ///uncomment to draw boxes for entities
         resolvedTiles.length = 0;
         });
     }
