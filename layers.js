@@ -45,14 +45,7 @@ function drawBackgroundImage(name, context) {
     img.src = `./Enviroment/${name}.gif`;
 }
 
-function drawSceneBackgroundImage(scene, context) {
-    //console.log("draw");
-    var img = new Image();
-    img.onload = function () {
-    context.drawImage(img, 0, 0);
-    }
-    img.src = `./SceneBackgrounds/${scene}.jpg`;
-}
+
 
 function createSpriteLayer(entities) {
     return function drawSpriteLayer(context) {
@@ -77,6 +70,14 @@ function createSceneBackgroundLayer(scene) {
     };
 }
 
+function drawSceneBackgroundImage(scene, context) {
+    //console.log("draw");
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 0, 0);
+    }
+    img.src = `./SceneBackgrounds/${scene}.jpg`;
+}
 
 
 // -----------------------------------------------level preview images layer
@@ -223,8 +224,47 @@ function drawModesLayer(context) {
 
 
 
+function createDialogBackgroundLayer(scene, dialogNum) {
+    //console.log(scene);
+    const buffer = document.createElement('canvas');
+    buffer.width = 1280;
+    buffer.height = 720;
 
+    const context = buffer.getContext('2d');
 
+    //console.log('done');
+    return function drawDialogBackgroundLayer(context) {
+        drawDialogBackgroundImage(scene.SceneName, context, dialogNum);   ///set up for jpg backgrounds only
+        context.drawImage(buffer, 0, 0);
+    };
+}
+
+function drawDialogBackgroundImage(scene, context, dialogNum) {
+    //console.log("draw");
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 0, 0);
+    }
+    img.src = `./Dialogs/dialog${dialogNum}.png`;
+}
+
+function createDialogLevelLayer(name) {
+    const buffer = document.createElement('canvas');
+    buffer.width = 1280;
+    buffer.height = 720;
+    const context = buffer.getContext('2d');
+    return function drawDialogLevelLayer(context) {
+        drawDialogLevelImage(name, context);
+        context.drawImage(buffer, 0, 0);
+    };
+}
+function drawDialogLevelImage(name, context) {
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 0, 0);
+    }
+    img.src = `./Enviroment/${name}.gif`;
+}
 
 
 

@@ -1,4 +1,5 @@
 var singlePlayerFlag = false; //flag for single player
+var singleplayerCharSel;
 
 var levelMusic; //level music
 
@@ -16,7 +17,7 @@ function SinglePlayer(canvas, context, characterSelection) {
 
     //SinglePlayer complete handler
     if (SPlevelchoice > 7) {
-      location.reload(); //currently just starts the game over
+      location.reload(); //currently just starts the game over------------------------------------------> HANDLE WINNING!! DO IT! DO IT NOW!
     }
     //SinglePlayer complete handler end
 
@@ -62,7 +63,7 @@ function SinglePlayer(canvas, context, characterSelection) {
       }
       if (levelSelection === 'FutureCity') {
         Character.pos.set(300, 200); //sets the character position
-        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Enemy.pos.set(700, 200); Enemy.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/PulsePower.mp3');
         levelMusic.sound.volume = .1; //level volume
@@ -80,7 +81,7 @@ function SinglePlayer(canvas, context, characterSelection) {
       }
       if (levelSelection === 'LightMeows') {
         Character.pos.set(300, 200); //sets the character position
-        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Enemy.pos.set(700, 100); Enemy.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/RedEyes.mp3');
         levelMusic.sound.volume = .1; //level volume
@@ -89,7 +90,7 @@ function SinglePlayer(canvas, context, characterSelection) {
       }
       if (levelSelection === 'BlueNight') {
         Character.pos.set(300, 200); //sets the character position
-        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Enemy.pos.set(1000, 100); Enemy.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/MysteryofBetelgeuse.mp3');
         levelMusic.sound.volume = .1; //level volume
@@ -97,7 +98,7 @@ function SinglePlayer(canvas, context, characterSelection) {
         levelMusic.play(); //plays the level song
       }
       if (levelSelection === 'Ocean') {
-        Character.pos.set(300, 200); //sets the character position
+        Character.pos.set(400, 200); //sets the character position
         Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/TurboKnightRasengan.mp3');
@@ -106,8 +107,8 @@ function SinglePlayer(canvas, context, characterSelection) {
         levelMusic.play(); //plays the level song
       }
       if (levelSelection === 'Dojo') {
-        Character.pos.set(300, 200); //sets the character position
-        Enemy.pos.set(700, 400); Enemy.heading = -1; //sets enemy pos and heading
+        Character.pos.set(200, 200); //sets the character position
+        Enemy.pos.set(1000, 150); Enemy.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/Impossible.mp3');
         levelMusic.sound.volume = .1; //level volume

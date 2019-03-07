@@ -83,15 +83,19 @@ class Entity {
 								}
 								//
 
-								//maybe a win screen here...................................................
-
-								//..........................................................................
-
 								//WIN - next level
-								var playerChar = levelObject.getLastCharacter().choice; // returns the player selected character to be playable in the next round
+								//var playerChar = levelObject.getLastCharacter().choice; // returns the player selected character to be playable in the next round
 								levelMusic.stop(); //stops music on the level
 								playerNum--; //needed to reset player count
-								displaySinglePlayer(playerChar); //next level START
+								dialogNum++; //next dialog
+								if (dialogNum > 8) {
+									//SinglePlayer completed
+									//maybe a win screen here...................................................
+
+									//..........................................................................
+									location.reload();
+								}
+								dialogScene(myCanvas, myContext, dialogNum); //next level START
 								//WIN end
 
 							} else {
@@ -106,7 +110,7 @@ class Entity {
 						}, 1000);
 					}
 				}
-			}		
+			}
 		} else {
 			//console.log(this.Ename);
 			if (this.Ename === 'character') {

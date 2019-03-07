@@ -279,6 +279,22 @@ function loadScene(name) {
 
   const spriteLayer = createSpriteLayer(scene.entities);    //entity layer
   scene.comp.layers.push(spriteLayer);
-  console.log(scene.comp.layers);
+  //console.log(scene.comp.layers);
+  return scene;
+}
+
+function loadDialog(name, dialogNum) {
+  var lEnviros = [  //level list
+    'PinkCity', 'FutureTown', 'FutureCity', 'Waterfall',
+    'LightMeows', 'BlueNight', 'Ocean', 'Dojo'
+  ];
+  const scene = new Scene(name);
+  const dialogLevelBackgroundLayer = createDialogLevelLayer(lEnviros[dialogNum - 1]);   //background layer
+  scene.comp.layers.push(dialogLevelBackgroundLayer);
+
+  const dialogBackgroundLayer = createDialogBackgroundLayer(scene, dialogNum);   //background layer  CHANGE!!!
+
+  scene.comp.layers.push(dialogBackgroundLayer);
+
   return scene;
 }
