@@ -96,6 +96,14 @@ function createLevelPreviewLayer(scene) {
 }
 
 function drawLevelPreviewImages(context) {
+    //draw controls
+    var controls = new Image();
+    controls.onload = function () {
+    context.drawImage(controls, 0, 670); //position the level preview image
+    }
+    controls.src = "./SceneBackgrounds/levelControls.png";
+    //end controls
+
     //row 1------------------------------------------------------------------------------------------
     var img = new Image();
     img.onload = function () {
@@ -199,16 +207,24 @@ function createModesLayer(scene) {
 }
 
 function drawModesLayer(context) {
+  //draw controls
+  var controls = new Image();
+  controls.onload = function () {
+  context.drawImage(controls, 0, 670); //position the level preview image
+  }
+  controls.src = "./SceneBackgrounds/charControls.png";
+  //end controls
+
   // Mode switch images-------------------------------------------------------
   var storyModeIMG = new Image();
   storyModeIMG.onload = function () {
-  context.drawImage(storyModeIMG, 690, 670); //position
+  context.drawImage(storyModeIMG, 690, 680); //position
   }
   storyModeIMG.src = "./Options/StoryModeOff.png";
 
   var freePlayIMG = new Image();
   freePlayIMG.onload = function () {
-  context.drawImage(freePlayIMG, 340, 670); //position
+  context.drawImage(freePlayIMG, 340, 680); //position
   }
   freePlayIMG.src = "./Options/FreePlayOn.png";
 
