@@ -6,7 +6,6 @@ class keyBoardState {
 		this.keyStates = new Map(); //holds the current state of a key
 		this.keyMap = new Map(); //holds the callback functions for a code
 		this.frozen = false;
-		this.hold = new Map();
 	}
 
 
@@ -16,6 +15,12 @@ class keyBoardState {
 
 	removeMapping(code) {
 		this.keyMap.delete(code);
+	}
+
+	getMapping(code) {
+		var result = false;
+		if(this.keyMap.get(code) != undefined) result = true;
+		return result;
 	}
 
 	handleEvent(event) {

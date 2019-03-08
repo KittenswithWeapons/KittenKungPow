@@ -120,7 +120,12 @@
                 entity.handle('getThrower').handle('shadeLeft', entityObject);
                 levelObject.removeEntity(entity);
               } else if(entity.Ename == 'shield') {
-                levelObject.removeEntity(entity);
+              } else if(entity.Ename == 'blast') {
+                entityObject.handle('painLeft');
+              } else if(entity.Ename == 'rocket') {
+                if(entityObject.type != 'projectile' && entityObject.type != 'mortar') {
+                  entity.handle('generateExplosion');
+                }
               } else {
                 levelObject.removeEntity(entity);
                 entityObject.handle('painLeft');
@@ -222,7 +227,12 @@
                   entity.handle('getThrower').handle('shadeRight', entityObject);
                   levelObject.removeEntity(entity);
                 } else if(entity.Ename == 'shield') {
-                    //levelObject.removeEntity(entity);
+                } else if(entity.Ename == 'blast') {
+                  entityObject.handle('painRight');
+                } else if(entity.Ename == 'rocket') {
+                  if(entityObject.type != 'projectile') {
+                    entity.handle('generateExplosion');
+                  }
                 } else {
                   levelObject.removeEntity(entity);
                   entityObject.handle('painRight');

@@ -217,8 +217,8 @@ function createCharacter(name, choice) {
             characters[4]), 36, (3 * Character.frameSize + 48) - 6 ,
             Character.frameSize, Character.frameSize-20, 0.05, 6, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
-            characters[5]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            characters[5]), 36, (3 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize, 0.25, 2, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Vagrant
             characters[6]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
@@ -233,7 +233,7 @@ function createCharacter(name, choice) {
         function() {ThrowProjectile("zap", Character, Character.damageModifier);}, //Wizard
         function() {ThrowProjectile("dagger", Character, Character.damageModifier);}, //Rogue
         function() {window.setTimeout(function() {ThrowProjectile("slash", Character, Character.damageModifier);}, 50);}, //Warrior
-        function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Soldier
+        function() {window.setTimeout(function() {ThrowProjectile("rocket", Character, Character.damageModifier);}, 100);}, //Soldier
         function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Vagrant
         function() {ThrowProjectile("cash", Character, Character.damageModifier);} //Fatcat
     ]
@@ -255,8 +255,8 @@ function createCharacter(name, choice) {
             characters[4]), 0, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize - 20, 0.1, 12, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
-            characters[5]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            characters[5]), 36, (4 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize, 0.1, 6, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Vagrant
             characters[6]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
@@ -288,7 +288,15 @@ function createCharacter(name, choice) {
             }
             window.setTimeout(function() {Character.headingLock = false}, 1200);
         }, //Warrior
-        function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Soldier
+        function() {
+            removeMovement(Character);
+            window.setTimeout(function() {
+                restoreMovement(Character);
+            }, 600);
+            window.setTimeout(function() {
+                ThrowProjectile("mortar", Character, Character.damageModifier);
+            }, 400);
+        }, //Soldier
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Vagrant
         function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)} //Fatcat
     ]
@@ -310,8 +318,8 @@ function createCharacter(name, choice) {
             characters[4]), 36, (4 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 1, 1, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
-            characters[5]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            characters[5]), 36, (5 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize, 0.25, 4, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Vagrant
             characters[6]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
@@ -341,11 +349,23 @@ function createCharacter(name, choice) {
                 }, i * 30);
             }
         }, //Warrior
-        function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Soldier
+        function() {
+            removeMovement(Character);
+            window.setTimeout(function() {
+                restoreMovement(Character);
+            }, 1000);
+            for(var i = 1; i < 20; i++) {
+                window.setTimeout(function() {
+                    if(Character.damage >= 0.75) {
+                        Character.damage-=0.75;
+                    }
+                }, 50 * i);
+            }
+        }, //Soldier
         function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Vagrant
         function() {
             Character.go.dir = 0;
-            removeMovement();
+            removeMovement(Character);
             window.setTimeout(function() {
                 Character.go.dir = Character.heading;
                 ThrowProjectile("slam", Character, Character.damageModifier);

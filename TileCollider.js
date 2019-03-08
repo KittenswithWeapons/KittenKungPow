@@ -32,7 +32,7 @@ class TileCollider {
         }
         //section below works
         if (entity.type === 'projectile') {
-          if(entity.Ename != 'cash' && entity.Ename != 'laser') {
+          if(entity.Ename != 'cash' && entity.Ename != 'laser' && entity.Ename != 'mortar') {
             levelObject.removeEntity(entity);
           }
         }
@@ -88,23 +88,30 @@ class TileCollider {
         } else { //reset jump number & assign grounded
           if (entity.vel.y > 0 && (match.tile.name === 'ground' || match.tile.name === 'platform'
             || match.tile.name === 'levelobject')) {
-            //console.log('jump reset');
-            entity.grounded = true;
-            entity.handle('land');
-            entity.jump.jumpNumber = 0;
 
+            if(entity.type !== 'mortar') {
+              entity.grounded = true;
+              entity.handle('land');
+              entity.jump.jumpNumber = 0;
+            } 
+            else {
+              entity.vel.y = 0;
+              entity.pos.y -= 30;
+              entity.handle('generateExplosion');
+            }
           }
         }
 
         //passdown bypass
-        if (match.tile.name === 'platform') {
-          entity.passDownFlag = true;
-          if (entity.passdown.engageFlag) {
-            return;
+        if(entity.Ename != 'mortar') {
+          if (match.tile.name === 'platform') {
+            entity.passDownFlag = true;
+            if (entity.passdown.engageFlag) {
+              return;
+            }
+          } else {
+            entity.passDownFlag = false;
           }
-
-        } else {
-          entity.passDownFlag = false;
         }
 
         if (entity.vel.y > 0) {
@@ -117,6 +124,9 @@ class TileCollider {
             return;
           } else {
             if (entity.pos.y + entity.size.y > match.y1) {
+              // if(entity.Ename == 'mortar') {
+              //   entity.handle('generateExplosion');
+              // }
               entity.pos.y = match.y1 - entity.size.y;
               entity.vel.y = 0;
               //console.log('snap > 0');
