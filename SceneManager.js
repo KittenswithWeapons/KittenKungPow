@@ -36,33 +36,11 @@ function displaySinglePlayer(char) {
   SinglePlayer(myCanvas, myContext, char);
 }
 
-
-
 function displayMenuScene(canvas, context) {
   //display the menu, optional
   context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
   //stuff
 }
-
-
-function Pause(context,level) {
-
-  //pause
-  var img = new Image();
-  img.onload = function () {context.drawImage(img, 640 - 162, 360 - 50);} //pause img displayed
-  img.src = './SceneBackgrounds/PAUSED.png';
-  //pause code
-    level.entities.forEach(entity => {
-      entity.pauseFlag = true;
-    });
-
-  //stuff
-
-  //unpause
-  //img.remove();
-}
-
-
 
 function displayFightScene(canvas, context, levelSelection, characterSelection) {
     //context.clearRect(0, 0, 1280,720); // clears the drawing canvas, seems to help with the loading transition.
@@ -76,13 +54,26 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
       }
     });
 
+    var cpu1 = Math.floor(Math.random() * 8);
+    var cpu2 = Math.floor(Math.random() * 8);
+    var cpu3 = Math.floor(Math.random() * 8);
+    while (cpu2 === cpu1) cpu2 = Math.floor(Math.random() * 8);
+    while (cpu3 === cpu1 || cpu3 == cpu2) cpu3 = Math.floor(Math.random() * 8);
+
+    //
+    // remove this once all character sheets are finished to have random CPU characters
+    cpu1 = 1;
+    cpu2 = 3;
+    cpu3 = 7;
+    // remove this once all character sheets are finished to have random CPU characters
+    //
 
     Promise.all([
 
       createCharacter('character', characterSelection),
-      createCharacter('CPU-1', 1),
-      createCharacter('CPU-2', 3),
-      createCharacter('CPU-3', 7),
+      createCharacter('CPU-1', cpu1),
+      createCharacter('CPU-2', cpu2),
+      createCharacter('CPU-3', cpu3),
       loadLevel(levelSelection),
 
   ])
@@ -200,60 +191,15 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
 
       ['mousedown', 'mousemove'].forEach(eventName => {
           canvas.addEventListener(eventName, event => {
+            if (!isPaused) {
               if (event.buttons === 1) {
                   Character.vel.set(0, 0);
                   Character.pos.set(event.offsetX, event.offsetY);
               }
+            }
           });
       });
-
-
-      var displayFightTimer = 300;
-        masterTimer.update = function update(deltaTime) {
-          displayFightTimer--;
-          // console.log(displayFightTimer);
-          level.update(deltaTime);
-          level.comp.draw(context);
-          if (displayFightTimer > 200) {
-            context.globalAlpha = 1.0;
-            context.strokeStyle = 'red';
-            context.fillStyle = 'white';
-            context.lineWidth = 4;
-            context.font = "130px Arial";
-            var txt = "READY!!!";
-            var txtWidth = context.measureText(txt).width;
-            console.log(txtWidth);
-            context.fillText(txt, 1280/2 - txtWidth/2, 720/2);
-            context.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
-
-          } else if (displayFightTimer > 100 && displayFightTimer < 200) {
-            context.globalAlpha = 1.0;
-            context.strokeStyle = 'red';
-            context.fillStyle = 'white';
-            context.lineWidth = 4;
-            context.font = "130px Arial";
-            var txt = "SET!!!";
-            var txtWidth = context.measureText(txt).width;
-            console.log(txtWidth);
-            context.fillText(txt, 1280/2 - txtWidth/2, 720/2);
-            context.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
-
-          } else if (displayFightTimer > 0 && displayFightTimer < 100) {
-            context.globalAlpha = 1.0;
-            context.strokeStyle = 'red';
-            context.fillStyle = 'white';
-            context.lineWidth = 4;
-            context.font = "130px Arial";
-            var txt = "FIGHT!!!";
-            var txtWidth = context.measureText(txt).width;
-            console.log(txtWidth);
-            context.fillText(txt, 1280/2 - txtWidth/2, 720/2);
-            context.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
-
-          } else if (displayFightTimer === 0) {
-            Character.input.listenTo(window);
-          }
-        }
+      readyFight(level, Character);
       });
 }
 
@@ -297,4 +243,73 @@ function loadDialog(name, dialogNum) {
   scene.comp.layers.push(dialogBackgroundLayer);
 
   return scene;
+}
+
+
+function readyFight(level, Character) {
+  var displayFightTimer = 300;
+  var totalTime = displayFightTimer;
+  masterTimer.update = function update(deltaTime) {
+    
+      displayFightTimer--;
+      level.update(deltaTime);
+      level.comp.draw(myContext);
+      if (displayFightTimer > totalTime/1.5) {
+        myContext.globalAlpha = 1.0;
+        myContext.strokeStyle = 'red';
+        myContext.fillStyle = 'white';
+        myContext.lineWidth = 4;
+        myContext.font = "130px Arial";
+        var txt = "READY!!!";
+        var txtWidth = myContext.measureText(txt).width;
+        myContext.fillText(txt, 1280/2 - txtWidth/2, 720/2);
+        myContext.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
+
+      } else if (displayFightTimer > totalTime/3 && displayFightTimer < totalTime/1.5) {
+        myContext.globalAlpha = 1.0;
+        myContext.strokeStyle = 'red';
+        myContext.fillStyle = 'white';
+        myContext.lineWidth = 4;
+        myContext.font = "130px Arial";
+        var txt = "SET!!!";
+        var txtWidth = myContext.measureText(txt).width;
+        myContext.fillText(txt, 1280/2 - txtWidth/2, 720/2);
+        myContext.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
+
+      } else if (displayFightTimer > 0 && displayFightTimer < totalTime/3) {
+        myContext.globalAlpha = 1.0;
+        myContext.strokeStyle = 'red';
+        myContext.fillStyle = 'white';
+        myContext.lineWidth = 4;
+        myContext.font = "130px Arial";
+        var txt = "FIGHT!!!";
+        var txtWidth = myContext.measureText(txt).width;
+        myContext.fillText(txt, 1280/2 - txtWidth/2, 720/2);
+        myContext.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
+
+      } else if (displayFightTimer === 0) {
+        Character.input.listenTo(window);
+      }
+      if (isPaused) pauseScreen();
+    }
+}
+
+function pauseScreen () {
+  myContext.globalAlpha = 0.3;
+  myContext.fillStyle = 'black';
+  myContext.fillRect(0,0,1280,720);
+  myContext.strokeStyle = 'black';
+  myContext.globalAlpha = 0.8;
+  myContext.lineWidth = 15;
+  myContext.strokeRect(15,0,myCanvas.width - 30,myCanvas.height);
+
+  myContext.globalAlpha = 0.8;
+  myContext.strokeStyle = 'black';
+  myContext.fillStyle = 'grey';
+  myContext.lineWidth = 4;
+  myContext.font = "90px Arial";
+  var txt = "Pawsed";
+  var txtWidth = myContext.measureText(txt).width;
+  myContext.fillText(txt, 1280/2 - txtWidth/2, 720/2);
+  myContext.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
 }

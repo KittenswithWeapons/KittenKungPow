@@ -5,39 +5,47 @@ function setupKeyboard(entity, keyboard) {
     entity.input = input;
 
     input.addMapping('Space', keyState => { //jump
-        //console.log(keyState);
+        if (!isPaused) {
         if (keyState) {
             entity.Jumping = true;
             entity.grounded = false;
             entity.jump.start();
             entity.updateAnimation();
         }
+      }
     });
 
     input.addMapping('ArrowLeft', keyState => { //punch
+      if (!isPaused) {
         if (keyState) {
           entity.Light = true;
           entity.updateAnimation();
         }
+      }
     });
 
     input.addMapping('ArrowUp', keyState => { //Fireball
+      if (!isPaused) {
         if (keyState) {
           if (!entity.Special) {
             entity.Special = true;
             entity.updateAnimation();
           }
         }
+      }
     });
 
     input.addMapping('ArrowRight', keyState => { //Kick
+      if (!isPaused) {
         if (keyState) {
             entity.Heavy = true;
             entity.updateAnimation();
         }
+      }
     });
 
     input.addMapping('KeyD', keyState => { //go right
+      if (!isPaused) {
         if (keyState) {
           entity.Walking = true;
           entity.go.dir += 1;
@@ -54,9 +62,11 @@ function setupKeyboard(entity, keyboard) {
           }
           entity.updateAnimation();
         }
+      }
     });
 
     input.addMapping('KeyA', keyState => { //go left
+      if (!isPaused) {
         if (keyState) {
           entity.Walking = true;
           entity.go.dir -= 1;
@@ -73,20 +83,40 @@ function setupKeyboard(entity, keyboard) {
           }
           entity.updateAnimation();
         }
+      }
     });
 
     input.addMapping('KeyS', keyState => { //go down
+      if (!isPaused) {
         if (keyState) {
           entity.passdown.start();
         } else {
           entity.passdown.cancel();
         }
+      }
     });
 
     input.addMapping('KeyC', keyState => { //Enable CPU movement
+      if (!isPaused) {
       if (keyState) {
         CPUsEnabled = !CPUsEnabled;
       }
+    }
+    });
+
+    input.addMapping('KeyP', keyState => { // Pause/Unpause
+      if (keyState) {
+        isPaused = !isPaused;
+      }
+      
+    });
+
+    input.addMapping('KeyM', keyState => { // Mute/Unmute
+      if (keyState) {
+        if (levelMusic.sound.volume !== 0) levelMusic.sound.volume = 0;
+        else levelMusic.sound.volume = 0.1;
+      }
+      
     });
 
     input.addMapping('Digit1', keyState => {if (keyState) entity.choice = 0; entity.updateAnimation();});

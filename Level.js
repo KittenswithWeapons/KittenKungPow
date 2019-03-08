@@ -53,6 +53,8 @@ class Level {
 
 
     update(deltaTime) {
+      if (!isPaused) {
+
         if (this.itemCounter > this.itemSpawnRate * 60) {   //item spawning, Seconds * framerate
           itemPicker(this);
           this.itemCounter = 0;
@@ -81,6 +83,7 @@ class Level {
 
         });
     }
+  }
 }
 
 function itemPicker(level) { //picks the item to spawn
