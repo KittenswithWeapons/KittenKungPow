@@ -24,6 +24,7 @@ class Entity {
 				this.agentManager = null;
 				this.difficulty = 1; // CPU difficulty setting is 1-3. 1 being easiest and 3 being the hardest
 				this.input = new setupKeyboard(this);
+				this.hasSpeedBoost = false;
 				if (name.startsWith("CPU-")) {
 					this.isAgent = true;
 					this.agentManager = new agentManager(this);
@@ -38,11 +39,13 @@ class Entity {
     }
 
     update(deltaTime) {
+
+
 			if (!isPaused) {
 			if (CPUsEnabled) {
 				if (this.isAgent) this.agentManager.delay--;
 				if (this.isAgent && this.agentManager.delay === 0) {
-					this.agentManager.delay = 20;
+					this.agentManager.delay = 10;
 					this.agentManager.update();
 					//console.log(this.Ename);
 				}
@@ -121,12 +124,35 @@ class Entity {
 				controllerUpdate(this, 1); //updating controller for enemy
 			}
 
-    		this.traits.forEach(trait => {
-				//console.log(trait);
+    			this.traits.forEach(trait => {
+					//console.log(trait);
     			trait.update(this, deltaTime);
-			});
+				});
+			}
 		}
-	}
+		if (this.Ename === 'character') {
+			var img = new Image();
+			img.src = './SceneBackgrounds/playerArrow.png';
+			myContext.save();
+
+			if (this.pos.x < 0) {
+				myContext.drawImage(img, 72, 0, 21, 21, 12, this.pos.y - 15, 21, 21);
+
+			} else if (this.pos.x > 1280) {
+				myContext.drawImage(img, 24, 0, 21, 21, 1246, this.pos.y - 15, 21, 21);
+
+			} else if (this.pos.y < 0) {
+				myContext.drawImage(img, 48, 0, 21, 21, this.pos.x + this.size.x/2 - 8, 8, 21, 21);
+
+			} else if (this.pos.y > 720) {
+				myContext.drawImage(img, 0, 0, 21, 21, this.pos.x + this.size.x/2 - 8, 698, 21, 21);
+
+			} else {
+				myContext.drawImage(img, 0, 0, 21, 21, this.pos.x + this.size.x/2 - 8, this.pos.y - 25, 21, 21);
+			}
+			
+			myContext.restore();
+		}
 	}
 
 	inKillzone() {

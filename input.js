@@ -15,6 +15,28 @@ function setupKeyboard(entity, keyboard) {
       }
     });
 
+    input.addMapping('KeyW', keyState => { //jump
+      if (!isPaused) {
+      if (keyState) {
+          entity.Jumping = true;
+          entity.grounded = false;
+          entity.jump.start();
+          entity.updateAnimation();
+      }
+    }
+  });
+
+    input.addMapping('ShiftLeft', keyState => { //headingLock
+      //console.log(keyState);
+      if (keyState) {
+          entity.headingLock = true;
+          entity.updateAnimation();
+      } else {
+        entity.headingLock = false;
+        entity.updateAnimation();
+      }
+  });
+
     input.addMapping('ArrowLeft', keyState => { //punch
       if (!isPaused) {
         if (keyState) {

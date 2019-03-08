@@ -4,14 +4,13 @@ function agentManager(entity) {
     this.agent = entity;
     // this.input = setupKeyboard(this.agent);
     this.keyHeld = true;
-    this.delay = 300;
+    this.delay = startFightDelay;
     this.target;
     this.targetDist = Infinity;
     this.myStyle;
     this.choice;
     this.difficulty = this.agent.difficulty;
     this.thinkSuccess = 0;
-    this.thinkCount = 0;
 };
 
 agentManager.prototype.update = function () {
@@ -35,7 +34,7 @@ agentManager.prototype.update = function () {
     } else if (this.difficulty === 3) { // Difficulty 3 always thinks to make a new move when they're updated
         thinkChance = 100;
     }
-
+    if (this.target.Ename === 'item') thinkChance = 100;
     if (thinkChance > 50) {
         this.thinkSuccess++;
         if(this.target !== undefined) { //jake added this if statement to handle when the agent has no target
@@ -48,10 +47,6 @@ agentManager.prototype.update = function () {
             }  
             this.keyHeld = !this.keyHeld;
         }
-    }
-    this.thinkCount++;
-    if (this.thinkCount !== 0) {
-        //console.log((this.thinkSuccess/this.thinkCount)*100 +"%" );  
     }
     
 };
@@ -142,7 +137,6 @@ agentManager.prototype.move = function () {
         if (yDist < 0) {
             this.jump();
         }
-        this.delay = 20;
     }
 };
 

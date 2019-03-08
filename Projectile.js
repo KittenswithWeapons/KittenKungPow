@@ -68,7 +68,21 @@ function createProjectile(name, originEntity, damageModifier) {
     } else if(name == 'clone') {
         Projectile.size.set(28, 58);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
-        Projectile.damageValue = 5 * Projectile.damageModifier; // can we make this do damage on hit and then delete the clone?
+        Projectile.damageValue = 0;
+    } else if(name == 'slash') {
+        Projectile.size.set(20, 40);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10);
+        Projectile.damageValue = 15 * Projectile.damageModifier;
+    } else if(name == 'shield') {
+        //Projectile.throw.setSpeed(25000);
+        Projectile.size.set(20, 40);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10);
+        Projectile.damageValue = 0;
+    } else if(name == 'spin') {
+        Projectile.throw.setSpeed(30000);
+        Projectile.size.set(5, 40);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10);
+        Projectile.damageValue = 2 * Projectile.damageModifier;
     }
 
 
@@ -136,6 +150,18 @@ function createProjectile(name, originEntity, damageModifier) {
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
                     "./characters/Wizard.png"), 36, 170, 128, 84, 0.07, 8, true, false);
                 break;
+            case 'slash':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
+            case 'shield':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
+             case 'spin':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
         }
     }
 
@@ -197,6 +223,12 @@ function ThrowProjectile(name, originEntity, damageModifier) {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 150)
     } else if (name == 'clone') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 500)
+    } else if (name == 'slash') {
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 110)
+    } else if (name == 'shield') {
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 100)
+    } else if (name == 'spin') {
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 50)
     } else {
         levelObject.addEntity(createProjectile(name, originEntity, damageModifier));
     }
