@@ -144,14 +144,7 @@ function SinglePlayer(canvas, context, characterSelection) {
         playerNum++;
       });
 
-      input.listenTo(window);
-
-
-      masterTimer.update = function update(deltaTime) {
-          level.update(deltaTime);
-          level.comp.draw(context);
-      }
-
+      readyFight(level, Character);
       });
 
 }

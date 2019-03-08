@@ -38,6 +38,7 @@ class Entity {
     }
 
     update(deltaTime) {
+			if (!isPaused) {
 			if (CPUsEnabled) {
 				if (this.isAgent) this.agentManager.delay--;
 				if (this.isAgent && this.agentManager.delay === 0) {
@@ -125,6 +126,7 @@ class Entity {
     			trait.update(this, deltaTime);
 			});
 		}
+	}
 	}
 
 	inKillzone() {

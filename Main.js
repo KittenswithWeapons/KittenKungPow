@@ -9,6 +9,7 @@ var levelObject;
 var levelChoice;
 var CPUsEnabled = true;
 const masterTimer = new Timer(deltaTime);
+var isPaused = false;
 
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed
@@ -59,7 +60,5 @@ window.onload = function() {
   masterTimer.start();
   resize();
   displayStartScene(canvas, context);
-
-
-
 }
+
