@@ -15,6 +15,17 @@ function setupKeyboard(entity, keyboard) {
       }
     });
 
+    input.addMapping('ShiftLeft', keyState => { //headingLock
+      //console.log(keyState);
+      if (keyState) {
+          entity.headingLock = true;
+          entity.updateAnimation();
+      } else {
+        entity.headingLock = false;
+        entity.updateAnimation();
+      }
+  });
+
     input.addMapping('ArrowLeft', keyState => { //punch
       if (!isPaused) {
         if (keyState) {
