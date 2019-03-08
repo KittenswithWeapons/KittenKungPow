@@ -4,12 +4,13 @@
 * load all assets here
 */
 const deltaTime = 1/60; //FPS timer --- 1/60 is 60fps
-const killzone = 200; // Max distance from the edge of the screen that will trigger death
+const killzone = 400; // Max distance from the edge of the screen that will trigger death
 var levelObject;
 var levelChoice;
 var CPUsEnabled = true;
 const masterTimer = new Timer(deltaTime);
 var isPaused = false;
+var startFightDelay = 150;
 
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed
