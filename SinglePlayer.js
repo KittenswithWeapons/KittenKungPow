@@ -1,5 +1,6 @@
 var singlePlayerFlag = false; //flag for single player
 var singleplayerCharSel;
+var SINGPLEPLAYERLIFECOUNT = LIVES;
 
 var levelMusic; //level music
 
@@ -43,7 +44,8 @@ function SinglePlayer(canvas, context, characterSelection) {
 
   ])
   .then(([Character, Enemy, level]) => {
-
+      Character.lives = SINGPLEPLAYERLIFECOUNT;
+      console.log(Character.lives);
       levelObject = level;
       if (levelSelection === 'PinkCity') {
         Character.pos.set(400, 200); //sets the character position

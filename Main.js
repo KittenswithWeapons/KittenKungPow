@@ -65,5 +65,5 @@ window.onload = function() {
   studioDisplay(canvas, context);
   window.setTimeout(function() {
     displayStartScene(canvas, context);
-  }, 1800);
+  }, 1300);
 }

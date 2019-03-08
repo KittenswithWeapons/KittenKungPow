@@ -60,6 +60,9 @@ class Entity {
 			} else {
 				//character death handling / respawn
 				//console.log( this.Ename + ' death at: ' + this.pos.x + ' , ' + this.pos.y);
+				if (this.Ename === 'character') {
+					SINGPLEPLAYERLIFECOUNT--; //decrements lives for singleplayer
+				}
 				this.lives--; //decrement lives
 				if (this.lives > 0) {
 					this.damage = 0; //damage reset after death
