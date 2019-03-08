@@ -24,6 +24,7 @@ class Entity {
 				this.agentManager = null;
 				this.difficulty = 1; // CPU difficulty setting is 1-3. 1 being easiest and 3 being the hardest
 				this.input = new setupKeyboard(this);
+				this.hasSpeedBoost = false;
 				if (name.startsWith("CPU-")) {
 					this.isAgent = true;
 					this.agentManager = new agentManager(this);
@@ -38,6 +39,8 @@ class Entity {
     }
 
     update(deltaTime) {
+
+
 			if (!isPaused) {
 			if (CPUsEnabled) {
 				if (this.isAgent) this.agentManager.delay--;
