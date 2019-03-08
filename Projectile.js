@@ -4,6 +4,8 @@ function createProjectile(name, originEntity, damageModifier) {
     Projectile.type = 'projectile';
     Projectile.addTrait(new Velocity());
     Projectile.addTrait(new Throw());
+    Projectile.speed = 100;
+    Projectile.explosion = false;
     Projectile.heading = originEntity.heading;
     Projectile.throw.dir = Projectile.heading; //propels the projectile in the direction that the character is facing
     Projectile.damageModifier = damageModifier || 1;
@@ -83,12 +85,42 @@ function createProjectile(name, originEntity, damageModifier) {
         Projectile.size.set(5, 40);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10);
         Projectile.damageValue = 2 * Projectile.damageModifier;
+    } else if(name == 'rocket') {
+        Projectile.throw.setSpeed(Projectile.speed);
+        Projectile.size.set(16, 8);
+        Projectile.pos.set(originEntity.pos.x + originEntity.heading * 30, originEntity.pos.y + 30);
+        Projectile.damageValue = 0;
+    } else if(name == 'blast') {
+        Projectile.size.set(10, 30);
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y-15);
+        Projectile.damageValue = 2 * Projectile.damageModifier;
+    } else if(name == 'mortar') {
+        Projectile.size.set(12, 12);
+        Projectile.pos.set(originEntity.pos.x + originEntity.heading * 40, originEntity.pos.y + 40);
+        Projectile.damageValue = 0;
+        Projectile.vel.y -= 600;
+        Projectile.type = 'mortar';
+        window.setTimeout(function() {Projectile.vel.y += 600;}, 700);
     }
 
 
     Projectile.handle = function(intent) {
         if(intent == 'getThrower'){
             return originEntity;
+        } else if(intent == 'generateExplosion') {
+            Projectile.explosion = true;
+            window.setTimeout(function() {levelObject.removeEntity(Projectile);}, 170);
+            Projectile.throw.setSpeed(0);
+            Projectile.vel.y = 0;
+            Projectile.size.set(0, 0);
+            for(var i = 0; i < 15; i++) {
+                window.setTimeout(function() {
+                    ThrowProjectile("blast", Projectile, 1);
+                    Projectile.heading *= -1;
+                    ThrowProjectile("blast", Projectile, 1);
+                    Projectile.heading *= -1;
+                }, i * 15);
+            }
         }
     }
 
@@ -162,8 +194,25 @@ function createProjectile(name, originEntity, damageModifier) {
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
                     "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
                 break;
+            case 'rocket':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
+                    "./Projectiles/rocket.png"), 0, 0, 16, 8, 1, 1, true, false);
+                break;
+            case 'blast':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
+            case 'mortar':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
+                    "./Projectiles/mortar.png"), 0, 0, 12, 12, 1, 1, true, false);
+                break;
         }
     }
+
+    Projectile.boosterAnimation = new Animation(ASSET_MANAGER.getAsset(
+        "./effects/rocketBooster.png"), 0, 0, 11, 6, 1, 1, true, false);
+    Projectile.explosionAnimation = new Animation(ASSET_MANAGER.getAsset(
+        "./effects/explosion.png"), 0, 0, 128, 128, 0.015, 11, false, false);
 
     Projectile.draw = function (context) {
         context.save();
@@ -185,6 +234,9 @@ function createProjectile(name, originEntity, damageModifier) {
             };
         }
         context.scale(Projectile.heading, 1);
+        if(Projectile.explosion == true) {
+            Projectile.explosionAnimation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x-64, this.pos.y-64);
+        }
         if(name == 'fireball') {
             Projectile.animation.drawFrame(deltaTime, context, (Projectile.heading * this.pos.x - Projectile.size.x/2), (this.pos.y - Projectile.size.y/2), 1/8);
         } else if (name == 'arrow') {
@@ -198,6 +250,14 @@ function createProjectile(name, originEntity, damageModifier) {
         } else if (name == 'cash') {
             Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x - 20, this.pos.y);
         } else if (name == 'clone') {
+            Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y);
+        } else if (name == 'rocket' && Projectile.explosion == false) {
+            Projectile.throw.setSpeed(Projectile.speed<25000 ? Projectile.speed*=1.1 : Projectile.speed);
+            Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y);
+            if(Projectile.speed>=10000) {
+                Projectile.boosterAnimation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x - 11, this.pos.y);
+            }
+        } else if (name == 'mortar' && Projectile.explosion == false) {
             Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y);
         }
         context.restore();
@@ -229,6 +289,8 @@ function ThrowProjectile(name, originEntity, damageModifier) {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 100)
     } else if (name == 'spin') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 50)
+    } else if (name == 'blast') {
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 70)
     } else {
         levelObject.addEntity(createProjectile(name, originEntity, damageModifier));
     }

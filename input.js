@@ -1,8 +1,5 @@
-var myInput;
 function setupKeyboard(entity, keyboard) {
     const input = keyboard || new keyBoardState(); //new keyboard
-    myInput = input;
-    entity.input = input;
 
     input.addMapping('Space', keyState => { //jump
         if (!isPaused) {
@@ -150,23 +147,24 @@ function setupKeyboard(entity, keyboard) {
     input.addMapping('Digit7', keyState => {if (keyState) entity.choice = 6; entity.updateAnimation();});
     input.addMapping('Digit8', keyState => {if (keyState) entity.choice = 7; entity.updateAnimation();});
 
+    entity.input = input;
     return input;
 }
 
-
-
-
-function removeMovement() {
-  myInput.removeMapping('KeyA');
-  myInput.removeMapping('KeyD');
-  myInput.removeMapping('Space');
+function removeMovement(entity) {
+  entity.input.removeMapping('KeyA');
+  entity.input.removeMapping('KeyD');
+  entity.input.removeMapping('Space');
+  entity.go.dir = 0;
+  entity.Walking = false;
+  entity.updateAnimation();
 }
 
 function restoreMovement(entity) {
-  myInput.addMapping('KeyD', keyState => { //go right
+  entity.input.addMapping('KeyD', keyState => { //go right
     if (!keyState) {
-      myInput.removeMapping('KeyD');
-      myInput.addMapping('KeyD', keyState => { //go right
+      entity.input.removeMapping('KeyD');
+      entity.input.addMapping('KeyD', keyState => { //go right
         if (keyState) {
           entity.Walking = true;
           entity.go.dir += 1;
@@ -185,24 +183,11 @@ function restoreMovement(entity) {
         }
       });
     } else {
-      if (keyState) {
-        entity.Walking = true;
-        entity.go.dir += 1;
-        entity.updateAnimation();
-      } else {
-        if(!entity.Walking) {
-          entity.go.dir = 0;
-        } else {
-          if(entity.dustFinished == true) {
-            entity.dustFinished = false;
-          }
-          entity.Walking = false;
-            entity.go.dir -= 1;
-        }
-        entity.updateAnimation();
-      }
-      myInput.removeMapping('KeyD');
-      myInput.addMapping('KeyD', keyState => { //go right
+      entity.Walking = true;
+      entity.go.dir += 1;
+      entity.updateAnimation();
+      entity.input.removeMapping('KeyD');
+      entity.input.addMapping('KeyD', keyState => { //go right
         if (keyState) {
           entity.Walking = true;
           entity.go.dir += 1;
@@ -223,10 +208,10 @@ function restoreMovement(entity) {
     }
   });
 
-  myInput.addMapping('KeyA', keyState => { //go left
+  entity.input.addMapping('KeyA', keyState => { //go left
       if (!keyState) {
-        myInput.removeMapping('KeyA');
-        myInput.addMapping('KeyA', keyState => { //go left
+        entity.input.removeMapping('KeyA');
+        entity.input.addMapping('KeyA', keyState => { //go left
           if (keyState) {
             entity.Walking = true;
             entity.go.dir -= 1;
@@ -245,24 +230,11 @@ function restoreMovement(entity) {
           }
         });
       } else {
-        if (keyState) {
-          entity.Walking = true;
-          entity.go.dir -= 1;
-          entity.updateAnimation();
-        } else {
-          if(!entity.Walking) {
-            entity.go.dir = 0;
-          } else {
-            if(entity.dustFinished == true) {
-              entity.dustFinished = false;
-            }
-            entity.Walking = false;
-              entity.go.dir += 1;
-          }
-          entity.updateAnimation();
-        }
-        myInput.removeMapping('KeyA');
-        myInput.addMapping('KeyA', keyState => { //go left
+        entity.Walking = true;
+        entity.go.dir -= 1;
+        entity.updateAnimation();
+        entity.input.removeMapping('KeyA');
+        entity.input.addMapping('KeyA', keyState => { //go left
           if (keyState) {
             entity.Walking = true;
             entity.go.dir -= 1;
@@ -283,7 +255,7 @@ function restoreMovement(entity) {
       }
   });
 
-  myInput.addMapping('Space', keyState => { //jump
+  entity.input.addMapping('Space', keyState => { //jump
     if (keyState) {
         entity.Jumping = true;
         entity.grounded = false;
