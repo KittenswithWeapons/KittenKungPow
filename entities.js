@@ -254,7 +254,7 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.06, 10, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Warrior
             characters[4]), 0, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize - 20, 0.1, 12, false, false),
+            Character.frameSize, Character.frameSize - 20, 0.07, 12, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
             characters[5]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
@@ -279,7 +279,13 @@ function createCharacter(name, choice) {
         function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character, Character.damageModifier);}, 300)}, //Rogue
         function() {
             Character.headingLock = true;
-            for(var i = 0; i < 30; i++) {
+            if (!Character.grounded) {        // jake ability addition 
+              window.setTimeout(function() {
+                Character.vel.y = -650;       // jake made it jump, #linkSwordWhirlwind
+                Character.jump.jumpNumber = 4;
+              }, 50);
+            }                                 // jake ability addition end #whirlydirly
+            for(var i = 0; i < 30; i++) { //was looped 30
                 window.setTimeout(function() {
                     ThrowProjectile("spin", Character, Character.damageModifier);
                     Character.heading *= -1;
