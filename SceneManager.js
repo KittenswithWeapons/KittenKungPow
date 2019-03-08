@@ -251,8 +251,10 @@ function loadDialog(name, dialogNum) {
 
 
 function readyFight(level, Character) {
-  var displayFightTimer = 300;
+  var displayFightTimer = startFightDelay;
   var totalTime = displayFightTimer;
+  var img = new Image();
+  img.src = './SceneBackgrounds/controlsBig.png';
   masterTimer.update = function update(deltaTime) {
 
       displayFightTimer--;
@@ -268,6 +270,7 @@ function readyFight(level, Character) {
         var txtWidth = myContext.measureText(txt).width;
         myContext.fillText(txt, 1280/2 - txtWidth/2, 720/2);
         myContext.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
+        myContext.drawImage(img, 0, 0, 696, 256, 1280/2 - 174, 720/2 + 20, 348, 128);
 
       } else if (displayFightTimer > totalTime/3 && displayFightTimer < totalTime/1.5) {
         myContext.globalAlpha = 1.0;
@@ -279,6 +282,7 @@ function readyFight(level, Character) {
         var txtWidth = myContext.measureText(txt).width;
         myContext.fillText(txt, 1280/2 - txtWidth/2, 720/2);
         myContext.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
+        myContext.drawImage(img, 0, 0, 696, 256, 1280/2 - 174, 720/2 + 20, 348, 128);
 
       } else if (displayFightTimer > 0 && displayFightTimer < totalTime/3) {
         myContext.globalAlpha = 1.0;
@@ -290,6 +294,7 @@ function readyFight(level, Character) {
         var txtWidth = myContext.measureText(txt).width;
         myContext.fillText(txt, 1280/2 - txtWidth/2, 720/2);
         myContext.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
+        myContext.drawImage(img, 0, 0, 696, 256, 1280/2 - 174, 720/2 + 20, 348, 128);
 
       } else if (displayFightTimer === 0) {
         Character.input.listenTo(window);
@@ -316,4 +321,8 @@ function pauseScreen () {
   var txtWidth = myContext.measureText(txt).width;
   myContext.fillText(txt, 1280/2 - txtWidth/2, 720/2);
   myContext.strokeText(txt, 1280/2 - txtWidth/2, 720/2);
+
+  var img = new Image();
+  img.src = './SceneBackgrounds/controlsBig.png';
+  myContext.drawImage(img, 0, 0, 696, 256, 1280/2 - 174, 720/2 + 20, 348, 128);
 }
