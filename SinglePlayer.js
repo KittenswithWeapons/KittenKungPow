@@ -139,7 +139,7 @@ function SinglePlayer(canvas, context, characterSelection) {
 
       //sets up controls
       const input = setupKeyboard(Character);
-      const controllerInput = setUpControllers(Character);
+      const controllerInput = setUpControllers();
 
       // Draw character icons and lives
       var playerNum = 1;

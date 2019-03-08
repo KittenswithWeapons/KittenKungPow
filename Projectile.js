@@ -32,7 +32,7 @@ function createProjectile(name, originEntity, damageModifier) {
     } else if(name == 'kick') {
         Projectile.size.set(20, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
-        Projectile.damageValue = 30 * Projectile.damageModifier;
+        Projectile.damageValue = 25 * Projectile.damageModifier;
     } else if(name == 'dagger') {
         Projectile.size.set(15, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);

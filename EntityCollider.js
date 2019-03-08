@@ -45,8 +45,8 @@
               //health Milk
               if ((entity.Ename === 'health' && entityObject.type === 'player') ||
                         (entity.type === 'player' && entityObject.Ename === 'health')){
-                entityObject.damage -= 50;
-                entity.damage -= 50;
+                entityObject.damage -= 75;
+                entity.damage -= 75;
                 if (entityObject.damage < 0 || entity.damage < 0) {
                   entityObject.damage = 0;
                   entity.damage = 0;
@@ -151,8 +151,8 @@
                 //health Milk
                 if ((entity.Ename === 'health' && entityObject.type === 'player') ||
                           (entity.type === 'player' && entityObject.Ename === 'health')){
-                  entityObject.damage -= 50;
-                  entity.damage -= 50;
+                  entityObject.damage -= 75;
+                  entity.damage -= 75;
                   if (entityObject.damage < 0 || entity.damage < 0) {
                     entityObject.damage = 0;
                     entity.damage = 0;

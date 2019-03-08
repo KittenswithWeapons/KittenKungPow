@@ -15,6 +15,9 @@ function selectCharacters(canvas, context) {
     loadScene('charSelect'),
 ])
 .then(([Cursor, KarateKat, Archer, Wizard, Rogue, Warrior, Soldier, Vagrant, FatCat, Scene]) => {
+
+    setUpControllers();
+
     Scene.addEntity(KarateKat);
     KarateKat.pos.set(175, 115);
 
@@ -91,6 +94,7 @@ function selectCharacters(canvas, context) {
     masterTimer.update = function update(deltaTime) {
     Scene.update(deltaTime);
     Scene.comp.draw(context);
+    controllerMenuUpdate(Scene);
     }
 
 
@@ -136,6 +140,45 @@ function selectCharacters(canvas, context) {
     };
     //move to the next scene
     this.addEventListener('keydown', charNextHandler, false);
+
+
+    function controllerMenuUpdate(Scene) {                 //controller support
+      if (controllers[0] != null){
+
+        
+        if (controllers[0].buttons[9].pressed){  // Y button???
+          if (controllers[0].Start_buttonPressed === false) {
+            controllers[0].Start_buttonPressed = true;
+            // do Start button stuff
+            Cselected[0] = CChoices[CselectedNum];
+            //console.log('characters selected: ' + CChoices[choiceRow][choiceCol]);
+            //delete scene ---------------------------------------------------
+            Scene.removeEntity(Cursor);
+            Scene.clearScene();
+            this.removeEventListener('keydown', characterCursorHandler, false);
+            this.removeEventListener('keydown', charNextHandler, false);
+            //----------------------------------------------------------------
+            if(singlePlayerFlag) {
+              singleplayerCharSel = CChoices[choiceRow][choiceCol]
+              SINGPLEPLAYERLIFECOUNT = LIVES;
+              //displaySinglePlayer(singleplayerCharSel);  //SinglePlayer
+              dialogScene(canvas, context, dialogNum);
+            } else {
+              displayLevelSelectScene(canvas, context, CChoices[choiceRow][choiceCol]);
+            }
+            return CChoices[choiceRow][choiceCol];
+            //
+          }
+        } else {
+          controllers[0].Start_buttonPressed = false;
+        }
+
+
+
+
+
+      }
+    }
 
 
     return CChoices[choiceRow][choiceCol]; //returns what character was selected

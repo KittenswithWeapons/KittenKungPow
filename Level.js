@@ -53,15 +53,16 @@ class Level {
 
 
     update(deltaTime) {
+      controllerUpdate(null, 0);
       if (!isPaused) {
 
         if (this.itemCounter > this.itemSpawnRate * 60) {   //item spawning, Seconds * framerate
           var itemCount = 0;
           this.entities.forEach(entity => {
             if (entity.type === 'Item') itemCount++;
-          }); 
+          });
 
-          
+
           if (itemCount < 5) itemPicker(this);
           this.itemCounter = 0;
         }

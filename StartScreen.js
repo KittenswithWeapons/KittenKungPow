@@ -5,6 +5,8 @@ function startScreen(canvas, context) {
 ])
 .then(([TitleCat, StartScene]) => {
 
+    setUpControllers();
+
     StartScene.addEntity(TitleCat);
     TitleCat.pos.set(370, 390);
 
@@ -19,8 +21,8 @@ function startScreen(canvas, context) {
     masterTimer.update = function update(deltaTime) {
     StartScene.update(deltaTime);
     StartScene.comp.draw(context);
+    controllerMenuUpdate(StartScene);
     }
-
 
     // next screen --------------------
     nextHandler = function(e) {
@@ -38,5 +40,25 @@ function startScreen(canvas, context) {
     //move to the next scene
     this.addEventListener('keydown', nextHandler, false);
     });
+
+    function controllerMenuUpdate(StartScene) {                 //controller support
+      if (controllers[0] != null){
+        if (controllers[0].buttons[9].pressed){  // Y button???
+          if (controllers[0].Start_buttonPressed === false) {
+            controllers[0].Start_buttonPressed = true;
+            // do Start button stuff
+            mainMusic.stop(); //stops the main music
+            StartScene.clearScene();
+            //----------------------------------------------------------------
+            displayCharSelectScene(canvas, context);
+            this.removeEventListener('keydown', nextHandler, false);
+            //
+          }
+        } else {
+          controllers[0].Start_buttonPressed = false;
+        }
+      }
+    }
+
     return;
 }

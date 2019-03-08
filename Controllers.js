@@ -5,12 +5,14 @@ var A_buttonPressed = false;
 var B_buttonPressed = false;
 var X_buttonPressed = false;
 var Y_buttonPressed = false;
+var Start_buttonPressed = false;
+var Select_buttonPressed = false;
 var right = false;
 var left = false;
 var idle = false;
 var up = false;
 
-function setUpControllers(entity) {
+function setUpControllers() {
     window.addEventListener("gamepadconnected", function(e) {
 		  var gp = navigator.getGamepads()[e.gamepad.index];
 		  addController(gp);
@@ -33,13 +35,32 @@ function getControllers(){
 //adds a controller to the array of controllers
 function addController(controller){  //may have to order, so that the controller that plugs in first gets controller[0], may. #maybebug
 	controllers[controller.index] = controller;
-
 }
 
 //controller controls method ---------------------
 function controllerUpdate(entity, controllerNUM){
 	//console.log(getControllers());
+
 	if (controllers[controllerNUM] != null){   //checks for controller connected
+    //level based pause
+    if (entity === null) {
+      // Start Button-----------------------------------------------------------------
+  		if (controllers[controllerNUM].buttons[9].pressed){  // Y button???
+  			if (controllers[controllerNUM].Start_buttonPressed === false) {
+  				controllers[controllerNUM].Start_buttonPressed = true;
+          // do Start button stuff
+          console.log('pause');
+          isPaused = !isPaused; //pauses
+          //
+  			}
+  		} else {
+  			controllers[controllerNUM].Start_buttonPressed = false;
+  		}
+      return;
+      //--------------------------------------------------------------------------
+    }
+
+
 
     //BUTTON SECTION------------------------------------------------------------
 
@@ -112,6 +133,21 @@ function controllerUpdate(entity, controllerNUM){
     //--------------------------------------------------------------------------
 
 
+
+    // Select Button-----------------------------------------------------------------
+		if (controllers[controllerNUM].buttons[8].pressed){  // Y button???
+			if (controllers[controllerNUM].Select_buttonPressed === false) {
+				controllers[controllerNUM].Select_buttonPressed = true;
+        // do Select button stuff
+        CPUsEnabled = !CPUsEnabled;
+        //
+			}
+		} else {
+			controllers[controllerNUM].Select_buttonPressed = false;
+		}
+    //--------------------------------------------------------------------------
+
+
     //**************************************************************************
     //**************************************************************************
     //**************************************************************************
@@ -119,11 +155,15 @@ function controllerUpdate(entity, controllerNUM){
 
     //JOYSTICK SECTION----------------------------------------------------------
     //left right action
-		if (controllers[controllerNUM].axes[0] > 0.3) { //go right
+		if (controllers[controllerNUM].axes[0] > 0.4) { //go right
       if (!right) {
         if (!isPaused) {
           entity.Walking = true;
-          entity.go.dir = 1;
+          if(entity.go.dir === 0) {
+            entity.go.dir = 1;
+          } else if (entity.go.dir === -1){
+            entity.go.dir *= -1;
+          }
           entity.updateAnimation();
           if(entity.dustFinished == true) {
               entity.dustFinished = false;
@@ -133,11 +173,15 @@ function controllerUpdate(entity, controllerNUM){
         right = true;
       }
 			//console.log('RIGHT');
-		} else if (controllers[controllerNUM].axes[0] < -0.3) { //go left
+		} else if (controllers[controllerNUM].axes[0] < -0.4) { //go left
         if (!left) {
           if (!isPaused) {
             entity.Walking = true;
-            entity.go.dir = -1;
+            if(entity.go.dir === 0) {
+              entity.go.dir = -1;
+            } else if (entity.go.dir === 1){
+              entity.go.dir *= -1;
+            }
             entity.updateAnimation();
             if(entity.dustFinished == true) {
                 entity.dustFinished = false;
@@ -147,7 +191,7 @@ function controllerUpdate(entity, controllerNUM){
           left = true
         }
 			//console.log('LEFT');
-		} else if (controllers[controllerNUM].axes[0] < 0.3 & controllers[controllerNUM].axes[0] > -0.3 ) { // stops the kitty
+		} else if (controllers[controllerNUM].axes[0] < 0.4 & controllers[controllerNUM].axes[0] > -0.4 ) { // stops the kitty
 			entity.go.dir = 0;
       entity.Walking = false;
       right = false;
@@ -161,13 +205,15 @@ function controllerUpdate(entity, controllerNUM){
 
     //jump and passdown JOYSTICK SECTION----------------------------------------
 
-    if (controllers[controllerNUM].axes[1] > 0.7) { //go down
+    if (controllers[controllerNUM].axes[1] > 0.5) { //go down
       if (!down) {
         if (!isPaused) {
-          entity.passdown.start();
+          if (entity.grounded) {
+            entity.passdown.start();
+          }
         }
       }
-		} else if (controllers[controllerNUM].axes[1] < -0.7) { //go up
+		} else if (controllers[controllerNUM].axes[1] < -0.5) { //go up
         if (!up) {
           up = true;
           if (!isPaused) {
@@ -177,7 +223,7 @@ function controllerUpdate(entity, controllerNUM){
             entity.updateAnimation();
           }
         }
-		} else if (controllers[controllerNUM].axes[1] < 0.7 & controllers[controllerNUM].axes[1] > -0.7 ) { // stops the kitty
+		} else if (controllers[controllerNUM].axes[1] < 0.5 & controllers[controllerNUM].axes[1] > -0.5 ) { // stops the kitty
 			//do nothing
       entity.passdown.cancel();
       down = false;

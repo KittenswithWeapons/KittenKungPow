@@ -60,6 +60,7 @@ window.onload = function() {
   //displayFightScene(canvas, context);
   masterTimer.start();
   resize();
+  window.focus();
 
 
   studioDisplay(canvas, context);

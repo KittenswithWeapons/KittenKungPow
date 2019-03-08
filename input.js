@@ -130,7 +130,7 @@ function setupKeyboard(entity, keyboard) {
       if (keyState) {
         isPaused = !isPaused;
       }
-      
+
     });
 
     input.addMapping('KeyM', keyState => { // Mute/Unmute
@@ -138,7 +138,7 @@ function setupKeyboard(entity, keyboard) {
         if (levelMusic.sound.volume !== 0) levelMusic.sound.volume = 0;
         else levelMusic.sound.volume = 0.1;
       }
-      
+
     });
 
     input.addMapping('Digit1', keyState => {if (keyState) entity.choice = 0; entity.updateAnimation();});
