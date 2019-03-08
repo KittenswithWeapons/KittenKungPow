@@ -207,6 +207,7 @@ function createModesLayer(scene) {
 }
 
 function drawModesLayer(context) {
+
   //draw controls
   var controls = new Image();
   controls.onload = function () {
@@ -215,16 +216,33 @@ function drawModesLayer(context) {
   controls.src = "./SceneBackgrounds/charControls.png";
   //end controls
 
+  //draw extended controls
+  var arrows = new Image();
+  arrows.onload = function () {
+  context.drawImage(arrows, 1130, 680); //position the level preview image
+  }
+  arrows.src = "./Options/arrows.png";
+  //end extended controls
+
+  //draw lives
+  var lifecount = new Image();
+  lifecount.onload = function () {
+  context.drawImage(lifecount, 990, 690); //position the level preview image
+  }
+  lifecount.src = `./Options/lives${LIVES}.png`;
+  // lifecount.src = './Options/lives1.png';
+  //end lives
+
   // Mode switch images-------------------------------------------------------
   var storyModeIMG = new Image();
   storyModeIMG.onload = function () {
-  context.drawImage(storyModeIMG, 690, 680); //position
+  context.drawImage(storyModeIMG, 690, 685); //position
   }
   storyModeIMG.src = "./Options/StoryModeOff.png";
 
   var freePlayIMG = new Image();
   freePlayIMG.onload = function () {
-  context.drawImage(freePlayIMG, 340, 680); //position
+  context.drawImage(freePlayIMG, 390, 685); //position
   }
   freePlayIMG.src = "./Options/FreePlayOn.png";
 

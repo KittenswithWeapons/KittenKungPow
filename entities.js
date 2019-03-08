@@ -35,7 +35,6 @@ function createCharacter(name, choice) {
     Character.damage = 0;
     Character.damageModifier = 2; //multiplies the damage........jake turned up the damage, was 1
 
-    Character.lives = 3;
     Character.choice = choice || 0;
     Character.player = playerNum;
 
@@ -384,13 +383,13 @@ function createCharacter(name, choice) {
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     Character.draw = function (context) {
-      
-        
+
+
         if(Character.context == null) {
             Character.context = context;
         }
         context.save();
-        
+
         if(Character.heading === -1) {
             context.translate(40, -5);
         } else {
@@ -466,8 +465,8 @@ function createCharacter(name, choice) {
         if(Character.pain) {
             Character.painAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x+18, this.pos.y+22);
         }
-    
-        
+
+
     } else {
         if(!Character.Light && !Character.Heavy && !Character.Special) {
             Character.animation.drawFrame(0, context, Character.heading * this.pos.x, this.pos.y);

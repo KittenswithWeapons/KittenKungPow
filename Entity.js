@@ -1,4 +1,6 @@
 
+var LIVES = 3;
+
 class Trait{
 	constructor(name){
 		this.NAME = name;
@@ -13,6 +15,7 @@ class Entity {
     constructor(name) {
 				this.Ename = name;
 				this.type;
+				this.lives = LIVES;
 				this.grounded = true;
 				this.passDownFlag = false;
 				this.jumpCount = 0;
@@ -150,7 +153,7 @@ class Entity {
 			} else {
 				myContext.drawImage(img, 0, 0, 21, 21, this.pos.x + this.size.x/2 - 8, this.pos.y - 25, 21, 21);
 			}
-			
+
 			myContext.restore();
 		}
 	}

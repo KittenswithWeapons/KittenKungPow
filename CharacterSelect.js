@@ -116,12 +116,22 @@ function selectCharacters(canvas, context) {
         return CChoices[choiceRow][choiceCol];
       }
 
-      if (e.code === 'ArrowLeft') {
+      if (e.code === 'ArrowLeft') { //switch modes
         singlePlayerFlag = false;
         }
       if (e.code === 'ArrowRight') {
         singlePlayerFlag = true;
         }
+      if (e.code === 'ArrowUp') { //increment lives
+        if(LIVES < 5) {
+          LIVES++;
+        }
+      }
+      if (e.code === 'ArrowDown') { //decrement lives
+        if(LIVES > 1) {
+          LIVES--;
+        }
+      }
     };
     //move to the next scene
     this.addEventListener('keydown', charNextHandler, false);
