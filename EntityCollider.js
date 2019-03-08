@@ -55,11 +55,11 @@
               //damage fish: doubles damage for 5 seconds
               if ((entity.Ename === 'damage' && entityObject.type === 'player') ||
                         (entity.type === 'player' && entityObject.Ename === 'damage')){
-                entity.damageModifier = 2;
-                entityObject.damageModifier = 2;
+                entity.damageModifier = entity.damageModifier * 2;
+                entityObject.damageModifier = entityObject.damageModifier * 2;
                 window.setTimeout(function() {
-                  entity.damageModifier = 1;
-                  entityObject.damageModifier = 1;
+                  entity.damageModifier = entity.damageModifier * .5;
+                  entityObject.damageModifier = entityObject.damageModifier * .5;
                 }, 5000);
               }
 
@@ -157,11 +157,11 @@
                 //damage fish: doubles damage for 5 seconds
                 if ((entity.Ename === 'damage' && entityObject.type === 'player') ||
                           (entity.type === 'player' && entityObject.Ename === 'damage')){
-                  entity.damageModifier = 2;
-                  entityObject.damageModifier = 2;
+                  entity.damageModifier = entity.damageModifier * 2;
+                  entityObject.damageModifier = entityObject.damageModifier * 2;
                   window.setTimeout(function() {
-                    entity.damageModifier = 1;
-                    entityObject.damageModifier = 1;
+                    entity.damageModifier = entity.damageModifier * .5;
+                    entityObject.damageModifier = entityObject.damageModifier * .5;
                   }, 5000);
                 }
 

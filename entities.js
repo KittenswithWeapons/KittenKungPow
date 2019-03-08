@@ -1,6 +1,6 @@
 var characters = ["./characters/Karate.png", "./characters/Archer.png", "./characters/Wizard.png",
     "./characters/Rogue.png", "./characters/Warrior.png", "./characters/Soldier.png", "./characters/Vagrant.png",
-    "./characters/FatCat.png"];
+    "./characters/FatCat.png", "./characters/FatCat.png"]; //replace last char with old lady final boss
 
 var playerNum = 1;
 function createCharacter(name, choice) {
@@ -33,9 +33,9 @@ function createCharacter(name, choice) {
     Character.headingLock = false;
 
     Character.damage = 0;
-    Character.damageModifier = 1;
+    Character.damageModifier = 2; //multiplies the damage........jake turned up the damage, was 1
 
-    Character.lives = 5;
+    Character.lives = 3;
     Character.choice = choice || 0;
     Character.player = playerNum;
 
@@ -141,6 +141,7 @@ function createCharacter(name, choice) {
     }
 
     Character.updateAnimation = function () {
+        if (!isPaused) {
         //idle values
         this.startX = 36;
         this.startY = 42;
@@ -192,6 +193,7 @@ function createCharacter(name, choice) {
         Character.lightAnimation = Character.lightAnimations[Character.choice];
         Character.heavyAnimation = Character.heavyAnimations[Character.choice];
         Character.specialAnimation = Character.specialAnimations[Character.choice];
+    }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -352,7 +354,7 @@ function createCharacter(name, choice) {
             }, 200);
             window.setTimeout(function() {
                 restoreMovement(Character);
-            }, 400); 
+            }, 400);
             window.setTimeout(function() {
                 Character.go.dir = 0;
             }, 400);
@@ -382,17 +384,20 @@ function createCharacter(name, choice) {
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     Character.draw = function (context) {
+      
+        
         if(Character.context == null) {
             Character.context = context;
         }
         context.save();
+        
         if(Character.heading === -1) {
             context.translate(40, -5);
         } else {
             context.translate(-10, -5);
         }
         context.scale(Character.heading, 1);
-
+        if (!isPaused) {
         if(!Character.Light && !Character.Heavy && !Character.Special) {
             Character.animation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y);
         } else if (Character.Light) {
@@ -461,10 +466,75 @@ function createCharacter(name, choice) {
         if(Character.pain) {
             Character.painAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x+18, this.pos.y+22);
         }
-        context.restore();
+    
+        
+    } else {
+        if(!Character.Light && !Character.Heavy && !Character.Special) {
+            Character.animation.drawFrame(0, context, Character.heading * this.pos.x, this.pos.y);
+        } else if (Character.Light) {
+            if(Character.choice == 2) { Character.zapAnimation.drawFrame(0, context, Character.heading * this.pos.x+18, Character.pos.y+12);}
+            Character.lightAnimation.drawFrame(0, context, Character.heading * this.pos.x, this.pos.y+2);
+            if(!Character.lightAttackFinished) {
+                Character.lightAttacks[Character.choice]();
+                Character.lightAttackFinished = true;
+            }
+            if(Character.lightAnimation.isDone()) {
+                Character.animation.drawFrame(0, context, Character.heading * this.pos.x, this.pos.y);
+                Character.Light = false;
+                Character.lightAttackFinished = false;
+                Character.lightAnimation.elapsedTime = 0;
+            }
+        } else if (Character.Heavy) {
+            if(Character.choice == 2) {
+                if(Character.laserHeight < this.pos.y) {
+                    Character.skyLaserAnimation.setFrameHeight(800 - (720 - Character.laserHeight) + 10);
+                    Character.laserHeight += 40;
+                } else {
+                    Character.impactAnimation.drawFrame(0, context, Character.heading * this.pos.x + 50, Character.laserHeight-20);
+                }
+                Character.skyLaserAnimation.drawFrame(0, context, Character.heading * this.pos.x + 114, 0);
+            }
+            Character.heavyAnimation.drawFrame(0, context, Character.heading * this.pos.x, this.pos.y+2);
+            if(!Character.heavyAttackFinished) {
+                Character.heavyAttacks[Character.choice]();
+                Character.heavyAttackFinished = true;
+            }
+            if(Character.heavyAnimation.isDone()) {
+                Character.animation.drawFrame(0, context, Character.heading * this.pos.x, this.pos.y);
+                Character.Heavy = false;
+                Character.laserHeight = 0;
+                Character.heavyAttackFinished = false;
+                Character.heavyAnimation.elapsedTime = 0;
+            }
+        } else if (Character.Special) {
+            Character.specialAnimation.drawFrame(0, context, Character.heading * this.pos.x, this.pos.y+2);
+            if(!Character.specialAttackFinished) {
+                Character.specialAttacks[Character.choice]();
+                Character.specialAttackFinished = true;
+            }
+            if(Character.specialAnimation.isDone()) {
+                Character.animation.drawFrame(0, context, Character.heading * this.pos.x, this.pos.y);
+                Character.Special = false;
+                Character.specialAttackFinished = false;
+                Character.specialAnimation.elapsedTime = 0;
+            }
+        }
 
+        if(Character.Walking && Character.grounded) {
+            if(!Character.dustFinished) {
+                Character.dustAnimation.drawFrame(0, context, Character.heading * this.pos.x-7, this.pos.y+46);
+            }
+            if(Character.dustAnimation.isDone()) {
+                Character.dustAnimation.elapsedTime = 0;
+                Character.dustFinished = true;
+            }
+        }
+        if(Character.pain) {
+            Character.painAnimation.drawFrame(0, context, Character.heading * this.pos.x+18, this.pos.y+22);
+        }
+    }
+    context.restore();
         drawInfo(context);
-        //if(PlayerNum <
     }
 
     function drawInfo(context) {
@@ -508,7 +578,7 @@ function createCharacter(name, choice) {
                 context.strokeText("X", 162 + 320 * (Character.player - 1),709);
                 context.strokeText(Character.lives, 180 + 320 * (Character.player - 1),709);
             }
-            
+
             context.globalAlpha = 1.0;
             context.lineWidth = 1;
             context.strokeStyle = 'black';

@@ -70,16 +70,16 @@ agentManager.prototype.move = function () {
             this.agent.heading = -1;
         }
 
-        if (this.myStyle === 'melee') { // Up close fighting style
+        if (this.myStyle === 'melee') { // Melee fighting style
 
             if (this.targetDist > 50) { // move to target
                 if (xDist > 0) {
                     this.right();
-                    this.keyHeld = !this.keyHeld;
+                    
                 }
                 if (xDist < 0) {
                     this.left();
-                    this.keyHeld = !this.keyHeld;
+                    
                 }
                 if (yDist < 0) {
                     this.jump();
@@ -102,11 +102,11 @@ agentManager.prototype.move = function () {
             if (this.targetDist < 50) { // move away from target
                 if (xDist > 0) {
                     this.left();
-                    this.keyHeld = !this.keyHeld;
+                    
                 }
                 if (xDist < 0) {
                     this.right();
-                    this.keyHeld = !this.keyHeld;
+                    
                 }
                 if (yDist < 0) {
                     this.down();
@@ -129,11 +129,11 @@ agentManager.prototype.move = function () {
     } else { // Target is an item
         if (xDist > 0) {
             this.right();
-            this.keyHeld = !this.keyHeld;
+            
         }
         if (xDist < 0) {
             this.left();
-            this.keyHeld = !this.keyHeld;
+            
         }
 
         if (yDist > 0) {
@@ -153,11 +153,11 @@ agentManager.prototype.avoidKillzone = function () {
     }
     if (this.agent.pos.x < 80) {
         this.right();
-        this.keyHeld = !this.keyHeld;
+        
     }
     if (this.agent.pos.x > 1120) {
         this.left();
-        this.keyHeld = !this.keyHeld;
+        
     }
     if (this.agent.pos.y < 100) {
         this.down();

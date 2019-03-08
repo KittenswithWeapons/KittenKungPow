@@ -18,8 +18,11 @@ class Scene{
     }
 
     update(deltaTime) {
+      if (!isPaused) {
+      
         this.entities.forEach(entity => {
             entity.update(deltaTime);
         });
+      }
     }
 }

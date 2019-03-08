@@ -45,14 +45,7 @@ function drawBackgroundImage(name, context) {
     img.src = `./Enviroment/${name}.gif`;
 }
 
-function drawSceneBackgroundImage(scene, context) {
-    //console.log("draw");
-    var img = new Image();
-    img.onload = function () {
-    context.drawImage(img, 0, 0);
-    }
-    img.src = `./SceneBackgrounds/${scene}.jpg`;
-}
+
 
 function createSpriteLayer(entities) {
     return function drawSpriteLayer(context) {
@@ -77,6 +70,14 @@ function createSceneBackgroundLayer(scene) {
     };
 }
 
+function drawSceneBackgroundImage(scene, context) {
+    //console.log("draw");
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 0, 0);
+    }
+    img.src = `./SceneBackgrounds/${scene}.jpg`;
+}
 
 
 // -----------------------------------------------level preview images layer
@@ -95,6 +96,14 @@ function createLevelPreviewLayer(scene) {
 }
 
 function drawLevelPreviewImages(context) {
+    //draw controls
+    var controls = new Image();
+    controls.onload = function () {
+    context.drawImage(controls, 0, 670); //position the level preview image
+    }
+    controls.src = "./SceneBackgrounds/levelControls.png";
+    //end controls
+
     //row 1------------------------------------------------------------------------------------------
     var img = new Image();
     img.onload = function () {
@@ -198,16 +207,24 @@ function createModesLayer(scene) {
 }
 
 function drawModesLayer(context) {
+  //draw controls
+  var controls = new Image();
+  controls.onload = function () {
+  context.drawImage(controls, 0, 670); //position the level preview image
+  }
+  controls.src = "./SceneBackgrounds/charControls.png";
+  //end controls
+
   // Mode switch images-------------------------------------------------------
   var storyModeIMG = new Image();
   storyModeIMG.onload = function () {
-  context.drawImage(storyModeIMG, 690, 670); //position
+  context.drawImage(storyModeIMG, 690, 680); //position
   }
   storyModeIMG.src = "./Options/StoryModeOff.png";
 
   var freePlayIMG = new Image();
   freePlayIMG.onload = function () {
-  context.drawImage(freePlayIMG, 340, 670); //position
+  context.drawImage(freePlayIMG, 340, 680); //position
   }
   freePlayIMG.src = "./Options/FreePlayOn.png";
 
@@ -223,8 +240,47 @@ function drawModesLayer(context) {
 
 
 
+function createDialogBackgroundLayer(scene, dialogNum) {
+    //console.log(scene);
+    const buffer = document.createElement('canvas');
+    buffer.width = 1280;
+    buffer.height = 720;
 
+    const context = buffer.getContext('2d');
 
+    //console.log('done');
+    return function drawDialogBackgroundLayer(context) {
+        drawDialogBackgroundImage(scene.SceneName, context, dialogNum);   ///set up for jpg backgrounds only
+        context.drawImage(buffer, 0, 0);
+    };
+}
+
+function drawDialogBackgroundImage(scene, context, dialogNum) {
+    //console.log("draw");
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 0, 0);
+    }
+    img.src = `./Dialogs/dialog${dialogNum}.png`;
+}
+
+function createDialogLevelLayer(name) {
+    const buffer = document.createElement('canvas');
+    buffer.width = 1280;
+    buffer.height = 720;
+    const context = buffer.getContext('2d');
+    return function drawDialogLevelLayer(context) {
+        drawDialogLevelImage(name, context);
+        context.drawImage(buffer, 0, 0);
+    };
+}
+function drawDialogLevelImage(name, context) {
+    var img = new Image();
+    img.onload = function () {
+    context.drawImage(img, 0, 0);
+    }
+    img.src = `./Enviroment/${name}.gif`;
+}
 
 
 

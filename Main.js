@@ -9,6 +9,7 @@ var levelObject;
 var levelChoice;
 var CPUsEnabled = true;
 const masterTimer = new Timer(deltaTime);
+var isPaused = false;
 
 const ASSET_MANAGER = new AssetManager();
 //que all the asset files needed
@@ -58,8 +59,10 @@ window.onload = function() {
   //displayFightScene(canvas, context);
   masterTimer.start();
   resize();
-  displayStartScene(canvas, context);
 
 
-
+  studioDisplay(canvas, context);
+  window.setTimeout(function() {
+    displayStartScene(canvas, context);
+  }, 1800);
 }

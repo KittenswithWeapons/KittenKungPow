@@ -16,7 +16,7 @@ function createProjectile(name, originEntity, damageModifier) {
     } else if(name == 'arrow') {
         Projectile.size.set(20, 9);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 30);
-        Projectile.damageValue = 10 * Projectile.damageModifier;
+        Projectile.damageValue = 8 * Projectile.damageModifier;
     } else if(name == 'trippleArrow') {
         Projectile.size.set(20, 30);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);
@@ -28,7 +28,7 @@ function createProjectile(name, originEntity, damageModifier) {
     } else if(name == 'punch') {
         Projectile.size.set(15, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
-        Projectile.damageValue = 10 * Projectile.damageModifier;
+        Projectile.damageValue = 15 * Projectile.damageModifier;
     } else if(name == 'kick') {
         Projectile.size.set(20, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
@@ -36,11 +36,11 @@ function createProjectile(name, originEntity, damageModifier) {
     } else if(name == 'dagger') {
         Projectile.size.set(15, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
-        Projectile.damageValue = 3 * Projectile.damageModifier;
+        Projectile.damageValue = 12 * Projectile.damageModifier;
     } else if(name == 'uppercut') {
         Projectile.size.set(20, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
-        Projectile.damageValue = 10 * Projectile.damageModifier;
+        Projectile.damageValue = 30 * Projectile.damageModifier;
     } else if(name == 'shadeStep') {
         Projectile.size.set(10, 10);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
@@ -48,7 +48,7 @@ function createProjectile(name, originEntity, damageModifier) {
     } else if(name == 'cash') {
         Projectile.size.set(18, 22);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 35);
-        Projectile.damageValue = 10 * Projectile.damageModifier;
+        Projectile.damageValue = 25 * Projectile.damageModifier;
         Projectile.vel.y -= 300;
         window.setTimeout(function() {Projectile.vel.y += 300;}, 700);
     } else if(name == 'slam') {
@@ -59,12 +59,12 @@ function createProjectile(name, originEntity, damageModifier) {
         Projectile.throw.setSpeed(25000);
         Projectile.size.set(15, 20);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 25);
-        Projectile.damageValue = 2 * Projectile.damageModifier;
+        Projectile.damageValue = 15 * Projectile.damageModifier;
     } else if(name == 'laser') {
         Projectile.throw.setSpeed(25000);
         Projectile.size.set(15, originEntity.laserHeight + 55);
         Projectile.pos.set(originEntity.pos.x + originEntity.heading * 95, 0);
-        Projectile.damageValue = 0.2;
+        Projectile.damageValue = 10 * Projectile.damageModifier;
     } else if(name == 'clone') {
         Projectile.size.set(28, 58);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y);
@@ -84,7 +84,7 @@ function createProjectile(name, originEntity, damageModifier) {
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10);
         Projectile.damageValue = 2 * Projectile.damageModifier;
     }
-    
+
 
     Projectile.handle = function(intent) {
         if(intent == 'getThrower'){
