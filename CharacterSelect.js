@@ -108,6 +108,7 @@ function selectCharacters(canvas, context) {
         //----------------------------------------------------------------
         if(singlePlayerFlag) {
           singleplayerCharSel = CChoices[choiceRow][choiceCol]
+          SINGPLEPLAYERLIFECOUNT = LIVES;
           //displaySinglePlayer(singleplayerCharSel);  //SinglePlayer
           dialogScene(canvas, context, dialogNum);
         } else {
