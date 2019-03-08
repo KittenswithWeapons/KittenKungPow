@@ -30,6 +30,7 @@ function createCharacter(name, choice) {
     Character.Special = false;
     Character.pain = false;
     Character.laserHeight = 0;
+    Character.headingLock = false;
 
     Character.damage = 0;
     Character.damageModifier = 2; //multiplies the damage........jake turned up the damage, was 1
@@ -158,20 +159,24 @@ function createCharacter(name, choice) {
             this.FrameSpeed = 1;
         }
         else if (Character.go.dir > 0 ){//&& !Character.Special && !Character.Heavy) { //go right
-            if(!Character.pain) {
-                this.startY = 170; //88*2-6
-                this.FrameLength = 8;
-                this.FrameSpeed = 0.07;
-                Character.heading = 1;
-            } else {Character.heading = -1;}
+            if(!Character.headingLock) {
+                if(!Character.pain) {
+                    this.startY = 170; //88*2-6
+                    this.FrameLength = 8;
+                    this.FrameSpeed = 0.07;
+                    Character.heading = 1;
+                } else {Character.heading = -1;}
+            }
         }
         else if (Character.go.dir < 0 ){//} && !Character.Special && !Character.Heavy) { //go left
-            if(!Character.pain) {
-                this.startY = 170; //88*2-6
-                this.FrameLength = 8;
-                this.FrameSpeed = 0.07;
-                Character.heading = -1
-            } else {Character.heading = 1;}
+            if(!Character.headingLock) {
+                if(!Character.pain) {
+                    this.startY = 170; //88*2-6
+                    this.FrameLength = 8;
+                    this.FrameSpeed = 0.07;
+                    Character.heading = -1
+                } else {Character.heading = 1;}
+            }
         }
         if (Character.pain) {
             this.FrameSpeed = 1;
@@ -211,8 +216,8 @@ function createCharacter(name, choice) {
             characters[3]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.02, 8, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Warrior
-            characters[4]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            characters[4]), 36, (3 * Character.frameSize + 48) - 6 ,
+            Character.frameSize, Character.frameSize-20, 0.05, 6, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
             characters[5]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
@@ -229,7 +234,7 @@ function createCharacter(name, choice) {
         function() {ThrowProjectile("arrow", Character, Character.damageModifier);}, //Archer
         function() {ThrowProjectile("zap", Character, Character.damageModifier);}, //Wizard
         function() {ThrowProjectile("dagger", Character, Character.damageModifier);}, //Rogue
-        function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Warrior
+        function() {window.setTimeout(function() {ThrowProjectile("slash", Character, Character.damageModifier);}, 50);}, //Warrior
         function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Soldier
         function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Vagrant
         function() {ThrowProjectile("cash", Character, Character.damageModifier);} //Fatcat
@@ -249,8 +254,8 @@ function createCharacter(name, choice) {
             characters[3]), 36, (15 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.06, 10, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Warrior
-            characters[4]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            characters[4]), 0, (6 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize - 20, 0.1, 12, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
             characters[5]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
@@ -266,11 +271,6 @@ function createCharacter(name, choice) {
         function() {window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)}, //Karate
         function() {window.setTimeout(function() {ThrowProjectile("trippleArrow", Character, Character.damageModifier);}, 200)}, //Archer
         function() {
-            // Character.go.dir = 0;
-            // removeMovement();
-            // window.setTimeout(function() {
-            //     restoreMovement(Character);
-            // }, 700);
             for(var i = 0; i < 25; i++) {
                 window.setTimeout(function() {
                     ThrowProjectile("laser", Character, Character.damageModifier);
@@ -278,7 +278,18 @@ function createCharacter(name, choice) {
             }
         }, //Wizard
         function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character, Character.damageModifier);}, 300)}, //Rogue
-        function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Warrior
+        function() {
+            Character.headingLock = true;
+            for(var i = 0; i < 30; i++) {
+                window.setTimeout(function() {
+                    ThrowProjectile("spin", Character, Character.damageModifier);
+                    Character.heading *= -1;
+                    ThrowProjectile("spin", Character, Character.damageModifier);
+                    Character.heading *= -1;
+                }, i * 30);
+            }
+            window.setTimeout(function() {Character.headingLock = false}, 1200);
+        }, //Warrior
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Soldier
         function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Vagrant
         function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)} //Fatcat
@@ -298,8 +309,8 @@ function createCharacter(name, choice) {
             characters[3]), 36, 48 - 4,
             Character.frameSize, Character.frameSize, 0.1, 4, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Warrior
-            characters[4]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            characters[4]), 36, (4 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize, 1, 1, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Soldier
             characters[5]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.04, 8, false, false),
@@ -320,13 +331,18 @@ function createCharacter(name, choice) {
                         Character.heading *= -1;
                     }, 280); },
         function() { //Wizard
-                    ThrowProjectile("clone", Character, Character.damageModifier);
                     Character.heading *= -1;
                     ThrowProjectile("clone", Character, Character.damageModifier);
                     Character.heading *= -1;
                     },
         function() {ThrowProjectile("shadeStep", Character, Character.damageModifier);}, //Rogue
-        function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Warrior
+        function() {
+            for(var i = 0; i < 30; i++) {
+                window.setTimeout(function() {
+                    ThrowProjectile("shield", Character, Character.damageModifier);
+                }, i * 30);
+            }
+        }, //Warrior
         function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Soldier
         function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Vagrant
         function() {
@@ -407,7 +423,12 @@ function createCharacter(name, choice) {
                 }
                 Character.skyLaserAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x + 114, 0);
             }
-            Character.heavyAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
+
+            if (Character.choice == 4) {
+                Character.heavyAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x-36, this.pos.y+2);
+            } else {
+                Character.heavyAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
+            }
             if(!Character.heavyAttackFinished) {
                 Character.heavyAttacks[Character.choice]();
                 Character.heavyAttackFinished = true;
@@ -433,7 +454,7 @@ function createCharacter(name, choice) {
             }
         }
 
-        if(Character.Walking && Character.grounded) {
+        if(Character.Walking && Character.grounded && !Character.headingLock) {
             if(!Character.dustFinished) {
                 Character.dustAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x-7, this.pos.y+46);
             }

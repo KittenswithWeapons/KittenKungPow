@@ -60,6 +60,10 @@ window.onload = function() {
   //displayFightScene(canvas, context);
   masterTimer.start();
   resize();
-  displayStartScene(canvas, context);
-}
 
+
+  studioDisplay(canvas, context);
+  window.setTimeout(function() {
+    displayStartScene(canvas, context);
+  }, 1800);
+}

@@ -213,6 +213,10 @@ function loadScene(name) {
   const sceneBackgroundLayer = createSceneBackgroundLayer(scene);   //background layer
   scene.comp.layers.push(sceneBackgroundLayer);
 
+  if (name === 'Studio') {
+    return scene;
+  }
+
   if (name === 'levelSelect') { //load in level image previews to the display
     const levelPreviewLayer = createLevelPreviewLayer(scene);   //background layer
     scene.comp.layers.push(levelPreviewLayer);
@@ -252,7 +256,7 @@ function readyFight(level, Character) {
   var img = new Image();
   img.src = './SceneBackgrounds/controlsBig.png';
   masterTimer.update = function update(deltaTime) {
-    
+
       displayFightTimer--;
       level.update(deltaTime);
       level.comp.draw(myContext);
