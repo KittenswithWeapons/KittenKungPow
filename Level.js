@@ -56,7 +56,13 @@ class Level {
       if (!isPaused) {
 
         if (this.itemCounter > this.itemSpawnRate * 60) {   //item spawning, Seconds * framerate
-          itemPicker(this);
+          var itemCount = 0;
+          this.entities.forEach(entity => {
+            if (entity.type === 'Item') itemCount++;
+          }); 
+
+          
+          if (itemCount < 5) itemPicker(this);
           this.itemCounter = 0;
         }
         this.itemCounter ++;

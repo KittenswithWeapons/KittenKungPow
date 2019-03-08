@@ -11,7 +11,6 @@ class Go extends Trait {
     }
 
     update(entity, deltaTime) {
-
       //moves the character sprite
         if (this.enable) {
           entity.vel.x = this.speed * this.dir * deltaTime;

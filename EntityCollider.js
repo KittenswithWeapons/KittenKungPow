@@ -64,18 +64,23 @@
               }
 
               //Choco Speed Bar: doubles speed for 3 seconds
-              if ((entity.Ename === 'speed' && entityObject.type === 'player') ||
-                        (entity.type === 'player' && entityObject.Ename === 'speed')){
+              if ((entity.Ename === 'speed' && entityObject.type === 'player' && !entityObject.hasSpeedBoost) ||
+                        (entity.type === 'player' && entityObject.Ename === 'speed' && !entity.hasSpeedBoost)){
+
                 if (entity.type === 'player') {
                   entity.go.speed = entity.go.speed * 2;
+                  entity.hasSpeedBoost = true;
                 } else if (entityObject.type === 'player') {
                   entityObject.go.speed = entityObject.go.speed * 2;
+                  entityObject.hasSpeedBoost = true;
                 }
                 window.setTimeout(function() {
                   if (entity.type === 'player') {
                     entity.go.speed = entity.go.speed * .5;
+                    entity.hasSpeedBoost = false;
                   } else if (entityObject.type === 'player') {
                     entityObject.go.speed = entityObject.go.speed * .5;
+                    entityObject.hasSpeedBoost = false;
                   }
                 }, 3000);
               }
@@ -166,18 +171,23 @@
                 }
 
                 //Choco Speed Bar: doubles speed for 3 seconds
-                if ((entity.Ename === 'speed' && entityObject.type === 'player') ||
-                          (entity.type === 'player' && entityObject.Ename === 'speed')){
+              if ((entity.Ename === 'speed' && entityObject.type === 'player' && !entityObject.hasSpeedBoost) ||
+              (entity.type === 'player' && entityObject.Ename === 'speed' && !entity.hasSpeedBoost)){
+
                   if (entity.type === 'player') {
                     entity.go.speed = entity.go.speed * 2;
+                    entity.hasSpeedBoost = true;
                   } else if (entityObject.type === 'player') {
                     entityObject.go.speed = entityObject.go.speed * 2;
+                    entityObject.hasSpeedBoost = true;
                   }
                   window.setTimeout(function() {
                     if (entity.type === 'player') {
                       entity.go.speed = entity.go.speed * .5;
+                      entity.hasSpeedBoost = false;
                     } else if (entityObject.type === 'player') {
                       entityObject.go.speed = entityObject.go.speed * .5;
+                      entityObject.hasSpeedBoost = false;
                     }
                   }, 3000);
                 }
