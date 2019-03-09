@@ -20,6 +20,7 @@ ASSET_MANAGER.queueDownload("./effects/Damage.png");
 ASSET_MANAGER.queueDownload("./effects/Dust.png");
 ASSET_MANAGER.queueDownload("./effects/impact.png");
 ASSET_MANAGER.queueDownload("./effects/explosion.png");
+ASSET_MANAGER.queueDownload("./effects/fire.png");
 ASSET_MANAGER.queueDownload("./effects/rocketBooster.png");
 ASSET_MANAGER.queueDownload("./characters/Archer.png");
 ASSET_MANAGER.queueDownload("./characters/Wizard.png");
@@ -38,6 +39,7 @@ ASSET_MANAGER.queueDownload("./Projectiles/Cash.png");
 ASSET_MANAGER.queueDownload("./Projectiles/sideLightning.png");
 ASSET_MANAGER.queueDownload("./Projectiles/skyLaser.png");
 ASSET_MANAGER.queueDownload("./Projectiles/mortar.png");
+ASSET_MANAGER.queueDownload("./Projectiles/bottle.png");
 ASSET_MANAGER.queueDownload("./SceneBackgrounds/CatFaceAnimation.png");
 
 ASSET_MANAGER.downloadAll(function () {});

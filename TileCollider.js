@@ -32,7 +32,7 @@ class TileCollider {
         }
         //section below works
         if (entity.type === 'projectile') {
-          if(entity.Ename != 'cash' && entity.Ename != 'laser' && entity.Ename != 'mortar') {
+          if(entity.Ename != 'cash' && entity.Ename != 'laser' && entity.Ename != 'mortar' && entity.Ename != 'bottle') {
             levelObject.removeEntity(entity);
           }
         }
@@ -89,7 +89,7 @@ class TileCollider {
           if (entity.vel.y > 0 && (match.tile.name === 'ground' || match.tile.name === 'platform'
             || match.tile.name === 'levelobject')) {
 
-            if(entity.type !== 'mortar') {
+            if(entity.type !== 'mortar' && entity.type !== 'bottle') {
               entity.grounded = true;
               entity.handle('land');
               entity.jump.jumpNumber = 0;
@@ -97,13 +97,17 @@ class TileCollider {
             else {
               entity.vel.y = 0;
               entity.pos.y -= 30;
-              entity.handle('generateExplosion');
+              if(entity.type == 'mortar') {
+                entity.handle('generateExplosion');
+              } else if (entity.type == 'bottle') {
+                entity.handle('generateFire');
+              }
             }
           }
         }
 
         //passdown bypass
-        if(entity.Ename != 'mortar') {
+        if(entity.Ename != 'mortar' && entity.Ename != 'bottle') {
           if (match.tile.name === 'platform') {
             entity.passDownFlag = true;
             if (entity.passdown.engageFlag) {

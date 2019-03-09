@@ -55,7 +55,7 @@ class Entity {
 			}
 
 		if (this.inKillzone()) {
-			if (this.type === 'projectile' || this.type === 'Item' || this.type === 'mortar') {
+			if (this.type === 'projectile' || this.type === 'Item' || this.type === 'mortar' || this.type === 'bottle') {
 				levelObject.removeEntity(this);
 			} else {
 				//character death handling / respawn

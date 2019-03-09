@@ -80,10 +80,13 @@ class Level {
             entity.pos.y += entity.vel.y * deltaTime;
             this.tileCollider.checkY(entity);
 
-            if (entity.type === 'projectile' && entity.Ename != 'cash' && entity.Ename != 'mortar'){ //turns off gravity for projectiles
+            if (entity.type === 'projectile' && entity.Ename != 'cash' && entity.Ename != 'mortar' && entity.Ename != 'bottle'){ //turns off gravity for projectiles
       				entity.vel.y = 0;
       			} else {
-              entity.vel.y += this.gravity * deltaTime;
+              if(entity.Ename != 'bottle') {
+                entity.vel.y += this.gravity * deltaTime;
+              }
+
             }
 
             this.entityCollider.update(entity);
