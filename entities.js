@@ -222,7 +222,7 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.25, 2, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Vagrant
             characters[6]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            Character.frameSize, Character.frameSize, 0.05, 5, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
             characters[7]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.06, 5, false, false)
@@ -259,8 +259,8 @@ function createCharacter(name, choice) {
             characters[5]), 36, (4 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.1, 6, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Vagrant
-            characters[6]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            characters[6]), 36, (7 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize, 0.06, 7, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
             characters[7]), 36, (6 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.06, 5, false, false)
@@ -304,7 +304,11 @@ function createCharacter(name, choice) {
                 ThrowProjectile("mortar", Character, Character.damageModifier);
             }, 400);
         }, //Soldier
-        function() {ThrowProjectile("kick", Character, Character.damageModifier);}, //Vagrant
+        function() {
+            window.setTimeout(function() {
+                ThrowProjectile("bottle", Character, Character.damageModifier);
+            }, 140);
+        }, //Vagrant
         function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)} //Fatcat
     ]
 
@@ -328,8 +332,8 @@ function createCharacter(name, choice) {
             characters[5]), 36, (5 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.25, 4, false, false),
         new Animation(ASSET_MANAGER.getAsset( //Vagrant
-            characters[6]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.04, 8, false, false),
+            characters[6]), 0, (3 * Character.frameSize + 48) - 4,
+            Character.frameSize, Character.frameSize, 0.1, 9, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
             characters[7]), 36, (5 * Character.frameSize + 48) - 4,
             Character.frameSize, Character.frameSize, 0.05, 10, false, false)
@@ -369,7 +373,18 @@ function createCharacter(name, choice) {
                 }, 50 * i);
             }
         }, //Soldier
-        function() {ThrowProjectile("fireball", Character, Character.damageModifier);}, //Vagrant
+        function() {removeMovement(Character);
+            window.setTimeout(function() {
+                restoreMovement(Character);
+            }, 600);
+            for(var i = 1; i < 20; i++) {
+                window.setTimeout(function() {
+                    if(Character.damage >= 0.75) {
+                        Character.damage-=0.75;
+                    }
+                }, 50 * i);
+            }
+        }, //Vagrant
         function() {
             Character.go.dir = 0;
             removeMovement(Character);
@@ -466,7 +481,11 @@ function createCharacter(name, choice) {
                 Character.heavyAnimation.elapsedTime = 0;
             }
         } else if (Character.Special) {
-            Character.specialAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
+            if (Character.choice == 6) {
+                Character.specialAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x-36, this.pos.y+2);
+            } else {
+                Character.specialAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y+2);
+            }
             if(!Character.specialAttackFinished) {
                 Character.specialAttacks[Character.choice]();
                 Character.specialAttackFinished = true;
