@@ -136,7 +136,7 @@ class Entity {
 				});
 			}
 		}
-		if (this.Ename === 'character') {
+		if (this.Ename === 'character' && !singlePlayerFlag) {
 			var img = new Image();
 			img.src = './SceneBackgrounds/playerArrow.png';
 			myContext.save();

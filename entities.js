@@ -582,6 +582,11 @@ function createCharacter(name, choice) {
     }
 
     function drawInfo(context) {
+        var playerCount = 0;
+        levelObject.entities.forEach(entity => {
+            if (entity.type === 'player') playerCount++;
+        });
+        
         if (Character.lives > 0) {
             context.globalAlpha = 0.8;
             context.lineWidth = 5;
@@ -598,39 +603,44 @@ function createCharacter(name, choice) {
                 context.strokeStyle = "#FFb400";
                 context.fillStyle = "#FFFF00";
             }
-            context.fillRect(95 + 320 * (Character.player - 1), 678, 105, 40);
-            context.strokeRect(95 + 320 * (Character.player - 1), 678, 105, 40);
+            var position = Character.player;
+            if (playerCount === 2) {
+                position++;
+            }
+            context.fillRect(235 * (position), 678, 105, 40);
+            context.strokeRect(235 * (position), 678, 105, 40);
             if (Character.lives <= 3) {
                 for(var i = 0; i < Character.lives; i++ ) {
                     context.save();
                     Character.staticAnimation.drawFrame(0, context,
-                        120 + (i * 18) + 320 * (Character.player - 1),
+                        25 + (i * 18) + 235 * (position),
                         660, 0.5);
                     context.restore();
                 }
             } else {
                 context.save();
                 Character.staticAnimation.drawFrame(0, context,
-                        120 + 320 * (Character.player - 1),
+                        25 + 235 * (position),
                         660, 0.5);
                 context.restore();
 
                 context.globalAlpha = 1.0;
                 context.lineWidth = 2.4;
                 context.strokeStyle = 'black';
+                context.font = "20px Arial Narrow";
+                context.strokeText("X", 69 + 235 * (position),707);
                 context.font = "28px Arial Narrow";
-                context.strokeText("X", 162 + 320 * (Character.player - 1),709);
-                context.strokeText(Character.lives, 180 + 320 * (Character.player - 1),709);
+                context.strokeText(Character.lives, 84 + 235 * (position),709);
             }
 
             context.globalAlpha = 1.0;
             context.lineWidth = 1;
             context.strokeStyle = 'black';
             context.font = "10px Arial";
-            context.strokeText("player " + Character.player, 99 + 320 * (Character.player - 1), 689);
+            context.strokeText("player " + position, 8 + 235 * (position), 689);
             context.lineWidth = 2;
             context.font = "20px Arial";
-            context.strokeText(Math.floor(Character.damage), 100 + 320 * (Character.player - 1), 710);
+            context.strokeText(Math.floor(Character.damage), 8 + 235 * (position), 710);
         }
     }
 
