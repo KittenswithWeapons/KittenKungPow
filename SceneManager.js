@@ -299,6 +299,11 @@ function readyFight(level, Character) {
       } else if (displayFightTimer === 0) {
         Character.input.listenTo(window);
       }
+      if (displayFightTimer <= 0 && displayFightTimer > -100) {
+        myContext.globalAlpha = 1.0 + displayFightTimer/100;
+        myContext.drawImage(img, 0, 0, 696, 256, 1280/2 - 174, 720/2 + 20, 348, 128);
+        myContext.globalAlpha = 1.0;
+      }
       if (isPaused) pauseScreen();
     }
 }
@@ -310,11 +315,11 @@ function pauseScreen () {
   myContext.strokeStyle = 'black';
   myContext.globalAlpha = 0.8;
   myContext.lineWidth = 15;
-  myContext.strokeRect(15,0,myCanvas.width - 30,myCanvas.height);
+  myContext.strokeRect(0,0,myCanvas.width,myCanvas.height);
 
   myContext.globalAlpha = 0.8;
   myContext.strokeStyle = 'black';
-  myContext.fillStyle = 'grey';
+  myContext.fillStyle = 'white';
   myContext.lineWidth = 4;
   myContext.font = "90px Arial";
   var txt = "Pawsed";
