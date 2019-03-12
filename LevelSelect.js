@@ -81,14 +81,11 @@ function selectLevel(canvas, context, Cselected) {
 
     function controllerMenuUpdate(Scene) {                 //controller support
       if (controllers[0] != null){
-
-
-        if (controllers[0].buttons[9].pressed){  // Y button???
-          if (controllers[0].Start_buttonPressed === false) {
-            controllers[0].Start_buttonPressed = true;
-            // do Start button stuff
-            //console.log('Level selected: ' + LChoices[choiceRow][choiceCol]);
-            //delete scene ---------------------------------------------------
+        //-------------------------------------------------------------------------------------A
+        if (controllers[0].buttons[0].pressed){  // A button
+          if (controllers[0].A_buttonPressed === false) {
+            controllers[0].A_buttonPressed = true;
+            // do A button stuff
             Scene.removeEntity(Cursor);
             Scene.clearScene();
             this.removeEventListener('keydown', levelCursorHandler, false);
@@ -96,13 +93,84 @@ function selectLevel(canvas, context, Cselected) {
             //----------------------------------------------------------------
             displayFightScene(canvas, context, LChoices[choiceRow][choiceCol], Cselected);
             return Lselected;
-            // START BUTTON END
+            //
           }
         } else {
-          controllers[0].Start_buttonPressed = false;
+          controllers[0].A_buttonPressed = false;
         }
+        //-------------------------------------------------------------------------------------A END
+
+        // B Button-----------------------------------------------------------------
+        if (controllers[0].buttons[1].pressed){  // B button???
+          if (controllers[0].B_buttonPressed === false) {
+            controllers[0].B_buttonPressed = true;
+            // do B button stuff
+            displayCharSelectScene(canvas, context);
+            //
+          }
+        } else {
+          controllers[0].B_buttonPressed = false;
+        }
+        //--------------------------------------------------------------------------
 
 
+//JOYSTICK SECTION----------------------------------------------------------
+//------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------
+//left JOYSTICK
+//------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------
+        //left right action
+    		if (controllers[0].axes[0] > 0.4) { //go right
+          if (!right) {
+            if(choiceCol < LChoices[choiceRow].length-1) {
+              choiceCol++;
+              Cursor.pos.x += 256 + 30;
+            }
+            right = true;
+          }
+    			//console.log('RIGHT');
+    		} else if (controllers[0].axes[0] < -0.4) { //go left
+            if (!left) {
+              if(choiceCol > 0) {
+                choiceCol--;
+                Cursor.pos.x -= 256 + 30;
+              }
+              left = true
+            }
+    			//console.log('LEFT');
+    		} else if (controllers[0].axes[0] < 0.4 & controllers[0].axes[0] > -0.4 ) { // stops the kitty
+          right = false;
+          left = false;
+    		}
+
+        //updown
+        if (controllers[0].axes[1] > 0.5) { //go down
+          if (!down) {
+            down = true;
+            if(choiceRow < LChoices.length-1) {
+              choiceRow++;
+              Cursor.pos.y += 288;
+            }
+          }
+        } else if (controllers[0].axes[1] < -0.5) { //go up
+            if (!up) {
+              up = true;
+              if(choiceRow > 0) {
+                choiceRow--;
+                Cursor.pos.y -= 288;
+              }
+            }
+        } else if (controllers[0].axes[1] < 0.5 & controllers[0].axes[1] > -0.5 ) { // stops the kitty
+          //do nothing
+          down = false;
+          up = false;
+        }
+//------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------
+//end left JOYSTICK
+//------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------
 
 
 

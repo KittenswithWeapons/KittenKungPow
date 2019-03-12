@@ -49,13 +49,17 @@ function controllerUpdate(entity, controllerNUM){
   			if (controllers[controllerNUM].Start_buttonPressed === false) {
   				controllers[controllerNUM].Start_buttonPressed = true;
           // do Start button stuff
-          console.log('pause');
+          //console.log('pause');
           isPaused = !isPaused; //pauses
+          if (controllers[controllerNUM].buttons[8].pressed){ //START AND SELECT WILL REBOOT THE GAME
+            location.reload();
+          }
           //
   			}
   		} else {
   			controllers[controllerNUM].Start_buttonPressed = false;
   		}
+
       return;
       //--------------------------------------------------------------------------
     }
