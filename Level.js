@@ -97,20 +97,17 @@ class Level {
 }
 
 function itemPicker(level) { //picks the item to spawn
-  choice = getRandomInt(1, 6); //between 1 and number of items + 1
-  if (choice === 1) {
+  choice = getRandomInt(1, 7); //between 1 and number of items + 1
+  if (choice === 1 || choice === 2) {
     level.addEntity(new createItem('health'));
   }
-  if (choice === 2) {
+  if (choice === 3 || choice === 4) {
     level.addEntity(new createItem('damage'));
   }
-  if (choice === 3) {
+  if (choice === 5) {
     level.addEntity(new createItem('speed'));
   }
-  if (choice === 4) {
-    level.addEntity(new createItem('pickler'));
-  }
-  if (choice === 5) {
+  if (choice === 6) {
     level.addEntity(new createItem('berry'));
   }
 }

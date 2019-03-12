@@ -52,6 +52,16 @@
                   entity.damage = 0;
                 }
               }
+              //SUPER HEALTH BERRY
+              if ((entity.Ename === 'berry' && entityObject.type === 'player') ||
+                        (entity.type === 'player' && entityObject.Ename === 'berry')){
+                entityObject.damage -= 150;
+                entity.damage -= 150;
+                if (entityObject.damage < 0 || entity.damage < 0) {
+                  entityObject.damage = 0;
+                  entity.damage = 0;
+                }
+              }
               //damage fish: doubles damage for 5 seconds
               if ((entity.Ename === 'damage' && entityObject.type === 'player') ||
                         (entity.type === 'player' && entityObject.Ename === 'damage')){
@@ -164,7 +174,16 @@
                     entity.damage = 0;
                   }
                 }
-
+                //SUPER HEALTH BERRY
+                if ((entity.Ename === 'berry' && entityObject.type === 'player') ||
+                          (entity.type === 'player' && entityObject.Ename === 'berry')){
+                  entityObject.damage -= 150;
+                  entity.damage -= 150;
+                  if (entityObject.damage < 0 || entity.damage < 0) {
+                    entityObject.damage = 0;
+                    entity.damage = 0;
+                  }
+                }
                 //damage fish: doubles damage for 5 seconds
                 if ((entity.Ename === 'damage' && entityObject.type === 'player') ||
                           (entity.type === 'player' && entityObject.Ename === 'damage')){

@@ -16,7 +16,7 @@ function agentManager(entity) {
 agentManager.prototype.update = function () {
     this.choice = this.agent.choice;
 
-    if (this.choice === 0 || this.choice === 3 || this.choice === 4 || this.choice === 6 || this.choice === 7) {
+    if (this.choice === 0 || this.choice === 3 || this.choice === 4 || this.choice === 6 || this.choice === 7 || this.choice === 2) {
         this.myStyle = 'melee';
     } else {
         this.myStyle = 'ranged';
@@ -38,17 +38,17 @@ agentManager.prototype.update = function () {
     if (thinkChance > 50) {
         this.thinkSuccess++;
         if(this.target !== undefined) { //jake added this if statement to handle when the agent has no target
-            if ((this.agent.pos.y > 700) || (this.agent.pos.x < 80) 
+            if ((this.agent.pos.y > 700) || (this.agent.pos.x < 80)
                 || (this.agent.pos.x > 1120) || (this.agent.pos.y < 100)) {
 
                 this.avoidKillzone();
             } else {
                 this.move();
-            }  
+            }
             this.keyHeld = !this.keyHeld;
         }
     }
-    
+
 };
 
 agentManager.prototype.move = function () {
@@ -70,11 +70,11 @@ agentManager.prototype.move = function () {
             if (this.targetDist > 50) { // move to target
                 if (xDist > 0) {
                     this.right();
-                    
+
                 }
                 if (xDist < 0) {
                     this.left();
-                    
+
                 }
                 if (yDist < 0) {
                     this.jump();
@@ -97,11 +97,11 @@ agentManager.prototype.move = function () {
             if (this.targetDist < 50) { // move away from target
                 if (xDist > 0) {
                     this.left();
-                    
+
                 }
                 if (xDist < 0) {
                     this.right();
-                    
+
                 }
                 if (yDist < 0) {
                     this.down();
@@ -124,11 +124,11 @@ agentManager.prototype.move = function () {
     } else { // Target is an item
         if (xDist > 0) {
             this.right();
-            
+
         }
         if (xDist < 0) {
             this.left();
-            
+
         }
 
         if (yDist > 0) {
@@ -141,17 +141,17 @@ agentManager.prototype.move = function () {
 };
 
 agentManager.prototype.avoidKillzone = function () {
-    
+
     if (this.agent.pos.y > 700) {
         this.jump();
     }
     if (this.agent.pos.x < 80) {
         this.right();
-        
+
     }
     if (this.agent.pos.x > 1120) {
         this.left();
-        
+
     }
     if (this.agent.pos.y < 100) {
         this.down();

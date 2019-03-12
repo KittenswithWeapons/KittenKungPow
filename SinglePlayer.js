@@ -68,7 +68,7 @@ function SinglePlayer(canvas, context, characterSelection) {
       }
       if (levelSelection === 'FutureCity') {
         Character.pos.set(300, 200); //sets the character position
-        Enemy.pos.set(700, 200); Enemy.heading = -1; //sets enemy pos and heading
+        Enemy.pos.set(650, 100); Enemy.heading = -1; //sets enemy pos and heading
 
         levelMusic = new sound('./sound/PulsePower.mp3');
         levelMusic.sound.volume = .1; //level volume
