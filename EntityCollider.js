@@ -136,6 +136,7 @@
                 levelObject.removeEntity(entity);
               } else if(entity.Ename == 'shield') {
               } else if(entity.Ename == 'blast') {
+                entityObject.handle('painLeft');
               } else if(entity.Ename == 'burn') {
                 entityObject.handle('painLeft');
               } else if(entity.Ename == 'rocket') {
@@ -258,6 +259,7 @@
                   levelObject.removeEntity(entity);
                 } else if(entity.Ename == 'shield') {
                 } else if(entity.Ename == 'blast') {
+                  entityObject.handle('painRight');
                 } else if(entity.Ename == 'burn') {
                   entityObject.handle('painRight');
                 } else if(entity.Ename == 'rocket') {
