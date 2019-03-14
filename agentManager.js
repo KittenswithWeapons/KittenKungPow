@@ -16,7 +16,7 @@ function agentManager(entity) {
 agentManager.prototype.update = function () {
     this.choice = this.agent.choice;
 
-    if (this.choice === 0 || this.choice === 3 || this.choice === 4 || this.choice === 6 || this.choice === 7 || this.choice === 2) {
+    if (this.choice === 0 || this.choice === 3 || this.choice === 4 || this.choice === 6 || this.choice === 7 || this.choice === 2 || this.choice === 8) {
         this.myStyle = 'melee';
     } else {
         this.myStyle = 'ranged';

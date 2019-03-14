@@ -37,6 +37,11 @@ function createCharacter(name, choice) {
     Character.damageModifier = 2; //multiplies the damage........jake turned up the damage, was 1
 
     Character.choice = choice || 0;
+    if (choice === 8) {
+      console.log('GRANNY');
+      Character.jump.duration = 0.05;
+      Character.go.speed = 6000;
+    }
     Character.player = playerNum;
 
     playerNum++;
@@ -157,7 +162,7 @@ function createCharacter(name, choice) {
                         this.startX = (3 * Character.frameSize + 36);
                         this.startY = (2 * Character.frameSize + 20);
                         this.FrameLength = 1;
-                        this.FrameSpeed = 1;  
+                        this.FrameSpeed = 1;
                 }
                 else if (Character.go.dir > 0 ){//&& !Character.Special && !Character.Heavy) { //go right
                     if(!Character.headingLock) {
@@ -194,15 +199,17 @@ function createCharacter(name, choice) {
                         this.FrameLoop, this.FrameReverse);
                 }
 
-                
+
             } else { /////////////////////////////////////      OLD LADY      /////////////////////////////////////
                 this.startX = 0;
                 this.startY = 0;
+                this.FrameSpeed = 0.1;
+                this.FrameReverse = false;
                 if (Character.Jumping  && !Character.Special && !Character.grounded) { //grounded is set on checkY in TileCollider
                     this.startX = 0;
                     this.startY = 2 * 96;
                     this.FrameLength = 1;
-                    this.FrameSpeed = 1;  
+                    this.FrameSpeed = 1;
                 }
                 else if (Character.go.dir > 0 ){
                     if(!Character.headingLock) {
@@ -238,7 +245,7 @@ function createCharacter(name, choice) {
                     this.FrameLoop, this.FrameReverse);
             }
 
-        
+
         Character.lightAnimation = Character.lightAnimations[Character.choice];
         Character.heavyAnimation = Character.heavyAnimations[Character.choice];
         Character.specialAnimation = Character.specialAnimations[Character.choice];
@@ -290,7 +297,7 @@ function createCharacter(name, choice) {
         function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Vagrant
         function() {ThrowProjectile("cash", Character, Character.damageModifier);}, //Fatcat
         function() {
-            console.log("hey");
+            //console.log("NEWS");
             ThrowProjectile("newspaper", Character, Character.damageModifier);} //Granny
     ]
 
@@ -336,7 +343,7 @@ function createCharacter(name, choice) {
         function() {window.setTimeout(function() {ThrowProjectile("uppercut", Character, Character.damageModifier);}, 300)}, //Rogue
         function() {
             Character.headingLock = true;
-            if (!Character.grounded) {        // jake ability addition 
+            if (!Character.grounded) {        // jake ability addition
               window.setTimeout(function() {
                 Character.vel.y = -650;       // jake made it jump, #linkSwordWhirlwind
                 Character.jump.jumpNumber = 4;
@@ -666,7 +673,7 @@ function createCharacter(name, choice) {
         levelObject.entities.forEach(entity => {
             if (entity.type === 'player') playerCount++;
         });
-        
+
         if (Character.lives > 0) {
             context.globalAlpha = 0.8;
             context.lineWidth = 5;

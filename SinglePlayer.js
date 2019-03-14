@@ -17,7 +17,7 @@ function SinglePlayer(canvas, context, characterSelection) {
     singlePlayerFlag = true;
 
     //SinglePlayer complete handler
-    if (SPlevelchoice > 7) {       //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (SPlevelchoice > 8) {       //////////////////////////////////////////////////////////////////////////////////////////////////////////
                                   // put to 8 to enable last level. need last character before it will work
                                   //////////////////////////////////////////////////////////////////////////////////////////////////////////
       location.reload(); //currently just starts the game over------------------------------------------> HANDLE WINNING!! DO IT! DO IT NOW!
@@ -46,7 +46,7 @@ function SinglePlayer(canvas, context, characterSelection) {
   .then(([Character, Enemy, level]) => {
       Character.lives = SINGPLEPLAYERLIFECOUNT;
       Enemy.lives = 3;
-      console.log(Character.lives);
+      //console.log(Character.lives);
       levelObject = level;
       if (levelSelection === 'PinkCity') {
         Character.pos.set(400, 200); //sets the character position

@@ -118,17 +118,17 @@ function createProjectile(name, originEntity, damageModifier) {
         Projectile.throw.setSpeed(25000);
         Projectile.size.set(15, 60);
         Projectile.pos.set(originEntity.pos.x + (originEntity.heading == 1 ? 48 : 0), originEntity.pos.y + 15);
-        Projectile.damageValue = 15 * Projectile.damageModifier;
+        Projectile.damageValue = 20 * Projectile.damageModifier;
     } else if(name == 'newspaper') {
         Projectile.size.set(20, 20);
         Projectile.pos.set(originEntity.pos.x + (originEntity.heading == 1 ? 48 : 0), originEntity.pos.y + 25);
-        Projectile.damageValue = 25 * Projectile.damageModifier;
+        Projectile.damageValue = 30 * Projectile.damageModifier;
     } else if(name == 'bile') {
         Projectile.size.set(25, 30);         //size of the projectile.
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);   //position of the Projectile starts from where the origin character is, may need to offset
-        Projectile.damageValue = 20 * Projectile.damageModifier;//20
+        Projectile.damageValue = 25 * Projectile.damageModifier;//20
     }
-    
+
 
 
     Projectile.handle = function(intent) {
