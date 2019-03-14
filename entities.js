@@ -1,6 +1,6 @@
 var characters = ["./characters/Karate.png", "./characters/Archer.png", "./characters/Wizard.png",
     "./characters/Rogue.png", "./characters/Warrior.png", "./characters/Soldier.png", "./characters/Vagrant.png",
-    "./characters/FatCat.png", "./characters/FatCat.png"]; //replace last char with old lady final boss
+    "./characters/FatCat.png", "./characters/granny.png"]; //replace last char with old lady final boss
 
 var playerNum = 1;
 function createCharacter(name, choice) {
@@ -30,6 +30,7 @@ function createCharacter(name, choice) {
     Character.Special = false;
     Character.pain = false;
     Character.laserHeight = 0;
+    Character.spraybottleWidth = 0;
     Character.headingLock = false;
 
     Character.damage = 0;
@@ -141,54 +142,103 @@ function createCharacter(name, choice) {
 
     Character.updateAnimation = function () {
         if (!isPaused) {
-        //idle values
-        this.startX = 36;
-        this.startY = 42;
-        this.FrameWidth = Character.frameSize;
-        this.FrameHeight = Character.frameSize /2 + 20;
-        this.FrameSpeed = 0.1;
-        this.FrameLength = 4;
-        this.FrameLoop = true;
-        this.FrameReverse = false;
+            if(Character.choice != 8) {
+                //idle values
+                this.startX = 36;
+                this.startY = 42;
+                this.FrameWidth = Character.frameSize;
+                this.FrameHeight = Character.frameSize /2 + 20;
+                this.FrameSpeed = 0.1;
+                this.FrameLength = 4;
+                this.FrameLoop = true;
+                this.FrameReverse = false;
 
-        if (Character.Jumping  && !Character.Special && !Character.grounded) { //grounded is set on checkY in TileCollider
-            this.startX = (3 * Character.frameSize + 36);
-            this.startY = (2 * Character.frameSize + 20);
-            this.FrameLength = 1;
-            this.FrameSpeed = 1;
-        }
-        else if (Character.go.dir > 0 ){//&& !Character.Special && !Character.Heavy) { //go right
-            if(!Character.headingLock) {
-                if(!Character.pain) {
-                    this.startY = 170; //88*2-6
-                    this.FrameLength = 8;
-                    this.FrameSpeed = 0.07;
-                    Character.heading = 1;
-                } else {Character.heading = -1;}
+                if (Character.Jumping  && !Character.Special && !Character.grounded) { //grounded is set on checkY in TileCollider
+                        this.startX = (3 * Character.frameSize + 36);
+                        this.startY = (2 * Character.frameSize + 20);
+                        this.FrameLength = 1;
+                        this.FrameSpeed = 1;  
+                }
+                else if (Character.go.dir > 0 ){//&& !Character.Special && !Character.Heavy) { //go right
+                    if(!Character.headingLock) {
+                        if(!Character.pain) {
+                            this.startY = 170; //88*2-6
+                            this.FrameLength = 8;
+                            this.FrameSpeed = 0.07;
+                            Character.heading = 1;
+                        } else {Character.heading = -1;}
+                    }
+                }
+                else if (Character.go.dir < 0 ){//} && !Character.Special && !Character.Heavy) { //go left
+                    if(!Character.headingLock) {
+                        if(!Character.pain) {
+                            this.startY = 170; //88*2-6
+                            this.FrameLength = 8;
+                            this.FrameSpeed = 0.07;
+                            Character.heading = -1
+                        } else {Character.heading = 1;}
+                    }
+                }
+                if (Character.pain) {
+                    this.FrameSpeed = 1;
+                    this.FrameLoop = true;
+                    this.FrameLength = 1;
+                }
+
+                Character.size.set(28, 58);
+                if(Character.choice != 8) {
+                    Character.animation = new Animation(ASSET_MANAGER.getAsset(
+                        characters[Character.choice]),
+                        this.startX, this.startY, this.FrameWidth, this.FrameHeight,
+                        this.FrameSpeed, this.FrameLength,
+                        this.FrameLoop, this.FrameReverse);
+                }
+
+                
+            } else { /////////////////////////////////////      OLD LADY      /////////////////////////////////////
+                this.startX = 0;
+                this.startY = 0;
+                if (Character.Jumping  && !Character.Special && !Character.grounded) { //grounded is set on checkY in TileCollider
+                    this.startX = 0;
+                    this.startY = 2 * 96;
+                    this.FrameLength = 1;
+                    this.FrameSpeed = 1;  
+                }
+                else if (Character.go.dir > 0 ){
+                    if(!Character.headingLock) {
+                        if(!Character.pain) {
+                            this.startY = 96;
+                            this.FrameLength = 4;
+                            this.FrameSpeed = 0.1;
+                            Character.heading = 1;
+                        } else {Character.heading = -1;}
+                    }
+                }
+                else if (Character.go.dir < 0 ){
+                    if(!Character.headingLock) {
+                        if(!Character.pain) {
+                            this.startY = 96;
+                            this.FrameLength = 4;
+                            this.FrameSpeed = 0.1;
+                            Character.heading = -1
+                        } else {Character.heading = 1;}
+                    }
+                }
+                if (Character.pain) {
+                    this.startY = 2 * 96;
+                    this.startX = 96;
+                    this.FrameSpeed = 1;
+                    this.FrameLoop = true;
+                    this.FrameLength = 1;
+                }
+                Character.size.set(70, 96);
+                Character.animation = new Animation(ASSET_MANAGER.getAsset(
+                    characters[Character.choice]),
+                    this.startX, this.startY, 96, 96, this.FrameSpeed, 4,
+                    this.FrameLoop, this.FrameReverse);
             }
-        }
-        else if (Character.go.dir < 0 ){//} && !Character.Special && !Character.Heavy) { //go left
-            if(!Character.headingLock) {
-                if(!Character.pain) {
-                    this.startY = 170; //88*2-6
-                    this.FrameLength = 8;
-                    this.FrameSpeed = 0.07;
-                    Character.heading = -1
-                } else {Character.heading = 1;}
-            }
-        }
-        if (Character.pain) {
-            this.FrameSpeed = 1;
-            this.FrameLoop = true;
-            this.FrameLength = 1;
-        }
 
-        Character.animation = new Animation(ASSET_MANAGER.getAsset(
-            characters[Character.choice]),
-            this.startX, this.startY, this.FrameWidth, this.FrameHeight,
-            this.FrameSpeed, this.FrameLength,
-            this.FrameLoop, this.FrameReverse);
-
+        
         Character.lightAnimation = Character.lightAnimations[Character.choice];
         Character.heavyAnimation = Character.heavyAnimations[Character.choice];
         Character.specialAnimation = Character.specialAnimations[Character.choice];
@@ -225,7 +275,9 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.05, 5, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
             characters[7]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.06, 5, false, false)
+            Character.frameSize, Character.frameSize, 0.06, 5, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Granny
+            characters[8]), 96, (3 * 96), 95, 96, 0.06, 2, false, false)
     ];
 
     Character.lightAttacks = [
@@ -236,7 +288,10 @@ function createCharacter(name, choice) {
         function() {window.setTimeout(function() {ThrowProjectile("slash", Character, Character.damageModifier);}, 50);}, //Warrior
         function() {window.setTimeout(function() {ThrowProjectile("rocket", Character, Character.damageModifier);}, 100);}, //Soldier
         function() {ThrowProjectile("punch", Character, Character.damageModifier);}, //Vagrant
-        function() {ThrowProjectile("cash", Character, Character.damageModifier);} //Fatcat
+        function() {ThrowProjectile("cash", Character, Character.damageModifier);}, //Fatcat
+        function() {
+            console.log("hey");
+            ThrowProjectile("newspaper", Character, Character.damageModifier);} //Granny
     ]
 
     Character.heavyAnimations = [
@@ -263,7 +318,9 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.06, 7, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
             characters[7]), 36, (6 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.06, 5, false, false)
+            Character.frameSize, Character.frameSize, 0.06, 5, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Granny
+            characters[8]), 0, 3 * 96, 96, 96, 0.2, 1, false, false)
     ];
 
     Character.heavyAttacks = [
@@ -309,7 +366,8 @@ function createCharacter(name, choice) {
                 ThrowProjectile("bottle", Character, Character.damageModifier);
             }, 140);
         }, //Vagrant
-        function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)} //Fatcat
+        function() { window.setTimeout(function() {ThrowProjectile("kick", Character, Character.damageModifier);}, 200)}, //granny
+        function() {ThrowProjectile("spraybottle", Character, Character.damageModifier);} //Fatcat
     ]
 
     Character.specialAnimations = [
@@ -336,7 +394,9 @@ function createCharacter(name, choice) {
             Character.frameSize, Character.frameSize, 0.1, 9, false, false),
         new Animation(ASSET_MANAGER.getAsset( //FatCat
             characters[7]), 36, (5 * Character.frameSize + 48) - 4,
-            Character.frameSize, Character.frameSize, 0.05, 10, false, false)
+            Character.frameSize, Character.frameSize, 0.05, 10, false, false),
+        new Animation(ASSET_MANAGER.getAsset( //Granny
+            characters[8]), 2 * 96, 2 * 96, 96, 96, 0.4, 1, false, false)
     ];
 
     Character.specialAttacks = [
@@ -398,7 +458,8 @@ function createCharacter(name, choice) {
             window.setTimeout(function() {
                 Character.go.dir = 0;
             }, 400);
-        } //Fatcat
+        }, //Fatcat
+        function() {window.setTimeout(function() {ThrowProjectile("bile", Character, Character.damageModifier);}, 150)} //Karate
     ]
 
     Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
@@ -413,6 +474,8 @@ function createCharacter(name, choice) {
         0, 0, 128, 800, 0.08, 2, true, false);
     Character.impactAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/impact.png"),
         0, 0, 256, 80, 0.06, 2, true, false);
+    Character.spraybottleAnimation = new Animation(ASSET_MANAGER.getAsset("./Projectiles/spraybottle.png"),
+    0, 0, 186, 78, 0.04, 2, true, false);
 
     Character.dustAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Dust.png"),
         0, 0, 16, 16, 0.05, 1, false, false);
@@ -432,9 +495,17 @@ function createCharacter(name, choice) {
         context.save();
 
         if(Character.heading === -1) {
-            context.translate(40, -5);
+            if(Character.choice!=8) {
+                context.translate(40, -5);
+            } else {
+                context.translate(70, 5);
+            }
         } else {
-            context.translate(-10, -5);
+            if(Character.choice!=8) {
+                context.translate(-10, -5);
+            } else {
+                context.translate(0, 5);
+            }
         }
         context.scale(Character.heading, 1);
         if (!isPaused) {
@@ -464,6 +535,14 @@ function createCharacter(name, choice) {
                 Character.skyLaserAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x + 114, 0);
             }
 
+            if(Character.choice == 8) {
+                if(Character.spraybottleWidth < 186) {
+                    Character.spraybottleWidth += 31;
+                    Character.spraybottleAnimation.setFrameWidth(Character.spraybottleWidth);
+                }
+                Character.spraybottleAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x+88, Character.pos.y);
+            }
+
             if (Character.choice == 4) {
                 Character.heavyAnimation.drawFrame(deltaTime, context, Character.heading * this.pos.x-36, this.pos.y+2);
             } else {
@@ -477,6 +556,7 @@ function createCharacter(name, choice) {
                 Character.animation.drawFrame(deltaTime, context, Character.heading * this.pos.x, this.pos.y);
                 Character.Heavy = false;
                 Character.laserHeight = 0;
+                Character.spraybottleWidth = 0;
                 Character.heavyAttackFinished = false;
                 Character.heavyAnimation.elapsedTime = 0;
             }
@@ -564,7 +644,7 @@ function createCharacter(name, choice) {
             }
         }
 
-        if(Character.Walking && Character.grounded) {
+        if(Character.Walking && Character.grounded && Character.choice != 8) {
             if(!Character.dustFinished) {
                 Character.dustAnimation.drawFrame(0, context, Character.heading * this.pos.x-7, this.pos.y+46);
             }
@@ -573,7 +653,7 @@ function createCharacter(name, choice) {
                 Character.dustFinished = true;
             }
         }
-        if(Character.pain) {
+        if(Character.pain && Character.choice != 8) {
             Character.painAnimation.drawFrame(0, context, Character.heading * this.pos.x+18, this.pos.y+22);
         }
     }
@@ -666,6 +746,10 @@ function Animation(spriteSheet, startX, startY, frameWidth, frameHeight, frameDu
 
 Animation.prototype.setFrameHeight = function(frameHeight) {
     this.frameHeight = frameHeight;
+}
+
+Animation.prototype.setFrameWidth = function(frameWidth) {
+    this.frameWidth = frameWidth;
 }
 
 Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
