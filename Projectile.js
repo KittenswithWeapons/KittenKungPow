@@ -114,7 +114,21 @@ function createProjectile(name, originEntity, damageModifier) {
         Projectile.size.set(10, 30);
         Projectile.pos.set(originEntity.pos.x, originEntity.pos.y-15);
         Projectile.damageValue = 2 * Projectile.damageModifier;
+    } else if(name == 'spraybottle') {
+        Projectile.throw.setSpeed(25000);
+        Projectile.size.set(15, 60);
+        Projectile.pos.set(originEntity.pos.x + (originEntity.heading == 1 ? 48 : 0), originEntity.pos.y + 15);
+        Projectile.damageValue = 15 * Projectile.damageModifier;
+    } else if(name == 'newspaper') {
+        Projectile.size.set(20, 20);
+        Projectile.pos.set(originEntity.pos.x + (originEntity.heading == 1 ? 48 : 0), originEntity.pos.y + 25);
+        Projectile.damageValue = 25 * Projectile.damageModifier;
+    } else if(name == 'bile') {
+        Projectile.size.set(25, 30);         //size of the projectile.
+        Projectile.pos.set(originEntity.pos.x, originEntity.pos.y + 10 + Projectile.size.y/2);   //position of the Projectile starts from where the origin character is, may need to offset
+        Projectile.damageValue = 20 * Projectile.damageModifier;//20
     }
+    
 
 
     Projectile.handle = function(intent) {
@@ -241,6 +255,18 @@ function createProjectile(name, originEntity, damageModifier) {
                 Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
                     "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
                 break;
+            case 'bile':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset(
+                    "./Projectiles/bile.png"), 0, 0, 54, 30, 1, 1, true, false);
+                break;
+            case 'spraybottle':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
+            case 'newspaper':
+                Projectile.animation = new Animation(ASSET_MANAGER.getAsset( //Null animation
+                    "./Projectiles/Arrow.png"), 0, 0, 0, 0, 1, 1, true, false);
+                break;
         }
     }
 
@@ -278,6 +304,8 @@ function createProjectile(name, originEntity, damageModifier) {
         }
         if(name == 'fireball') {
             Projectile.animation.drawFrame(deltaTime, context, (Projectile.heading * this.pos.x - Projectile.size.x/2), (this.pos.y - Projectile.size.y/2), 1/8);
+        } else if(name == 'bile') {
+            Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x - 15, this.pos.y + 3);
         } else if (name == 'arrow') {
             Projectile.animation.drawFrame(deltaTime, context, Projectile.heading * this.pos.x, this.pos.y);
         } else if (name == 'trippleArrow') {
@@ -318,7 +346,7 @@ function ThrowProjectile(name, originEntity, damageModifier) {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 150)
     } else if (name == 'punch' || name == 'dagger') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 60)
-    } else if (name == 'kick' || name == 'uppercut') {
+    } else if (name == 'kick' || name == 'uppercut' || name == 'newspaper') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 50)
     } else if (name == 'slam') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 300)
@@ -338,6 +366,8 @@ function ThrowProjectile(name, originEntity, damageModifier) {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 70)
     } else if (name == 'burn') {
         levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 120)
+    } else if (name == 'spraybottle') {
+        levelObject.addTempEntity(createProjectile(name, originEntity, damageModifier), 260)
     } else {
         levelObject.addEntity(createProjectile(name, originEntity, damageModifier));
     }
