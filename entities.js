@@ -205,6 +205,7 @@ function createCharacter(name, choice) {
                 this.startY = 0;
                 this.FrameSpeed = 0.1;
                 this.FrameReverse = false;
+                this.FrameLoop = true;
                 if (Character.Jumping  && !Character.Special && !Character.grounded) { //grounded is set on checkY in TileCollider
                     this.startX = 0;
                     this.startY = 2 * 96;
@@ -472,6 +473,9 @@ function createCharacter(name, choice) {
     Character.staticAnimation = new Animation(ASSET_MANAGER.getAsset(
         characters[Character.choice]), 0, 0, 128, 256, 1, 1, true, false);
 
+    Character.grannyStaticAnimation = new Animation(ASSET_MANAGER.getAsset(
+        characters[Character.choice]), 0, 0, 82, 96, 1, 1, true, false);        
+        
     Character.painAnimation = new Animation(ASSET_MANAGER.getAsset("./effects/Damage.png"),
         0, 0, 18, 12, 1, 1, true, false);
 
@@ -668,12 +672,19 @@ function createCharacter(name, choice) {
         drawInfo(context);
     }
 
+    var hasCounted = false;
     function drawInfo(context) {
-        var playerCount = 0;
-        levelObject.entities.forEach(entity => {
-            if (entity.type === 'player') playerCount++;
-        });
+        
+        if(!hasCounted) {
+            var playerCount = 0;
+            levelObject.entities.forEach(entity => {
+                if (entity.type === 'player') playerCount++;
+            });
+            hasCounted = true;
+        }
+        
 
+        
         if (Character.lives > 0) {
             context.globalAlpha = 0.8;
             context.lineWidth = 5;
@@ -699,16 +710,36 @@ function createCharacter(name, choice) {
             if (Character.lives <= 3) {
                 for(var i = 0; i < Character.lives; i++ ) {
                     context.save();
-                    Character.staticAnimation.drawFrame(0, context,
-                        25 + (i * 18) + 235 * (position),
-                        660, 0.5);
+
+                    if (Character.choice === 8) {
+                        context.scale(.72,.72);
+                        context.imageSmoothingEnabled = false;
+                        Character.grannyStaticAnimation.drawFrame(0, context,
+                            265 + (i * 18) + 235 * (position),
+                            945, 0.5);
+                    } else {
+                        Character.staticAnimation.drawFrame(0, context,
+                            25 + (i * 18) + 235 * (position),
+                            660, 0.5);
+                    }
+                    
                     context.restore();
                 }
             } else {
                 context.save();
-                Character.staticAnimation.drawFrame(0, context,
+
+                if (Character.choice === 8) {
+                    context.scale(.8,.8);
+                    context.imageSmoothingEnabled = false;
+                    Character.grannyStaticAnimation.drawFrame(0, context,
+                        265 + 235 * (position),
+                        945, 0.5);
+                } else {
+                    Character.staticAnimation.drawFrame(0, context,
                         25 + 235 * (position),
                         660, 0.5);
+                }
+                
                 context.restore();
 
                 context.globalAlpha = 1.0;
