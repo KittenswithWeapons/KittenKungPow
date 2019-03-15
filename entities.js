@@ -759,6 +759,9 @@ function createCharacter(name, choice) {
             context.lineWidth = 2;
             context.font = "20px Arial";
             context.strokeText(Math.floor(Character.damage), 8 + 235 * (position), 710);
+            context.lineWidth = 0.75;
+            context.font = "10px Arial";
+            context.strokeText("P to Pause ", 20, 10);
         }
     }
 

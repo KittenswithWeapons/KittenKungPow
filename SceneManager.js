@@ -189,16 +189,16 @@ function displayFightScene(canvas, context, levelSelection, characterSelection) 
         playerNum++;
       });
 
-      ['mousedown', 'mousemove'].forEach(eventName => {
-          canvas.addEventListener(eventName, event => {
-            if (!isPaused) {
-              if (event.buttons === 1) {
-                  Character.vel.set(0, 0);
-                  Character.pos.set(event.offsetX, event.offsetY);
-              }
-            }
-          });
-      });
+      // ['mousedown', 'mousemove'].forEach(eventName => {
+      //     canvas.addEventListener(eventName, event => {
+      //       if (!isPaused) {
+      //         if (event.buttons === 1) {
+      //             Character.vel.set(0, 0);
+      //             Character.pos.set(event.offsetX, event.offsetY);
+      //         }
+      //       }
+      //     });
+      // });
       readyFight(level, Character);
       });
 }

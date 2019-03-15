@@ -115,13 +115,13 @@ function setupKeyboard(entity, keyboard) {
       }
     });
 
-    input.addMapping('KeyC', keyState => { //Enable CPU movement
-      if (!isPaused) {
-      if (keyState) {
-        CPUsEnabled = !CPUsEnabled;
-      }
-    }
-    });
+    // input.addMapping('KeyC', keyState => { //Enable CPU movement
+    //   if (!isPaused) {
+    //   if (keyState) {
+    //     CPUsEnabled = !CPUsEnabled;
+    //   }
+    // }
+    // });
 
     input.addMapping('KeyP', keyState => { // Pause/Unpause
       if (keyState) {
