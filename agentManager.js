@@ -82,7 +82,8 @@ agentManager.prototype.move = function () {
                 if (yDist > 0){
                     this.down();
                 }
-                this.attack(false);
+                random = Math.floor(Math.random() * 2);
+                if (random === 0) this.attack(false);
             } else {
                 if (yDist > 0) {
                     this.jump();
@@ -92,6 +93,7 @@ agentManager.prototype.move = function () {
                 }
                 this.attack(true);
             }
+
         } else { // Ranged fighting style
 
             if (this.targetDist < 50) { // move away from target
@@ -117,7 +119,8 @@ agentManager.prototype.move = function () {
                 if (yDist > 5){
                     this.down();
                 }
-                this.attack(false);
+                random = Math.floor(Math.random() * 2);
+                if (random ===0) this.attack(false);
             }
         }
 
@@ -185,7 +188,8 @@ agentManager.prototype.selectTarget = function () {
         }
     });
 
-    if (closestItemDist < 500) {
+    random = Math.floor(Math.random() * 10);
+    if (closestItemDist < 500 && random > 3) {
         this.target = closestItem;
         this.targetDist = closestItemDist;
     } else {
@@ -198,31 +202,24 @@ agentManager.prototype.selectTarget = function () {
 agentManager.prototype.attack = function (isTargetClose) {
 
     var random;
+    
     if (isTargetClose) {
         if (this.myStyle === 'melee') {
             random = Math.floor(Math.random() * 2);
             if (random === 0) this.light();
             else this.heavy();
         } else {
-            this.special();
+            random = Math.floor(Math.random() * 3);
+            if (random > 0) this.special();
         }
     } else {
         if (this.myStyle === 'melee') {
-            this.special();
+            random = Math.floor(Math.random() * 3);
+            if (random > 0) this.special();
         } else {
             random = Math.floor(Math.random() * 2);
             if (random === 0) this.light();
             else this.heavy();
-        }
-    }
-    if (random > 0) {
-        random = Math.floor(Math.random() * 3);
-        if (random === 0) { // Light
-            this.light();
-        } else if (random === 1) { // Heavy
-            this.heavy();
-        } else { // Special
-            this.special();
         }
     }
 

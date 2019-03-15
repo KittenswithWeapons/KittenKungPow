@@ -45,7 +45,8 @@ function SinglePlayer(canvas, context, characterSelection) {
   ])
   .then(([Character, Enemy, level]) => {
       Character.lives = SINGPLEPLAYERLIFECOUNT;
-      Enemy.lives = 3;
+      if (Enemy.choice === 8) Enemy.lives = 1;
+      else Enemy.lives = 3;
       //console.log(Character.lives);
       levelObject = level;
       if (levelSelection === 'PinkCity') {
