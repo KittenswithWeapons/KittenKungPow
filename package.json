@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "Main.js",
   "dependencies": {
-    "serve": "^10.1.1"
+    "serve": "^10.1.2"
   },
   "devDependencies": {},
   "scripts": {
